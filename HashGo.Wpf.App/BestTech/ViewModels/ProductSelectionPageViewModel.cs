@@ -169,7 +169,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             {
                 { "CanAddItem", true },
             };
-            //sharedDataService.AddItem(this.SelectedUnit);
+
+            OnPropertyChanged(nameof(CanMoveTopaymentsScreen));
             navigationService.NavigateToAsync(Pages.Addons.ToString(), parameters);  //, parameters
         }
 
@@ -178,12 +179,14 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         /// </summary>
         void OnMoveToViewCartScreen(Point point)
         {
-            if (point == default(Point)) return;
+            //if (point == default(Point)) return;
 
-            ViewCartPopup viewCartPopup = new ViewCartPopup(point);
-            viewCartPopup.Owner = Application.Current.MainWindow;
-            viewCartPopup.DataContext = new ViewCartPopupViewModel(sharedDataService, navigationService);
-            viewCartPopup.Show();
+            //ViewCartPopup viewCartPopup = new ViewCartPopup(point);
+            //viewCartPopup.Owner = Application.Current.MainWindow;
+            //viewCartPopup.DataContext = new ViewCartPopupViewModel(sharedDataService, navigationService);
+            //viewCartPopup.Show();
+
+            navigationService.NavigateToAsync(Pages.Payment.ToString());
         }
 
         /// <summary>
@@ -389,6 +392,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             {
                 this.sharedDataService.SelectedUnits = value;
             }
+        }
+
+        public bool CanMoveTopaymentsScreen
+        {
+            get { return SelectedUnits?.Count > 0; }
         }
 
         #endregion

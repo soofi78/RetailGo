@@ -311,7 +311,8 @@ Background="Transparent" >
                            VerticalAlignment="Center" Foreground="Black" FontSize="24"
                            FontFamily="{StaticResource BaijamureeFontBoldStyle}"/>
             </Border>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        IsEnabled="{Binding CanMoveTopaymentsScreen}">
                 <Image Grid.Column="1" Cursor="Hand" 
 Width="70" Height="70"
 Source="/Resources/Images/ShoppingCart.png" baseControls:MouseClickBehaviour.Command="{Binding ViewCartCommand}"

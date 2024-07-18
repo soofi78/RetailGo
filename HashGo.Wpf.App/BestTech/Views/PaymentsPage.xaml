@@ -237,7 +237,7 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
     BorderThickness="1" CornerRadius="5"
     Cursor="Hand" >
                 <i:Interaction.Triggers>
-    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
         <i:InvokeCommandAction Command="{Binding ProceedToPaymentsCommand}" />
     </i:EventTrigger>
 </i:Interaction.Triggers>

@@ -165,7 +165,7 @@ namespace HashGo.Domain.ViewModels
         {
             get
             {
-                return Convert.ToDecimal(SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
+                return Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
                 //SelectedUnits.Sum(ee=>ee.UnitPrice)
                 //foreach (var selectedUnit in SelectedUnits)
                 //{

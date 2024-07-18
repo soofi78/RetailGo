@@ -94,10 +94,6 @@ namespace HashGo.Domain.ViewModels
                 SalesOrderRequest salesOrderRequest = GetSalesOrderRequest();
                 string paymentType = GetPaymentType(paymentMethod.PaymentMode);
 
-                
-
-                //Prepare sales order object and send it
-                //await CreateTransaction(salesOrderRequest);
                 IsBusy = false;
 
                 #region Payment   //TODO
@@ -164,9 +160,24 @@ namespace HashGo.Domain.ViewModels
             }
         }
 
-        private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
+        public decimal TotalAmount
         {
-            TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
+            get
+            {
+                return Convert.ToDecimal(SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
+                //SelectedUnits.Sum(ee=>ee.UnitPrice)
+                //foreach (var selectedUnit in SelectedUnits)
+                //{
+                //    SalesOrderDetail detail = new SalesOrderDetail();
+                //    detail.unitId = selectedUnit.UnitId;
+                //    detail.productId = selectedUnit.Id;
+                //    detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
+                //    detail.qty = selectedUnit.UnitCount;
+                //    detail.subTotal = detail.price * detail.qty;
+                //    total += detail.subTotal;
+                //    lstSaleOrderDetails.Add(detail);
+                //}
+            }
         }
 
         private SalesOrderRequest GetSalesOrderRequest()

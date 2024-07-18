@@ -78,6 +78,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             HashGoAppSettings.ShowLanguageSelection = ShowLanguageSelection;
             HashGoAppSettings.ShowMemberButton = ShowMemberButton;
             HashGoAppSettings.PrinterName = PrinterName;
+            HashGoAppSettings.NETSIP = NetsIP;
 
             HashGoAppSettings.SaveSettings();
             ConnectItem = new TenantConnect();
@@ -119,7 +120,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 PaymentScreenVisibleDelay = ApplicationStateContext.ConnectItem?.PaymentScreenVisibleDelay,
                  NETSPort = HashGoAppSettings.NETSPort
         };
-
+            NetsIP = HashGoAppSettings.NETSIP;
             BackgroundImage = HashGoAppSettings.BackgroundImage;
             CurrencySymbol = HashGoAppSettings.CurrencySymbol;
             MenuBackgroundTransparency = Convert.ToDouble(HashGoAppSettings.MenuBackgroundTransparency);
@@ -192,6 +193,18 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        string netsIP;
+        public string NetsIP
+        {
+            get => netsIP;
+            set
+            {
+                netsIP = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         bool showLanguageSelection;
         public bool ShowLanguageSelection

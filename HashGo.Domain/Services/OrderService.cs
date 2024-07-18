@@ -165,7 +165,7 @@ namespace HashGo.Domain.Services
                     //Icon = LoadImageToBase64String("\\Resources\\Images\\visa_logo.png"),
                      Icon = "\\Resources\\Images\\Nets.png",
                      Description = "NETS",
-                     PaymentMode = "NETSQR"
+                     PaymentMode = "NETS"
                 },
                 new PaymentMethod()
                 {

@@ -415,7 +415,7 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid DataContext="{Binding ConnectItem}">
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -445,11 +445,11 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                     HorizontalAlignment="Stretch"  Margin="2,15,10,10"
                     VerticalAlignment="Stretch" >
                             <TextBox  Foreground="Black" Background="White"
-                 VerticalContentAlignment="Center" Text="{Binding NETSPort,UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center" Text="{Binding NetsIP,UpdateSourceTrigger=PropertyChanged}"
                  BorderThickness="0" >
-                                <i:Interaction.Behaviors>
+                                <!--<i:Interaction.Behaviors>
                                     <behaviours:IntegerInputBehaviour />
-                                </i:Interaction.Behaviors>
+                                </i:Interaction.Behaviors>-->
                             </TextBox>
                         </Border>
                     </Grid>

@@ -5,6 +5,7 @@ using HashGo.Core.Models;
 using HashGo.Core.Models.BestTech;
 using HashGo.Domain.Helper;
 using HashGo.Domain.Services;
+using HashGo.Infrastructure;
 using HashGo.Infrastructure.DataContext;
 using System;
 using System.Collections.Generic;
@@ -107,35 +108,24 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         public void ProcessNetsNetwork(string sPayMode, decimal dAmount)
         {
-            string sIPAddress = "127.0.0.1";
+            string sIPAddress = HashGoAppSettings.NETSIP;
             try
             {
                 string sECRNumber = DateTime.Now.ToString("yyMMddHHmmss");
-                //string sIPAddress = NetsSettings.IPAddress;
-                int nPortNo = 3000;
-                //nPortNo = Convert.ToInt32(NetsSettings.PortNo);
+                int nPortNo = 3000;  //Hardcoded
                 FillSendData(sPayMode, dAmount, sECRNumber);
                 bool bTimeOut = false;
                 ConnectNetworkTerminal(sIPAddress, nPortNo, ref bTimeOut);
-                //send data again if the timeout occurs.
-                //if (bTimeOut || sReceiveData == null)
-                //{
-                //    Application.DoEvents();
-                //    Thread.Sleep(10000);
-                //    ConnectNetworkTerminal(sIPAddress, nPortNo, ref bTimeOut);
-                //}
                 if (!bTimeOut)
                 {
                     //do nothing
                 }
                 else
                 {
-                    //Application.DoEvents();
-                    //resend it after 40 seconds due to network disturbance
                     Thread.Sleep(60 * 1000);
                     ConnectNetworkTerminal(sIPAddress, nPortNo, ref bTimeOut);
                 }
-                //ocalSettings.WriteLog("Receive Data - " + sReceiveData);
+
                 if (sReceiveData.Length > 40)
                 {
                     msResponse = Utility.GetStringFromHex(sReceiveData.Substring(32, 4));
@@ -153,7 +143,7 @@ namespace HashGo.Wpf.App.BestTech.Views
             }
             catch (Exception ex)
             {
-                //LocalSettings.WriteLog(ex.Message.ToString());
+                
             }
 
         }
@@ -437,7 +427,7 @@ namespace HashGo.Wpf.App.BestTech.Views
             }
             catch (Exception ex)
             {
-                //LocalSettings.WriteLog(ex.Message.ToString());
+              
             }
         }
 
@@ -528,8 +518,6 @@ namespace HashGo.Wpf.App.BestTech.Views
                 client.ReceiveTimeout = 60 * 1000;
 
                 client.Connect(sIPAddress, nPortNo);
-                // Translate the passed message into ASCII and store it as a Byte array.
-                //Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
                 byte[] bytes = Utility.HexStringToByteArray(sSendData);
 
                 stream = client.GetStream();
@@ -538,18 +526,13 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                 // Send the message to the connected TcpServer. 
                 stream.Write(bytes, 0, bytes.Length);
-                //LocalSettings.WriteLog("Send Data - " + sSendData);
-
-                //mbNetworkConnection = true;
-                //PollByTimers();
-
-                //stream.ReadTimeout = 2000;
-                //client.ReceiveTimeout = 2000;
 
                 // Buffer to store the response bytes.
                 byte[] data = new byte[2000];
+
                 // String to store the response ASCII representation.
                 string responseData = string.Empty;
+
                 // Read the first batch of the TcpServer response bytes.
                 Int32 bytesReceive = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytesReceive);
@@ -567,20 +550,17 @@ namespace HashGo.Wpf.App.BestTech.Views
             {
                 Console.WriteLine("ArgumentNullException: {0}", e);
                 bTimeOut = true;
-                //LocalSettings.WriteLog("IO exception - timeout " + e);
             }
             catch (SocketException e)
             {
                 Console.WriteLine("SocketException: {0}", e);
-                //LocalSettings.WriteLog("Socket error " + e);
             }
             finally
             {
                 if (stream != null) stream.Close();
                 if (client != null) client.Close();
-                //tmrSync.Stop();
             }
-            Console.WriteLine("\n Press Enter to continue...");
+
             Console.Read();
         }
 

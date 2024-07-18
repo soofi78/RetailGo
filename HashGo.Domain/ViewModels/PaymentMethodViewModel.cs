@@ -109,7 +109,8 @@ namespace HashGo.Domain.ViewModels
 
                 if (paymentMethod.Name.ToUpper() == "NETS")
                 {
-                    this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
+                    //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
+                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
                 else if (paymentMethod.Name.ToUpper() == "VISA")
                 {

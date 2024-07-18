@@ -19,6 +19,7 @@ namespace HashGo.Infrastructure
         public static string SortOrder { get; set; }
         public static string PaymentScreenVisibleDelay { get; set; } = "10";
         public static string NETSPort { get; set; }
+        public static string NETSIP { get; set; }
         public static string BackgroundImage { get; set; }
         public static string CurrencySymbol { get; set; }
         public static string MenuBackgroundTransparency { get; set; }
@@ -58,6 +59,7 @@ namespace HashGo.Infrastructure
 
             PaymentScreenVisibleDelay = appSettingSection.Settings[nameof(PaymentScreenVisibleDelay)]?.Value;
             NETSPort = appSettingSection.Settings[nameof(NETSPort)]?.Value;
+            NETSIP = appSettingSection.Settings[nameof(NETSIP)]?.Value;
 
             BackgroundImage = appSettingSection.Settings[nameof(BackgroundImage)]?.Value;
             CurrencySymbol = appSettingSection.Settings[nameof(CurrencySymbol)]?.Value;
@@ -79,6 +81,7 @@ namespace HashGo.Infrastructure
             AddOrUpdateAppSettings(nameof(SortOrder), SortOrder);
             AddOrUpdateAppSettings(nameof(PaymentScreenVisibleDelay), PaymentScreenVisibleDelay);
             AddOrUpdateAppSettings(nameof(NETSPort), NETSPort);
+            AddOrUpdateAppSettings(nameof(NETSIP), NETSIP);
 
             AddOrUpdateAppSettings(nameof(BackgroundImage), BackgroundImage);
             AddOrUpdateAppSettings(nameof(CurrencySymbol), CurrencySymbol);

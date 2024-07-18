@@ -49,6 +49,7 @@
             <RowDefinition Height="0.4*"/>
             <RowDefinition Height="0.6*"/>
             <RowDefinition Height="0.23*"/>
+            <RowDefinition Height="0.23*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -74,14 +75,29 @@
             </Grid.RowDefinitions>
             <TextBlock  Text="Please state your enquiries below" FontWeight="SemiBold" Margin="0,0,0,5"/>
             <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyleWithCursorTop}"  VerticalScrollBarVisibility="Auto" 
-                Text="{Binding Enquiries,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding Enquiries,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="tBoxEnquiries"
                       
                 AcceptsReturn="True" TextWrapping="Wrap"
                     KeyDown="TextBox_KeyDown"/>
         </Grid>
 
         <Grid HorizontalAlignment="Stretch"
-      Grid.Row="2" Grid.Column="1" Margin="0,25,0,0">
+Grid.Row="2" Grid.Column="1" Margin="0,25,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock  Text="Name" FontWeight="SemiBold"/>
+
+            <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
+                      KeyDown="TextBox_KeyDown_1"
+ Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+        </Grid>
+
+
+        <Grid HorizontalAlignment="Stretch"
+      Grid.Row="3" Grid.Column="1" Margin="0,25,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="Auto"/>
                 <RowDefinition />
@@ -90,6 +106,7 @@
 
             <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
        Text="{Binding PhoneNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      PreviewTextInput="TextBox_PreviewTextInput"
        KeyDown="TextBox_KeyDown">
                 <i:Interaction.Behaviors>
                     <behaviours:IntegerInputBehaviour />
@@ -98,10 +115,10 @@
         </Grid>
 
        
-        <ToggleButton Grid.Row="3" Grid.Column="1" Width="257" 
+        <ToggleButton Grid.Row="4" Grid.Column="1" Width="257" 
                Background="Gray" Margin="20,10,10,10"
                Content="Submit" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"
-               Command="{Binding NextScreenCommand}"
+               Command="{Binding SubmitEnquiryCommand}"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" Foreground="White"/>
     </Grid>

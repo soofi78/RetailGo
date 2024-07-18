@@ -70,7 +70,7 @@ namespace HashGo.Domain.Models.Base
         {
             get
             {
-                var selectedAddons = LstUnitInstallationTypes?.Where(ee => ee.InstallationTypeCount > 0);
+                var selectedAddons = this.LstSelectedUnitInstallationTypes?.Where(ee => ee.InstallationTypeCount > 0);
                 string addOnText = string.Empty;
                 foreach(var addOn in selectedAddons)
                 {
@@ -80,7 +80,10 @@ namespace HashGo.Domain.Models.Base
                     }
                     else
                     {
-                        addOnText += ".   " + addOn.InstallationType + "\t" + addOn.InstallationTypeCount + "X" + "\n";
+                        addOnText += ".   " + addOn.InstallationType + "\t" + 
+                                              addOn.InstallationTypeCount + 
+                                              "X" + "\t" +"+" + 
+                                              string.Format("{0:C}", addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
                     }
                     
                 }
@@ -102,7 +105,9 @@ namespace HashGo.Domain.Models.Base
                     }
                     else
                     {
-                        addOnText += ".   " + addOn.InstallationTypeCount + "X" + "\t" + addOn.InstallationType + "\t" + "+$" + addOn.AddOnPrice + "\n";
+                        addOnText += ".   " + addOn.InstallationTypeCount + 
+                                              "X" + "\t" + addOn.InstallationType + "\t" +
+                                              "+$" + (addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
                     }
                 }
                 return addOnText;
@@ -163,27 +168,61 @@ namespace HashGo.Domain.Models.Base
             //                       };
         }
 
+        SelectedUnitInstallationType selectedUnitInstallationTypeObj;
+
+        public SelectedUnitInstallationType SelectedUnitInstallationTypeObj
+        {
+            get => selectedUnitInstallationTypeObj;
+            set
+            {
+                selectedUnitInstallationTypeObj = value;
+                OnPropertyChanged();
+            }
+        }
+
         public void AddAddOns(IReadOnlyCollection<ServiceUnit> result)
         {
             List<SelectedUnitInstallationType> tmpPlst = new List<SelectedUnitInstallationType>();
-            tmpPlst.Add(new SelectedUnitInstallationType(UniqueIdGenerator.GenerateId(), "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId,150));
+            tmpPlst.Add(new SelectedUnitInstallationType(-1, "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId,0));
 
             if (result != null && result.Count > 0)
             {
                 foreach (var addOn in result)
                 {
+                    int installationTypeCount = 0;
+                    if(this.LstSelectedUnitInstallationTypes != null && this.LstSelectedUnitInstallationTypes.Count > 0)
+                    {
+                        var slctdInstallationType = this.LstSelectedUnitInstallationTypes.FirstOrDefault(ee => ee.UnitId == addOn.unitId &&
+                                                                                ee.InstallationTypeId == addOn.id);
+
+                        if(slctdInstallationType != null)
+                        {
+                            installationTypeCount = slctdInstallationType.InstallationTypeCount;
+                        }
+
+                       
+                    }
+
                     tmpPlst.Add(new SelectedUnitInstallationType(addOn.id, 
                                                                  addOn.name,
                                                                  string.IsNullOrEmpty(addOn.imagePath)?CommonConstants.DEFAULTIMAGE: addOn.imagePath,
-                                                                 addOn.unitId, addOn.price));
+                                                                 addOn.unitId, addOn.price, installationTypeCount));
                 }
             }
 
             LstUnitInstallationTypes = new List<SelectedUnitInstallationType>(tmpPlst);
+
+            if (LstSelectedUnitInstallationTypes.Count == 1 &&
+                           LstSelectedUnitInstallationTypes.Any(ee => ee.InstallationType == "No Add-Ons" ))
+            {
+                this.SelectedUnitInstallationTypeObj = LstUnitInstallationTypes.FirstOrDefault(ee => ee.InstallationType == "No Add-Ons");
+            }
+
+            
         }
 
         List<SelectedUnitInstallationType> lstUnitInstallationTypes = new List<SelectedUnitInstallationType>();
-        public List<KeyValuePair<SelectedUnitInstallationType, int>> LstSelectedUnitInstallationTypes { get; set; } = new List<KeyValuePair<SelectedUnitInstallationType, int>>();
+        public List<SelectedUnitInstallationType> LstSelectedUnitInstallationTypes { get; set; } = new List<SelectedUnitInstallationType>();
         public string DescriptionNotes { get => descriptionNotes; set => descriptionNotes = value; }
     }
 
@@ -240,13 +279,15 @@ namespace HashGo.Domain.Models.Base
         public SelectedUnitInstallationType(int installationTypeId, 
                                             string installationType, 
                                             string imageSource, int unitId, 
-                                            double addOnPrice)
+                                            double addOnPrice, 
+                                            int installationTypeCount = 0)
         {
             InstallationTypeId = installationTypeId;
             InstallationType = installationType;
             ImageSource = imageSource;
             UnitId = unitId;
             AddOnPrice = addOnPrice;
+            InstallationTypeCount = installationTypeCount;
         }
     }
 

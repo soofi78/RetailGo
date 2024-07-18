@@ -11,8 +11,11 @@ using HashGo.Infrastructure;
 using HashGo.Infrastructure.Common;
 using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.HttpHelper;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +43,20 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             PreviousScreenCommand = new RelayCommand(OnPreviousScreenClicked);
             CancelCommand = new RelayCommand(OnCancelClicked);
             AddOrUpdateTenantCommand = new RelayCommand(OnAddOrUpdateClicked);
+            SelectBackgroundImageCommand = new RelayCommand(OnSelectBackgroundClicked);
+        }
+
+        void OnSelectBackgroundClicked()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpg)|*.png;*.jpg";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.Title = "Open File";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                BackgroundImage = openFileDialog.FileName;
+            }
         }
 
         void OnAddOrUpdateClicked()
@@ -54,6 +71,13 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             HashGoAppSettings.TenantId = ConnectItem.TenantId;
             HashGoAppSettings.SortOrder = ConnectItem.SortOrder.ToString();
             HashGoAppSettings.PaymentScreenVisibleDelay = ConnectItem.PaymentScreenVisibleDelay;
+            HashGoAppSettings.NETSPort = ConnectItem.NETSPort;
+            HashGoAppSettings.BackgroundImage = BackgroundImage;
+            HashGoAppSettings.CurrencySymbol = CurrencySymbol;
+            HashGoAppSettings.MenuBackgroundTransparency = MenuBackgroundTransparency.ToString();
+            HashGoAppSettings.ShowLanguageSelection = ShowLanguageSelection;
+            HashGoAppSettings.ShowMemberButton = ShowMemberButton;
+            HashGoAppSettings.PrinterName = PrinterName;
 
             HashGoAppSettings.SaveSettings();
             ConnectItem = new TenantConnect();
@@ -80,6 +104,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         {
             HashGoAppSettings.LoadSettings();
             ApplicationStateContext.LoadSettings();
+            SelectedTabIndex = 0;
 
             this.ConnectItem = new TenantConnect()
             {
@@ -91,8 +116,16 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 LocationId = ApplicationStateContext.ConnectItem?.LocationId,
                 TenantId = ApplicationStateContext.ConnectItem?.TenantId,
                 SortOrder = (ApplicationStateContext.ConnectItem?.SortOrder == 0)?0: Convert.ToInt32(ApplicationStateContext.ConnectItem?.SortOrder),
-                PaymentScreenVisibleDelay = ApplicationStateContext.ConnectItem?.PaymentScreenVisibleDelay
-            };
+                PaymentScreenVisibleDelay = ApplicationStateContext.ConnectItem?.PaymentScreenVisibleDelay,
+                 NETSPort = HashGoAppSettings.NETSPort
+        };
+
+            BackgroundImage = HashGoAppSettings.BackgroundImage;
+            CurrencySymbol = HashGoAppSettings.CurrencySymbol;
+            MenuBackgroundTransparency = Convert.ToDouble(HashGoAppSettings.MenuBackgroundTransparency);
+            ShowLanguageSelection = HashGoAppSettings.ShowLanguageSelection;
+            ShowMemberButton = HashGoAppSettings.ShowMemberButton;
+            PrinterName = HashGoAppSettings.PrinterName;
         }
 
         #region Properties
@@ -109,15 +142,102 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             }
         }
 
-        //public TenantConnect ConnectItem 
-        //{
-        //    get => connectItem;
-        //    set
-        //    {
-        //        connectItem = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        int selectedTabIndex = 0;
+        public int SelectedTabIndex
+        {
+            get => selectedTabIndex;
+            set
+            {
+                selectedTabIndex = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<string> _printerNameList;
+
+        public ObservableCollection<string> PrinterNameList
+        {
+            get
+            {
+                if (_printerNameList == null)
+                {
+                    _printerNameList = new ObservableCollection<string>();
+
+                    foreach (string printer in PrinterSettings.InstalledPrinters) _printerNameList.Add(printer);
+                }
+
+                return _printerNameList;
+            }
+        }
+
+        string printerName;
+        public string PrinterName
+        {
+            get => printerName;
+            set
+            {
+                printerName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string backgroundImage;
+
+        public string BackgroundImage 
+        {
+            get => backgroundImage;
+            set
+            {
+                backgroundImage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool showLanguageSelection;
+        public bool ShowLanguageSelection
+        {
+            get => showLanguageSelection;
+            set
+            {
+                showLanguageSelection = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool showMemberButton;
+
+        public bool ShowMemberButton
+        {
+            get => showMemberButton;
+            set
+            {
+                showMemberButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string currencySymbol;
+
+        public string CurrencySymbol
+        {
+            get => currencySymbol;
+            set
+            {
+                currencySymbol = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double menuBackgroundTransparency = 0;
+        public double MenuBackgroundTransparency
+        {
+            get => menuBackgroundTransparency;
+            set
+            {
+                menuBackgroundTransparency = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -126,7 +246,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         public ICommand PreviousScreenCommand { get; private set; }
         public ICommand AddOrUpdateTenantCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
-
+        public ICommand SelectBackgroundImageCommand { get; private set; }
         #endregion
     }
 }

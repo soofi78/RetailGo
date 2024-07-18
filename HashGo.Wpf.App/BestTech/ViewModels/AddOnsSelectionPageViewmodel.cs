@@ -44,7 +44,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             //SelectedTabChangedCommand = new RelayCommand<object>(OnSelectedTabChanged);
             AddOnsSelectionChangedCommand = new RelayCommand<object>(OnAddOnsSelectionChanged);
             SelectedAddonCommand = new RelayCommand<SelectedUnitInstallationType>(OnSelectedAddon);
-            SubtractProductCommand = new RelayCommand<SelectedUnitInstallationType>(OnRemoveAddOn);
+            RemoveAddOnCommand = new RelayCommand<SelectedUnitInstallationType>(OnRemoveAddOn);
             AddProductCommand = new RelayCommand<object>(OnAddProductClicked);
         }
 
@@ -95,14 +95,33 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             //    return;
 
             //selectedUnitInstallationType.InstallationTypeCount--;
+
+            if (selectedUnitInstallationType == null)
+                return;
+
+            if (selectedUnitInstallationType.InstallationTypeCount == 0)
+                this.SelectedUnit.LstSelectedUnitInstallationTypes.Remove(selectedUnitInstallationType);
+
+            OnPropertyChanged(SelectedAddOns);
         }
 
         void OnSelectedAddon(SelectedUnitInstallationType selectedUnitInstallationType)
         {
-            //if (selectedUnitInstallationType == null)
-            //    return;
+            if (selectedUnitInstallationType == null)
+                return;
 
-            //selectedUnitInstallationType.InstallationTypeCount++;
+            var existingItem = this.SelectedUnit.LstSelectedUnitInstallationTypes.FirstOrDefault(ee=> ee.UnitId == selectedUnitInstallationType.UnitId &&
+                                                                                     ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId);
+
+            if (existingItem != null)
+            {
+                this.SelectedUnit.LstSelectedUnitInstallationTypes.Remove(existingItem);
+            }
+
+            this.SelectedUnit.LstSelectedUnitInstallationTypes.Add(selectedUnitInstallationType);
+
+            OnPropertyChanged(nameof(SelectedAddOns));
+            OnPropertyChanged(nameof(CanEnableAddToCart));
         }
 
         void OnAddOnsSelectionChanged(object obj)
@@ -123,13 +142,37 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                         foreach (var item in otherSelectedInstallationTypes)
                         {
                             item.InstallationTypeCount = 0;
+
+                            var itemToRemove = this.SelectedUnit.LstSelectedUnitInstallationTypes
+                                                                .FirstOrDefault(ee => ee.UnitId == item.UnitId &&
+                                                                ee.InstallationTypeId == item.InstallationTypeId);
+
+                            if(itemToRemove != null)
+                            {
+                                this.SelectedUnit.LstSelectedUnitInstallationTypes.Remove(itemToRemove);
+                            }
+
                         }
                     }
                 }
 
+                var existingItem = this.SelectedUnit.LstSelectedUnitInstallationTypes.FirstOrDefault(ee => (ee.UnitId == selectedUnitInstallationType.UnitId &&
+                                                                                     ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId)  ||
+                                                                                     ee.InstallationType == "No Add-Ons");
+
+                if (existingItem != null)
+                {
+                    this.SelectedUnit.LstSelectedUnitInstallationTypes.Remove(existingItem);
+                }
+
+                this.SelectedUnit.LstSelectedUnitInstallationTypes.Add(selectedUnitInstallationType);
+
                 OnPropertyChanged(nameof(SelectedAddOns));
+                OnPropertyChanged(nameof(CanEnableAddToCart));
             }
          }
+
+        public bool CanEnableAddToCart { get { return this.SelectedUnit.LstSelectedUnitInstallationTypes?.Count > 0; } }
 
         private void OnMoveToPreviousScreen()
         {
@@ -171,8 +214,13 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public override void ViewLoaded()
         {
+            
             if(sharedDataService.SelectedUnit?.LstUnitInstallationTypes != null)
                 LstUnitInstallationTypes = new List<SelectedUnitInstallationType>(sharedDataService.SelectedUnit?.LstUnitInstallationTypes);
+            if (sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj != null)
+                SelectedUnitInstallationTypeObj = sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj;
+
+            OnPropertyChanged(nameof(SelectedAddOns));
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
 
             if (sharedDataService.AddOnId != 0)
@@ -203,7 +251,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public RelayCommand<SelectedUnitInstallationType> SelectedAddonCommand { get; private set; }
 
-        public RelayCommand<SelectedUnitInstallationType> SubtractProductCommand { get; private set; }
+        public RelayCommand<SelectedUnitInstallationType> RemoveAddOnCommand { get; private set; }
 
         public RelayCommand<object> AddProductCommand { get; private set; }
 
@@ -229,10 +277,9 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 sharedDataService.SelectedUnit = value;
             }
         }
-
         public string SelectedAddOns
         {
-            get { return sharedDataService.SelectedUnit.SelectedAddOns; }
+            get { return sharedDataService.SelectedUnit?.SelectedAddOns; }
         }
 
         public List<SelectedUnitInstallationType> LstUnitInstallationTypes
@@ -244,7 +291,40 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 sharedDataService.SelectedUnit.LstUnitInstallationTypes = value;
+
+                //if(sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes != null &&
+                //    sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes.Count>0)
+                //{
+                //    foreach(var selectedUnitInstallationType in sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes)
+                //    {
+                //        var selectedUnitToBeUpdated = sharedDataService.SelectedUnit
+                //                                                       .LstUnitInstallationTypes.FirstOrDefault(ee => ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId &&
+                //                                                                                       ee.UnitId == selectedUnitInstallationType.UnitId);
+
+                //        if(selectedUnitToBeUpdated != null)
+                //        {
+                //            selectedUnitToBeUpdated = selectedUnitInstallationType;
+                //        }
+                //    }
+                //}
+
                 OnPropertyChanged();
+            }
+        }
+
+        SelectedUnitInstallationType selectedUnitInstallationTypeObj;
+
+        public SelectedUnitInstallationType SelectedUnitInstallationTypeObj 
+        {
+            get => sharedDataService?.SelectedUnit?.SelectedUnitInstallationTypeObj;
+            set
+            {
+                if (sharedDataService.SelectedUnit != null )
+                {
+                    sharedDataService.SelectedUnit.SelectedUnitInstallationTypeObj = value;
+                    OnPropertyChanged();
+                }
+
             }
         }
 
@@ -257,8 +337,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        
 
         List<SelectedUnitInstallationType> selectedUnitInstallationTypes  = new List<SelectedUnitInstallationType>();
         List<SelectedUnitInstallationType> selectedUnitUpgradeTypes = new List<SelectedUnitInstallationType>();

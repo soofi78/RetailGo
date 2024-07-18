@@ -23,10 +23,34 @@ namespace HashGo.Wpf.App.BestTech.Views
     /// </summary>
     public partial class PurchaseFailedPage : Page
     {
-        public PurchaseFailedPage()
+        DispatcherTimer timer;
+        INavigationService navigationService;
+
+        public PurchaseFailedPage(INavigationService navigationService)
         {
             InitializeComponent();
-           
+            this.navigationService = navigationService;
+
+            this.Loaded += (sender, e) =>
+            {
+                timer = new DispatcherTimer()
+                {
+                    Interval = TimeSpan.FromSeconds(4),
+                };
+
+                timer.Tick += (sender, e) =>
+                {
+                    navigationService.NavigateToAsync(Pages.RestaurantStartup.ToString());
+                };
+
+                timer.Start();
+            };
+
+            this.Unloaded += (sender, e) =>
+            {
+                timer.Stop();
+                timer = null;
+            };
         }
     }
 }

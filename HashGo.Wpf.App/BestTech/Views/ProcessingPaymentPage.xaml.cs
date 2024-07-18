@@ -72,7 +72,8 @@ namespace HashGo.Wpf.App.BestTech.Views
                 if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                 {
                     ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.SalesOrderRequestObject.salesOrder.netTotal);
-                    DoTransaction();
+                    if(mbTransactionSuccess)
+                        DoTransaction();
                 }
 
                 ApplicationStateContext.TransactionNo = transactionNo;
@@ -84,7 +85,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                 timer.Tick += (sender, e) =>
                 {
-                    if (!string.IsNullOrEmpty(transactionNo))
+                    if (!string.IsNullOrEmpty(transactionNo) && mbTransactionSuccess)
                     {
                         navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
                     }

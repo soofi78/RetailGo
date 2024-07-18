@@ -228,6 +228,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 sharedDataService.SelectedUnit?.AddAddOns(this.retailConnectService.GetProductsByCategoryId(sharedDataService.AddOnId).Result);
                 OnPropertyChanged(nameof(LstUnitInstallationTypes));
             }
+
+            OnPropertyChanged(nameof(CanEnableAddToCart));
         }
 
         private void OnClearData(bool obj)

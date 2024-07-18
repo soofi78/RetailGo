@@ -209,6 +209,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
 
             OnPropertyChanged(nameof(SelectedProductsCount));
+            OnPropertyChanged(nameof(CanMoveTopaymentsScreen));
         }
 
         public override void ViewUnloaded()

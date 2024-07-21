@@ -194,6 +194,7 @@ namespace HashGo.Domain.ViewModels
                 detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
                 detail.qty = selectedUnit.UnitCount;
                 detail.subTotal = detail.price * detail.qty;
+                detail.productName = selectedUnit.Name;
                 total += detail.subTotal;
                 lstSaleOrderDetails.Add(detail);
             }

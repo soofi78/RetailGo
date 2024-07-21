@@ -82,6 +82,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
                         ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.SalesOrderRequestObject.salesOrder.netTotal);
+                        
                         if (mbTransactionSuccess)
                         {
                             DoTransaction();
@@ -254,7 +255,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                
                 foreach(var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
                 {
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n\n", salesOrder.productId, 
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n\n", salesOrder.productName, 
                                                                                                                      salesOrder.qty, 
                                                                                                                      salesOrder.price, 
                                                                                                                      salesOrder.subTotal));

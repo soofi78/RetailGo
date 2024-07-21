@@ -58,5 +58,6 @@ namespace HashGo.Core.Models
         public decimal price { get; set; }
         public decimal subTotal { get; set; }
         public int qty { get; set; }
+        public string productName { get; set; }
     }
 }

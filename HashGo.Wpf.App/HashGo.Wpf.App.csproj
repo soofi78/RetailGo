@@ -193,7 +193,7 @@
 
   <ItemGroup>
     <Reference Include="PrinterUtility">
-      <HintPath>C:\Users\bablu\Downloads\POSPrintExample\packages\PrinterUtility.1.1.0\lib\PrinterUtility.dll</HintPath>
+      <HintPath>..\Packages\PrinterUtility.1.1.0\lib\PrinterUtility.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -82,7 +82,9 @@ namespace HashGo.Wpf.App.BestTech.Views
                     //    DoTransaction();
 
                     DoTransaction();
-                    Print();
+
+                    if(!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo))
+                        Print();
                 }
 
                 ApplicationStateContext.TransactionNo = transactionNo;
@@ -127,29 +129,18 @@ namespace HashGo.Wpf.App.BestTech.Views
 
             int offset = 0;
             MemoryStream stream = new MemoryStream();
-            // BinaryWriter bw = new BinaryWriter(stream);
             byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
-            //bw.Write((char));
             byteList.Add(Convert.ToByte('@'));
-            //bw.Write('@');
             byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
-            // bw.Write((char)0x1B);
             byteList.Add(Convert.ToByte('3'));
-            //bw.Write('3');
-            //bw.Write((byte)24);
             byteList.Add((byte)24);
             while (offset < data.Height)
             {
                 byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
                 byteList.Add(Convert.ToByte('*'));
-                //bw.Write((char)0x1B);
-                //bw.Write('*');         // bit-image mode
                 byteList.Add((byte)33);
-                //bw.Write((byte)33);    // 24-dot double-density
                 byteList.Add(width[0]);
                 byteList.Add(width[1]);
-                //bw.Write(width[0]);  // width low byte
-                //bw.Write(width[1]);  // width high byte
 
                 for (int x = 0; x < data.Width; ++x)
                 {
@@ -172,12 +163,10 @@ namespace HashGo.Wpf.App.BestTech.Views
                             slice |= (byte)((v ? 1 : 0) << (7 - b));
                         }
                         byteList.Add(slice);
-                        //bw.Write(slice);
                     }
                 }
                 offset += 24;
                 byteList.Add(Convert.ToByte(0x0A));
-                //bw.Write((char));
             }
             // Restore the line spacing to the default of 30 dots.
             byteList.Add(Convert.ToByte(0x1B));
@@ -185,9 +174,6 @@ namespace HashGo.Wpf.App.BestTech.Views
             //bw.Write('3');
             byteList.Add((byte)30);
             return byteList.ToArray();
-            //bw.Flush();
-            //byte[] bytes = stream.ToArray();
-            //return logo + Encoding.Default.GetString(bytes);
         }
 
         public BitmapData GetBitmapData(string bmpFileName)
@@ -247,7 +233,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SALES ORDER\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SO No. : "+ApplicationStateContext.TransactionNo+"\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SO No. : "+ApplicationStateContext.TransactionId+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Date        : "+ ApplicationStateContext .CustomerDate.ToString("dd/MM/yyyy")+ "\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Item                                  Qty  Price     Net Total\n\n"));

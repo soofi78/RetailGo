@@ -83,7 +83,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                     DoTransaction();
 
-                    if(!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo))
+                    if(!string.IsNullOrEmpty(transactionNo))
                         Print();
                 }
 
@@ -260,9 +260,6 @@ namespace HashGo.Wpf.App.BestTech.Views
                 BytesValue = PrintExtensions.AddBytes(BytesValue, "Please visit again. \n\n");
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
-                //PrinterUtility.PrintExtensions.Print(BytesValue, POSPrintExample.Properties.Settings.Default.PrinterPath);
-                //PrinterUtility.PrintExtensions.Print(BytesValue, "GTP-183");
-                //RawPrinterHelper.SendByteArrayToPrinter("GTP-183", BytesValue);
                 RawPrinterHelper.SendByteArrayToPrinter("OneNotepad (Desktop)", BytesValue);
             }
             catch (Exception ex)

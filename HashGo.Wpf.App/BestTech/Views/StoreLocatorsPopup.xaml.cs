@@ -22,6 +22,8 @@ namespace HashGo.Wpf.App.BestTech.Views
         public StoreLocatorsPopup()
         {
             InitializeComponent();
+
+            
         }
     }
 }

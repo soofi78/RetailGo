@@ -75,38 +75,51 @@ namespace HashGo.Wpf.App.BestTech.Views
             this.Loaded += (sender, e) =>
             {
 
-                if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
+                try
                 {
-                    ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.SalesOrderRequestObject.salesOrder.netTotal);
-                    //if(mbTransactionSuccess)
-                    //    DoTransaction();
+                    if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
+                    {
+                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                    DoTransaction();
+                        ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.SalesOrderRequestObject.salesOrder.netTotal);
+                        if (mbTransactionSuccess)
+                        {
+                            DoTransaction();
 
-                    if(!string.IsNullOrEmpty(transactionNo))
-                        Print();
+                            if (!string.IsNullOrEmpty(transactionNo))
+                                Print();
+                        }
+                    }
+
+                    ApplicationStateContext.TransactionNo = transactionNo;
+
+                    timer = new DispatcherTimer()
+                    {
+                        Interval = TimeSpan.FromSeconds(4),
+                    };
+
+                    timer.Tick += (sender, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(transactionNo) && mbTransactionSuccess)
+                        {
+                            navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
+                        }
+                        else
+                        {
+                            navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
+                        }
+                    };
+
+                    timer.Start();
                 }
-
-                ApplicationStateContext.TransactionNo = transactionNo;
-
-                timer = new DispatcherTimer()
+                catch(Exception ex)
                 {
-                    Interval = TimeSpan.FromSeconds(4),
-                };
-
-                timer.Tick += (sender, e) =>
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                }
+                finally
                 {
-                    if (!string.IsNullOrEmpty(transactionNo) && mbTransactionSuccess)
-                    {
-                        navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
-                    }
-                    else
-                    {
-                        navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
-                    }
-                };
-
-                timer.Start();
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                }
             };
 
             this.Unloaded += (sender, e) =>

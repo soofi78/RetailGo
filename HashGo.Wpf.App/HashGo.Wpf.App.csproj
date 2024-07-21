@@ -192,6 +192,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="PrinterUtility">
+      <HintPath>C:\Users\bablu\Downloads\POSPrintExample\packages\PrinterUtility.1.1.0\lib\PrinterUtility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Fonts\BaiJamjuree-Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

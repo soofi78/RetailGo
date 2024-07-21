@@ -81,6 +81,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             {
                 SelectedUnits.Remove(unit);
                 SelectedUnits = new List<Unit>(SelectedUnits);
+
+                if (SelectedUnits.Count == 0)
+                {
+                    navigationService.NavigateToAsync(Pages.ProductSelection.ToString());
+                }
             }
         }
 

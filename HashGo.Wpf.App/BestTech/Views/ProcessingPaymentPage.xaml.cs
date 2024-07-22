@@ -241,7 +241,9 @@ namespace HashGo.Wpf.App.BestTech.Views
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.Name+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.AddressLine1 +"\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.AddressLine2 +"\n\n"));
+
+                if(!string.IsNullOrEmpty(ApplicationStateContext.CustomerDetailsObj.AddressLine2))
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.AddressLine2 +"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.ContactNumber+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
@@ -274,7 +276,10 @@ namespace HashGo.Wpf.App.BestTech.Views
                 BytesValue = PrintExtensions.AddBytes(BytesValue, "Please visit again. \n\n");
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
-                RawPrinterHelper.SendByteArrayToPrinter("OneNotepad (Desktop)", BytesValue);
+
+                //read the printer name from settings
+                string printerName = !string.IsNullOrEmpty(HashGoAppSettings.PrinterName)? HashGoAppSettings.PrinterName: "OneNotepad (Desktop)";
+                RawPrinterHelper.SendByteArrayToPrinter(printerName, BytesValue);  
             }
             catch (Exception ex)
             {

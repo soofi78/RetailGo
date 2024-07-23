@@ -22,6 +22,7 @@ namespace HashGo.Infrastructure.DataContext
         public static PaymentMethod PaymentMethodObject { get; set; }
         public static string TransactionNo { get; set; }
         public static int TransactionId { get; set; }
+        public static decimal NetAmountToPay { get; set; }
 
         static ApplicationStateContext()
         {

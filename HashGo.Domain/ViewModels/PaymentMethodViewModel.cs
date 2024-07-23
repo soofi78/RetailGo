@@ -165,19 +165,12 @@ namespace HashGo.Domain.ViewModels
         {
             get
             {
-                return Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
-                //SelectedUnits.Sum(ee=>ee.UnitPrice)
-                //foreach (var selectedUnit in SelectedUnits)
-                //{
-                //    SalesOrderDetail detail = new SalesOrderDetail();
-                //    detail.unitId = selectedUnit.UnitId;
-                //    detail.productId = selectedUnit.Id;
-                //    detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
-                //    detail.qty = selectedUnit.UnitCount;
-                //    detail.subTotal = detail.price * detail.qty;
-                //    total += detail.subTotal;
-                //    lstSaleOrderDetails.Add(detail);
-                //}
+                decimal amount = Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
+                if (ApplicationStateContext.NetAmountToPay == 0)
+                {
+                    ApplicationStateContext.NetAmountToPay = amount;
+                }
+                return amount;
             }
         }
 

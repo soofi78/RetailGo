@@ -118,8 +118,8 @@ namespace HashGo.Wpf.App.Helpers
             {
                 EscPosEpson escPosEpson = new EscPosEpson();
                 var BytesValue = Encoding.ASCII.GetBytes(string.Empty);
+                if (GetLogo(HashGoAppSettings.BackgroundImage) != null) BytesValue = GetLogo(HashGoAppSettings.BackgroundImage);
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-                BytesValue = GetLogo(HashGoAppSettings.BackgroundImage);
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());

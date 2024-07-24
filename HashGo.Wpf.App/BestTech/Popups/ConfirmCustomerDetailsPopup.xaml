@@ -111,7 +111,7 @@
 
             <CheckBox Margin="0,20,0,20"  Grid.Row="2" IsChecked="{Binding IsConfirm,Mode=TwoWay}">
                 <TextBlock Margin="10,0,0,0"  TextWrapping="Wrap"
-                   Text="I Confirm that the information provided is accurate and up-to-date to the best of my knowledge." />
+                   Text="I confirm that the information provided is accurate and up-to-date to the best of my knowledge." />
             </CheckBox>
 
             <Grid Margin="0,0,0,10" Grid.Row="3">

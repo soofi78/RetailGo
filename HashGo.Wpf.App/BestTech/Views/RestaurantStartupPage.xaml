@@ -46,7 +46,9 @@
         </Grid.RowDefinitions>
 
         <Viewbox Width="573" Height="140" Grid.Row="1" Grid.Column="1">
-            <Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <!--<Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+            <Image Source="{Binding ImagePath,Converter={StaticResource imageValueConverter},ConverterParameter='LOGO'}" 
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Viewbox>
 
         <Border Background="Transparent" Width="80" Height="50"

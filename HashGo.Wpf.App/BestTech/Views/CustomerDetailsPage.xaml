@@ -10,6 +10,7 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
       xmlns:behaviours="clr-namespace:HashGo.Wpf.App.Behavior"
+      xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
       Title="CustomerDetailsPage">
     <baseControls:BasePage.Resources>
         <converters:BooleanToColorConverter x:Key="booleanToColorConverter" />
@@ -74,7 +75,8 @@
         </Grid>
 
         <Viewbox Width="573" Height="140" Grid.Row="1" Grid.Column="1">
-            <Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Viewbox>
 
         <StackPanel Grid.Row="2" Grid.Column="1" >

@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
       mc:Ignorable="d" x:Name="productSelectionPage"
       xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
+      xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
       d:DesignHeight="450" d:DesignWidth="800"
      
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -15,7 +16,7 @@
         <converters:HashTechImageConverter x:Key="imageValueConverter" />
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
         <converters:ScreenOrientationVisibility x:Key="screenOrientationVisibility" />
-
+       
     </baseControls:BasePage.Resources>
 
     <Grid Background="White">
@@ -27,19 +28,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<Grid Grid.Row="0" Margin="10,20,0,0" Cursor="Hand"
-Background="Transparent" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding PreviousScreenCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <Path Cursor="Hand"  Data="M 10,0 L 0,10 L 10,20 M 0,10 L 20,10" Stroke="Black" StrokeThickness="1" />
-
-        </Grid>-->
-
         <Viewbox Width="573" Height="140" Grid.Row="1" >
-            <Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <!--<Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+            <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Viewbox>
         
         <Border Height="1" Grid.Row="2"

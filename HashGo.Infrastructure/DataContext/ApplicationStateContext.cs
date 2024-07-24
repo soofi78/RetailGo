@@ -8,6 +8,7 @@ namespace HashGo.Infrastructure.DataContext
 {
     public static class ApplicationStateContext
     {
+        public static string ServerImagePath {get;set;}
         public static List<TenantConnect> TenantConnectItems = new List<TenantConnect>();
         public static string OrderQueue = string.Empty;
         public static int DepartmentId = 0;

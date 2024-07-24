@@ -8,6 +8,7 @@ using HashGo.Core.Contracts.Services;
 using HashGo.Core.Models;
 using HashGo.Infrastructure;
 using HashGo.Infrastructure.Common;
+using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.Setting;
 using Newtonsoft.Json;
 
@@ -136,6 +137,8 @@ namespace HashGo.Wpf.App.Converters
                         }
                     }
 
+                    if(parameter is string logo && logo == "LOGO")
+                        ApplicationStateContext.ServerImagePath = fileFullName;
                     return fileFullName;
                 }
             }

@@ -10,6 +10,7 @@
       d:DesignHeight="550" d:DesignWidth="800"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
       Title="ConfirmDineDatePage">
     <baseControls:BasePage.Resources>
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
@@ -69,7 +70,8 @@
           HorizontalAlignment="Left"/>
         </StackPanel>-->
         <Viewbox Width="573" Height="140" Grid.Row="1" Grid.Column="1">
-            <Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Viewbox>
 
 

@@ -118,6 +118,10 @@ namespace HashGo.Wpf.App.Helpers
             {
                 EscPosEpson escPosEpson = new EscPosEpson();
                 var BytesValue = Encoding.ASCII.GetBytes(string.Empty);
+
+                //Get the image from the server, if its not present
+                //then read the app settings image
+
                 if (GetLogo(HashGoAppSettings.BackgroundImage) != null) BytesValue = GetLogo(HashGoAppSettings.BackgroundImage);
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());

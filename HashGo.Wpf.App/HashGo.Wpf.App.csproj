@@ -161,6 +161,9 @@
     <None Update="Resources\Images\subway_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Images\Taj2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Images\Toshiba.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

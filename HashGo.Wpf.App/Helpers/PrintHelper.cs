@@ -111,7 +111,6 @@ namespace HashGo.Wpf.App.Helpers
             }
         }
 
-
         public static void Print()
         {
             try
@@ -142,7 +141,7 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SALES ORDER\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
+                
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SO No. : " + ApplicationStateContext.TransactionId + "\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Date        : " + ApplicationStateContext.CustomerDate.ToString("dd/MM/yyyy") + "\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
@@ -180,6 +179,36 @@ namespace HashGo.Wpf.App.Helpers
                 Console.WriteLine(ex.ToString());
             }
 
+        }
+
+        /// <summary>
+        /// This code is to test we can streamline it once
+        /// it prints correctly
+        /// </summary>
+        public static void PrintTajMahlReciept()   //TajMahal
+        {
+            EscPosEpson escPosEpson = new EscPosEpson();
+            var BytesValue = Encoding.ASCII.GetBytes(string.Empty);
+
+            BytesValue = GetLogo(Path.Combine(Environment.CurrentDirectory, "Resources", "Images", "Taj2.png"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("TAJ MAHAL FOOD PTE LTD\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("UEN NO- 201705269N\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("8A ADMIRALTY ST\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("#07-26, FOOD XCHANGE@ADMIRALITY\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Singapore 757437\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Customer Care- 8585 8584 / 8485 8585\n\n"));
+
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("TAX INVOICE\n\n"));
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+
+            BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
+            BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Invoice No: {ApplicationStateContext.TransactionId}\n\n"));
         }
 
         public static byte[] CutPage()

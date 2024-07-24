@@ -40,7 +40,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                 timer.Tick += (sender, e) =>
                 {
-                    navigationService.NavigateToAsync(Pages.RestaurantStartup.ToString());
+                    navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
                 };
 
                 timer.Start();

@@ -121,8 +121,12 @@ namespace HashGo.Wpf.App.Helpers
 
                 //Get the image from the server, if its not present
                 //then read the app settings image
+                string imgPath = (!string.IsNullOrEmpty(ApplicationStateContext.ServerImagePath)) ? ApplicationStateContext.ServerImagePath :
+                                 (!string.IsNullOrEmpty(HashGoAppSettings.BackgroundImage)) ? HashGoAppSettings.BackgroundImage : "";
 
-                if (GetLogo(HashGoAppSettings.BackgroundImage) != null) BytesValue = GetLogo(HashGoAppSettings.BackgroundImage);
+                if (!string.IsNullOrEmpty(imgPath))
+                    BytesValue = GetLogo(imgPath);
+
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());

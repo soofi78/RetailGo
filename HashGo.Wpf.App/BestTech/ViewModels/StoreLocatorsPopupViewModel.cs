@@ -42,7 +42,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         #region Properties
 
         IReadOnlyCollection<StoreLocators> lstStoreLocators;
-        IReadOnlyCollection<StoreLocators> LstStoreLocators
+        public IReadOnlyCollection<StoreLocators> LstStoreLocators
         {
             get { return lstStoreLocators; }
         }

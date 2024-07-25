@@ -23,5 +23,7 @@ namespace HashGo.Core.Contracts.Services
         Task<IReadOnlyCollection<StoreLocators>> GetStoreLocations();
 
         Task<LocationDetails> GetLocationDetails();
+
+        Task<SalesOrderWrapper> GetSalesOrderForEdit();
     }
 }

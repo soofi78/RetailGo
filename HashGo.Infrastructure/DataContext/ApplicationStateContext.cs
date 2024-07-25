@@ -26,6 +26,7 @@ namespace HashGo.Infrastructure.DataContext
         public static int TransactionId { get; set; }
         public static decimal NetAmountToPay { get; set; }
         public static LocationDetails LocationDetailsObj { get; set; }
+        public static SalesOrderWrapper SalesOrderWrapperobj { get; set; }
 
         static ApplicationStateContext()
         {
@@ -45,6 +46,7 @@ namespace HashGo.Infrastructure.DataContext
             TransactionId = 0;
             NetAmountToPay = 0;
             LocationDetailsObj = null;
+            SalesOrderWrapperobj = null;
         }
 
         public static void LoadSettings()

@@ -138,7 +138,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         async void GetLocationDetails()
         {
-            //ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
+            ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
         }
 
         #region Region Payment Transaction

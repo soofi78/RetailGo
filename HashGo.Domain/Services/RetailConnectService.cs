@@ -364,5 +364,32 @@ namespace HashGo.Domain.Services
 
             return null;
         }
+
+        public async Task<SalesOrderWrapper> GetSalesOrderForEdit()
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           id = ApplicationStateContext.TransactionId
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_SALESORDER);
+
+                SalesOrderForEditResponse result = JsonConvert.DeserializeObject<SalesOrderForEditResponse>(responeString);
+
+                if (result != null && result.success && result.result != null)
+                {
+                    return result.result;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return null;
+        }
     }
 }

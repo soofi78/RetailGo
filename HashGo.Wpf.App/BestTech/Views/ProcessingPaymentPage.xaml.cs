@@ -71,33 +71,19 @@ namespace HashGo.Wpf.App.BestTech.Views
                             // if it failed stay until the time is out
                             // when timer is running PaymentStatus (next line) should fire and wait for a response
 
-                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,netsResponse.NetQRPaymentResponse.data.TxnIdentifier,netsResponse.NetQRPaymentResponse.data.InvoiceRef,
-                                                                            gatewayToken);
+                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,netsResponse.NetQRPaymentResponse.data.TxnIdentifier,netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
                             if (netsStatus.IsSuccess)
                             {
-                                DoTransaction();
-
-                                if (!string.IsNullOrEmpty(transactionNo))
-                                {
-                                    GetLocationDetails();
-                                    PrintHelper.Print();
-                                }
+                                performOperation();
                             } 
                         }
                         else
                         {
-                            //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
                             PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
                             if (PaymentHelper.mbTransactionSuccess)
                             {
-                                DoTransaction();
-
-                                if (!string.IsNullOrEmpty(transactionNo))
-                                {
-                                    GetLocationDetails();
-                                    PrintHelper.Print();
-                                }
+                                performOperation();
                             }
                         }
 
@@ -136,9 +122,26 @@ namespace HashGo.Wpf.App.BestTech.Views
             };
         }
 
+        void performOperation()
+        {
+            DoTransaction();
+
+            if (!string.IsNullOrEmpty(transactionNo))
+            {
+                GetLocationDetails();
+                GetSalesOrder();
+                PrintHelper.Print();
+            }
+        }
+
         async void GetLocationDetails()
         {
             ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
+        }
+
+        async void GetSalesOrder()
+        {
+            ApplicationStateContext.SalesOrderWrapperobj = await retailConnectService.GetSalesOrderForEdit();
         }
 
         #region Region Payment Transaction

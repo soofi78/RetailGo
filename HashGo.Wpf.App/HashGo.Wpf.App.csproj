@@ -198,6 +198,9 @@
     <Reference Include="PrinterUtility">
       <HintPath>..\Packages\PrinterUtility.1.1.0\lib\PrinterUtility.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\Packages\Lib\RestSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

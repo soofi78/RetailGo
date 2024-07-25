@@ -52,11 +52,12 @@ namespace HashGo.Wpf.App.BestTech.Views
 
             this.Loaded += (sender, e) =>
             {
+                //performOperation();
 
                 try
                 {
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
-                    { 
+                    {
                         if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
                         {
                             string hostId = "37066801";  // move this to settings
@@ -71,11 +72,11 @@ namespace HashGo.Wpf.App.BestTech.Views
                             // if it failed stay until the time is out
                             // when timer is running PaymentStatus (next line) should fire and wait for a response
 
-                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,netsResponse.NetQRPaymentResponse.data.TxnIdentifier,netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
+                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
                             if (netsStatus.IsSuccess)
                             {
                                 performOperation();
-                            } 
+                            }
                         }
                         else
                         {

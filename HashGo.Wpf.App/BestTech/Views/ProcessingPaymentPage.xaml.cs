@@ -56,29 +56,23 @@ namespace HashGo.Wpf.App.BestTech.Views
                 try
                 {
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
-                    {
-
+                    { 
                         if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
                         {
-                            string hostId = "37066801";
-                            string hostMId = "11137066800";
+                            string hostId = "37066801";  // move this to settings
+                            string hostMId = "11137066800"; // move this to settings
                             string invoiceRef = DateTime.Now.ToString("MMddHHmmss");
-                            string gatewayToken = "gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl";
+                            string gatewayToken = "gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl"; // move this to settings
                             NetsQRHelper netsQR = new NetsQRHelper();
                             PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.NetAmountToPay, invoiceRef, gatewayToken);
 
+                            // TODO - set the timer in descending order once u convert the responst to QR
+                            // timeout field in settings
+                            // if it failed stay until the time is out
+                            // when timer is running PaymentStatus (next line) should fire and wait for a response
 
-                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,
-                                                                            netsResponse.NetQRPaymentResponse.data.TxnIdentifier,
-                                                                            netsResponse.NetQRPaymentResponse.data.InvoiceRef,
+                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,netsResponse.NetQRPaymentResponse.data.TxnIdentifier,netsResponse.NetQRPaymentResponse.data.InvoiceRef,
                                                                             gatewayToken);
-
-
-
-
-
-
-
                             if (netsStatus.IsSuccess)
                             {
                                 DoTransaction();
@@ -88,8 +82,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                                     GetLocationDetails();
                                     PrintHelper.Print();
                                 }
-                            }
-
+                            } 
                         }
                         else
                         {
@@ -145,7 +138,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         async void GetLocationDetails()
         {
-            ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
+            //ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
         }
 
         #region Region Payment Transaction

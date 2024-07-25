@@ -35,14 +35,14 @@ namespace HashGo.Wpf.App.Helpers
                 };
 
                 var client = new RestClient($"{GatewayUrl}netsqr/api/order/request");
-                var request = new RestRequest(RestSharp.Method.POST);
+                var request = new RestRequest();
                 request.AddHeader("Authorization", $"Bearer {gatewayToken}");
                 request.AddHeader("Content-Type", "application/json");
                 var myBody = JsonConvert.SerializeObject(netsQrObj);
                 request.AddParameter("application/json", myBody,
                     ParameterType.RequestBody);
 
-                var response = (RestResponse)client.Execute(request);
+                var response = (RestResponse)client.ExecutePost(request);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = JsonConvert.DeserializeObject<NetQRResponse>(response.Content);
@@ -90,14 +90,14 @@ namespace HashGo.Wpf.App.Helpers
                 };
 
                 var client = new RestClient($"{GatewayUrl}netsqr/api/transaction/query");
-                var request = new RestRequest(Method.POST);
+                var request = new RestRequest();
                 request.AddHeader("Authorization", $"Bearer {gatewayToken}");
                 request.AddHeader("Content-Type", "application/json");
                 var myBody = JsonConvert.SerializeObject(netsQrObj);
                 request.AddParameter("application/json", myBody,
                     ParameterType.RequestBody);
 
-                var response = (RestResponse)client.Execute(request);
+                var response = (RestResponse)client.ExecutePost(request);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = JsonConvert.DeserializeObject<NetQRResponse>(response.Content);

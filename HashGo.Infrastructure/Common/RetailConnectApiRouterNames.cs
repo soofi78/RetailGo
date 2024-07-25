@@ -16,6 +16,7 @@ public static class RetailConnectApiRouterNames
     public const string CREATE_ENQUIRY = "/api/services/app/Enquiry/CreateOrUpdateEnquiry";
     public const string GET_COMPANY_LOGO = "/api/services/app/company/GetCompanyImageByLocationId";
     public const string GET_SALESORDER = "/api/services/app/salesorder/GetSalesOrderForEdit";
+    public const string GET_STORELOCATORS = "/api/services/app/location/ApiGetLocations";
 }
  
 public static class AppConfigKeys

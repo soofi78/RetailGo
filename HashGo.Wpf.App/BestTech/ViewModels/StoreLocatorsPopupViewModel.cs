@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using HashGo.Core.Contracts.Services;
+using HashGo.Core.Models.BestTech;
 using HashGo.Domain.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,19 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 {
     public class StoreLocatorsPopupViewModel : BaseViewModel
     {
-        public StoreLocatorsPopupViewModel() 
+        IRetailConnectService retailConnectService;
+        public StoreLocatorsPopupViewModel(IRetailConnectService retailConnectService) 
         {
+            this.retailConnectService = retailConnectService;
             CloseStoreLocatorsPopupCommand = new RelayCommand(OnCloseStoreLocatorsPopup);
+            LoadStoreLocators();
+        }
+
+        async void LoadStoreLocators()
+        {
+            lstStoreLocators = await retailConnectService.GetStoreLocations();
+
+            OnPropertyChanged(nameof(LstStoreLocators));
         }
 
         void OnCloseStoreLocatorsPopup()
@@ -28,6 +40,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         #endregion
 
         #region Properties
+
+        IReadOnlyCollection<StoreLocators> lstStoreLocators;
+        IReadOnlyCollection<StoreLocators> LstStoreLocators
+        {
+            get { return lstStoreLocators; }
+        }
 
         bool? diaglogResult;
         public bool? DiaglogResult

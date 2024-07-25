@@ -9,6 +9,7 @@ using HashGo.Infrastructure.Common;
 using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.HttpHelper;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Category = HashGo.Core.Models.BestTech.Category;
@@ -307,6 +308,34 @@ namespace HashGo.Domain.Services
             catch (Exception ex) { logger.TraceException(ex); }
 
             return CommonConstants.DEFAULTIMAGE;
+        }
+
+        public async Task<IReadOnlyCollection<StoreLocators>> GetStoreLocations()
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           tenantId = ApplicationStateContext.ConnectItem.TenantId,
+                           LastSyncDateTime = "",
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_STORELOCATORS);
+
+                StoreLocatorResponse result = JsonConvert.DeserializeObject<StoreLocatorResponse>(responeString);
+
+                if (result != null && result.success && result.result != null)
+                {
+                    return result.result.items;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return default(IReadOnlyCollection<StoreLocators>);
         }
     }
 }

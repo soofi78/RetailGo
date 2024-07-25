@@ -74,7 +74,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         void OnNavigateToStoreLocators()
         {
             StoreLocatorsPopup storeLocatorsPopup = new StoreLocatorsPopup();
-            storeLocatorsPopup.DataContext = new StoreLocatorsPopupViewModel();
+            storeLocatorsPopup.DataContext = new StoreLocatorsPopupViewModel(retailConnectService);
             storeLocatorsPopup.ShowDialog();
         }
 

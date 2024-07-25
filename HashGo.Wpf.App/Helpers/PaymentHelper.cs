@@ -3,7 +3,6 @@ using HashGo.Domain.Helper;
 using HashGo.Infrastructure;
 using Metsys.Bson;
 using Newtonsoft.Json;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;

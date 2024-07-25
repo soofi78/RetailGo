@@ -60,7 +60,6 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                         if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
                         {
-                            //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
                             string hostId = "37066801";
                             string hostMId = "11137066800";
                             string invoiceRef = DateTime.Now.ToString("MMddHHmmss");
@@ -73,19 +72,22 @@ namespace HashGo.Wpf.App.BestTech.Views
                                                                             netsResponse.NetQRPaymentResponse.data.TxnIdentifier,
                                                                             netsResponse.NetQRPaymentResponse.data.InvoiceRef,
                                                                             gatewayToken);
-                            
-                            
-                            
 
 
 
 
-                            if (PaymentHelper.mbTransactionSuccess)
+
+
+
+                            if (netsStatus.IsSuccess)
                             {
                                 DoTransaction();
 
                                 if (!string.IsNullOrEmpty(transactionNo))
+                                {
+                                    GetLocationDetails();
                                     PrintHelper.Print();
+                                }
                             }
 
                         }
@@ -94,43 +96,43 @@ namespace HashGo.Wpf.App.BestTech.Views
                             //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
                             PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
-                        if (PaymentHelper.mbTransactionSuccess)
-                        {
-                            DoTransaction();
-
-                            if (!string.IsNullOrEmpty(transactionNo))
+                            if (PaymentHelper.mbTransactionSuccess)
                             {
-                                GetLocationDetails();
-                                PrintHelper.Print();
+                                DoTransaction();
+
+                                if (!string.IsNullOrEmpty(transactionNo))
+                                {
+                                    GetLocationDetails();
+                                    PrintHelper.Print();
+                                }
                             }
-                                
                         }
+
+                        ApplicationStateContext.TransactionNo = transactionNo;
+
+                        timer = new DispatcherTimer()
+                        {
+                            Interval = TimeSpan.FromSeconds(4),
+                        };
+
+                        timer.Tick += (sender, e) =>
+                        {
+                            if (!string.IsNullOrEmpty(transactionNo) && PaymentHelper.mbTransactionSuccess)
+                            {
+                                navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
+                            }
+                            else
+                            {
+                                navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
+                            }
+                        };
+
+                        timer.Start();
                     }
-
-                    ApplicationStateContext.TransactionNo = transactionNo;
-
-                    timer = new DispatcherTimer()
-                    {
-                        Interval = TimeSpan.FromSeconds(4),
-                    };
-
-                    timer.Tick += (sender, e) =>
-                    {
-                        if (!string.IsNullOrEmpty(transactionNo) && PaymentHelper.mbTransactionSuccess)
-                        {
-                            navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
-                        }
-                        else
-                        {
-                            navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
-                        }
-                    };
-
-                    timer.Start();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                   
+
                 }
             };
 

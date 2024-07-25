@@ -70,6 +70,7 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="QRCoder" Version="1.5.1" />
     <PackageReference Include="QRCoder.Xaml" Version="1.5.1" />
+    <PackageReference Include="RestSharp" Version="111.4.0" />
     <PackageReference Include="System.IO.Ports" Version="8.0.0" />
   </ItemGroup>
 
@@ -197,9 +198,6 @@
   <ItemGroup>
     <Reference Include="PrinterUtility">
       <HintPath>..\Packages\PrinterUtility.1.1.0\lib\PrinterUtility.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\Packages\Lib\RestSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
 

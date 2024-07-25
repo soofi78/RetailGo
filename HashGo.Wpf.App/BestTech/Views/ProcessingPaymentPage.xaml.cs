@@ -60,12 +60,22 @@ namespace HashGo.Wpf.App.BestTech.Views
                         //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
                         PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
+                        #region Testing
+
+                        GetLocationDetails();
+
+                        #endregion
+
                         if (PaymentHelper.mbTransactionSuccess)
                         {
                             DoTransaction();
 
                             if (!string.IsNullOrEmpty(transactionNo))
+                            {
+                                GetLocationDetails();
                                 PrintHelper.Print();
+                            }
+                                
                         }
                     }
 
@@ -101,6 +111,11 @@ namespace HashGo.Wpf.App.BestTech.Views
                 timer?.Stop();
                 timer = null;
             };
+        }
+
+        async void GetLocationDetails()
+        {
+            ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
         }
 
         #region Region Payment Transaction

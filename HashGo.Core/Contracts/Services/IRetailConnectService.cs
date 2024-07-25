@@ -21,5 +21,7 @@ namespace HashGo.Core.Contracts.Services
         Task<string> GetCompanyLogo(string LocationId);
 
         Task<IReadOnlyCollection<StoreLocators>> GetStoreLocations();
+
+        Task<LocationDetails> GetLocationDetails();
     }
 }

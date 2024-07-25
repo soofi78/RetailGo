@@ -337,5 +337,32 @@ namespace HashGo.Domain.Services
 
             return default(IReadOnlyCollection<StoreLocators>);
         }
+
+        public async Task<LocationDetails> GetLocationDetails()
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           id= HashGoAppSettings.LocationId
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_LOCATIONDETAILS);
+
+                LocationDetailsResponse result = JsonConvert.DeserializeObject<LocationDetailsResponse>(responeString);
+
+                if (result != null && result.success && result.result != null)
+                {
+                    return result.result.location;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return null;
+        }
     }
 }

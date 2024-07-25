@@ -1,5 +1,6 @@
 ﻿using HashGo.Core.Db;
 using HashGo.Core.Models;
+using HashGo.Core.Models.BestTech;
 using HashGo.Infrastructure;
 using HashGo.Infrastructure.Models;
 using Newtonsoft.Json.Linq;
@@ -24,6 +25,7 @@ namespace HashGo.Infrastructure.DataContext
         public static string TransactionNo { get; set; }
         public static int TransactionId { get; set; }
         public static decimal NetAmountToPay { get; set; }
+        public static LocationDetails LocationDetailsObj { get; set; }
 
         static ApplicationStateContext()
         {
@@ -41,6 +43,8 @@ namespace HashGo.Infrastructure.DataContext
             PaymentMethodObject = null;
             TransactionNo = null;
             TransactionId = 0;
+            NetAmountToPay = 0;
+            LocationDetailsObj = null;
         }
 
         public static void LoadSettings()

@@ -31,6 +31,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Windows.Networking.Connectivity;
 
 namespace HashGo.Wpf.App.BestTech.Views
 {
@@ -57,14 +58,41 @@ namespace HashGo.Wpf.App.BestTech.Views
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                     {
 
-                        //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
-                        PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
+                        if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
+                        {
+                            //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
+                            string hostId = "37066801";
+                            string hostMId = "11137066800";
+                            string invoiceRef = DateTime.Now.ToString("MMddHHmmss");
+                            string gatewayToken = "gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl";
+                            NetsQRHelper netsQR = new NetsQRHelper();
+                            PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.NetAmountToPay, invoiceRef, gatewayToken);
 
-                        #region Testing
 
-                        GetLocationDetails();
+                            PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode,
+                                                                            netsResponse.NetQRPaymentResponse.data.TxnIdentifier,
+                                                                            netsResponse.NetQRPaymentResponse.data.InvoiceRef,
+                                                                            gatewayToken);
+                            
+                            
+                            
 
-                        #endregion
+
+
+
+                            if (PaymentHelper.mbTransactionSuccess)
+                            {
+                                DoTransaction();
+
+                                if (!string.IsNullOrEmpty(transactionNo))
+                                    PrintHelper.Print();
+                            }
+
+                        }
+                        else
+                        {
+                            //ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
+                            PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
                         if (PaymentHelper.mbTransactionSuccess)
                         {

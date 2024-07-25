@@ -1,14 +1,19 @@
 ﻿using HashGo.Core.Models;
 using HashGo.Domain.Helper;
 using HashGo.Infrastructure;
+using Metsys.Bson;
+using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using static QRCoder.PayloadGenerator.ShadowSocksConfig;
 
 namespace HashGo.Wpf.App.Helpers
 {
@@ -248,6 +253,8 @@ namespace HashGo.Wpf.App.Helpers
             sLRCData = Utility.GetLrc(sSendData.Substring(4, sSendData.Length - 4));
             sSendData += sLRCData;
         }
+
+        
 
         public static void ProcessNetsNetwork(string sPayMode, decimal dAmount)
         {

@@ -1,4 +1,5 @@
 ﻿using ControlzEx.Standard;
+using HashGo.Core.Contracts.Services;
 using HashGo.Core.Models;
 using HashGo.Domain.Helper;
 using HashGo.Infrastructure;
@@ -19,7 +20,13 @@ namespace HashGo.Wpf.App.Helpers
 {
     public class NetsQRHelper
     {
-        
+        private readonly ILoggingService _logger;
+
+        public NetsQRHelper(ILoggingService logger)
+        {
+            _logger = logger;
+        }
+
         public PaymentResponseDto ProcessPayment(string hostId, string hostMId, decimal amount, string invoiceRef, string gatewayToken)
         {
             var paymentResponse = new PaymentResponseDto();
@@ -30,7 +37,7 @@ namespace HashGo.Wpf.App.Helpers
                 {
                     HostTid = hostId,
                     HostMid = hostMId,
-                    Stan = Utility.AppendValue(random.Next(0, 999999).ToString(), 10, true),
+                    //Stan = Utility.AppendValue(random.Next(0, 999999).ToString(), 10, true),
                     Amount = (amount * 100).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),
                     TransactionTime = DateTime.Now.ToString("HHmmss"),
@@ -40,7 +47,9 @@ namespace HashGo.Wpf.App.Helpers
                 var request = new RestRequest();
                 request.AddHeader("Authorization", $"Bearer {gatewayToken}");
                 request.AddHeader("Content-Type", "application/json");
+
                 var myBody = JsonConvert.SerializeObject(netsQrObj);
+                _logger.Info("Send to NETS QR - " + myBody);
                 request.AddParameter("application/json", myBody,
                     ParameterType.RequestBody);
 
@@ -51,6 +60,8 @@ namespace HashGo.Wpf.App.Helpers
 
                     if (result.data.QrCode != null)
                     {
+                        _logger.Info("Received From NETS QR - " + JsonConvert.SerializeObject(result));
+
                         paymentResponse.NetsQrCode = result.data.QrCode;
                         paymentResponse.NetQRPaymentResponse = result;
                     }

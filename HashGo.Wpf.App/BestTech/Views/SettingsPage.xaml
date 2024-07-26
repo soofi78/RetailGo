@@ -505,7 +505,7 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                     HorizontalAlignment="Stretch"  Margin="2,15,10,10"
                     VerticalAlignment="Stretch" >
                             <TextBox  Foreground="Black" Background="White"
-                 VerticalContentAlignment="Center" Text="{Binding NetsQrGatewayToken,UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center" Text="{Binding NetsQrGatewaytoken,UpdateSourceTrigger=PropertyChanged}"
                  BorderThickness="0" >
                                 <!--<i:Interaction.Behaviors>
                                     <behaviours:IntegerInputBehaviour />
@@ -525,7 +525,7 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                     HorizontalAlignment="Stretch"  Margin="2,15,10,10"
                     VerticalAlignment="Stretch" >
                             <TextBox  Foreground="Black" Background="White"
-                 VerticalContentAlignment="Center" Text="{Binding NetsQrTimer,UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center" Text="{Binding NetsQRTimer,UpdateSourceTrigger=PropertyChanged}"
                  BorderThickness="0" >
                                 <!--<i:Interaction.Behaviors>
                                     <behaviours:IntegerInputBehaviour />

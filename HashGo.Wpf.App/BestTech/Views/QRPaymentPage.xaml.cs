@@ -17,28 +17,71 @@ using System.Windows.Shapes;
 using HashGo.Wpf.App.BestTech.ViewModels;
 using HashGo.Wpf.App.BestTech.Controls;
 using HashGo.Core.Contracts.View;
+using System.IO;
+using HashGo.Infrastructure.DataContext;
+using System.Windows.Threading;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using HashGo.Infrastructure;
+using HashGo.Core.Enum;
+using HashGo.Wpf.App.Services;
 
 namespace HashGo.Wpf.App.BestTech.Views
 {
     /// <summary>
     /// Interaction logic for QRPaymentPage.xaml
     /// </summary>
-    public partial class QRPaymentPage : BasePage
+    public partial class QRPaymentPage : Page
     {
-        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, IPopupService popupService) : base(popupService)
+        private DispatcherTimer timer;
+        int time = 120;
+
+        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, IPopupService popupService) //: base(popupService)
         {
             InitializeComponent();
 
             this.Loaded += (sender, e) =>
             {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrGenerator.CreateQrCode("https://rcsg.rtlconnect.net/", QRCodeGenerator.ECCLevel.H);
-                XamlQRCode qrCode = new XamlQRCode(qrCodeData);
-                DrawingImage qrCodeAsXaml = qrCode.GetGraphic(20);
-                qrIamge.Source = qrCodeAsXaml;
+                qrIamge.Source = Base64StringToBitmapImage(ApplicationStateContext.NETQRImageBase64String);
+                int tmpTime  = Convert.ToInt32(HashGoAppSettings.NETSQRTIMER);
+
+                if (tmpTime != 0)
+                    time = tmpTime;
+                timer = new DispatcherTimer()
+                {
+                    Interval = TimeSpan.FromSeconds(1),
+                };
+
+                timer.Tick += (sender, e) =>
+                {
+                    tBlockTimer.Text = time.ToString();
+                    time--;
+                    if (time == 0)
+                        timer.Stop();
+                };
+
+                timer.Start();
+            };
+            this.Unloaded += (sender, e) =>
+            {
+                timer?.Stop();
+                timer = null;
             };
 
             this.DataContext = qRPaymentPageViewModel;
+        }
+
+        public BitmapImage Base64StringToBitmapImage(string base64String)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            using (var ms = new MemoryStream(imageBytes))
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                return bitmapImage;
+            }
         }
     }
 }

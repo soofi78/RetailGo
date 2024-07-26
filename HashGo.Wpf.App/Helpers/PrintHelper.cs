@@ -133,12 +133,12 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.companyName+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("UEN NO - 201705269N" + "\n\n"));  //this is hardcoded as it does not comes                                                                                                               from GetLocationForEdit
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("UEN NO - 201705269N" + "\n\n"));  //this is hardcoded as it does not comes                                                                                                               from GetLocationForEdit
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.address1 + "\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.address2 + "\n\n"));
                 string val = $"{ApplicationStateContext.LocationDetailsObj?.country} {ApplicationStateContext.LocationDetailsObj?.postalCode}";
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(val + "\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Customer Care - 8585 8584 / 8485 8585" + "\n\n")); //this is hardcoded as                                                                                                            it does not comes from GetLocationForEdit
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Customer Care - 8585 8584 / 8485 8585" + "\n\n")); //this is hardcoded as                                                                                                            it does not comes from GetLocationForEdit
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));

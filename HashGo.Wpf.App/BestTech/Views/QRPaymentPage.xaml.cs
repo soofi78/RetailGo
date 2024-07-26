@@ -24,6 +24,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using HashGo.Infrastructure;
 using HashGo.Core.Enum;
 using HashGo.Wpf.App.Services;
+using HashGo.Core.Contracts.Views;
 
 namespace HashGo.Wpf.App.BestTech.Views
 {
@@ -33,11 +34,14 @@ namespace HashGo.Wpf.App.BestTech.Views
     public partial class QRPaymentPage : Page
     {
         private DispatcherTimer timer;
-        int time = 120;
+        INavigationService navigationService;
+        private TimeSpan time = TimeSpan.FromMinutes(2);
 
-        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, IPopupService popupService) //: base(popupService)
+        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, INavigationService navigationService,IPopupService popupService) //: base(popupService)
         {
             InitializeComponent();
+
+            this.navigationService = navigationService;
 
             this.Loaded += (sender, e) =>
             {
@@ -45,7 +49,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                 int tmpTime  = Convert.ToInt32(HashGoAppSettings.NETSQRTIMER);
 
                 if (tmpTime != 0)
-                    time = tmpTime;
+                    time = TimeSpan.FromMinutes(tmpTime);
                 timer = new DispatcherTimer()
                 {
                     Interval = TimeSpan.FromSeconds(1),
@@ -53,10 +57,13 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                 timer.Tick += (sender, e) =>
                 {
-                    tBlockTimer.Text = time.ToString();
-                    time--;
-                    if (time == 0)
+                    tBlockTimer.Text = time.ToString(@"m\:ss");
+                    time = time.Add(TimeSpan.FromSeconds(-1));
+                    if (time == TimeSpan.FromSeconds(0))
+                    {
                         timer.Stop();
+                        navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
+                    }
                 };
 
                 timer.Start();

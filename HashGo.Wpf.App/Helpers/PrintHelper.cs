@@ -156,9 +156,9 @@ namespace HashGo.Wpf.App.Helpers
                     BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"          {ApplicationStateContext.CustomerDetailsObj.AddressLine2}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Mobile:  {ApplicationStateContext.CustomerDetailsObj.ContactNumber}\n\n"));
 
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Item                                  Qty  Price     Net Total\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
 
                 foreach (var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
                 {
@@ -167,9 +167,9 @@ namespace HashGo.Wpf.App.Helpers
                                                                                                                      salesOrder.price,
                                                                                                                      salesOrder.subTotal));
                 }
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"        Total Qty:  {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.balanceQty}\n\n"));   //doubt
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Sub Total : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soSubTotal}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Gst       : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soTax}\n\n"));

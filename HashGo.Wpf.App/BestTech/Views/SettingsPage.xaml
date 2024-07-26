@@ -516,7 +516,7 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                         <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left"
       VerticalAlignment="Center" Foreground="White" Margin="25,0,0,0"
               Panel.ZIndex="1000"
-      FontWeight="Bold" Text="NETS QR Timer (in seconds)"/>
+      FontWeight="Bold" Text="NETS QR Timer (in Minutes)"/>
                         <Border BorderBrush="#8C97C4" BorderThickness="1"
            Background="#8C97C4" Grid.Row="4" Margin="0,5,0,0"
 CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">

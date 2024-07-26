@@ -90,16 +90,17 @@ namespace HashGo.Wpf.App.BestTech.Views
                                 {
                                     ApplicationStateContext.NETQRImageBase64String = netsResponse.NetsQrCode;
                                     navigationService.NavigateToAsync(Pages.QRPayment.ToString());
+
+                                    PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
+                                    if (netsStatus.IsSuccess)
+                                    {
+                                        performOperation();
+                                    }
+
                                     return;
                                 }
                                 else 
                                     return;
-
-                                PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
-                                if (netsStatus.IsSuccess)
-                                {
-                                    performOperation();
-                                }
                             } 
                         }
                         else

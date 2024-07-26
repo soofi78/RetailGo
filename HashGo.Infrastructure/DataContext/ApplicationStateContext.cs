@@ -27,6 +27,7 @@ namespace HashGo.Infrastructure.DataContext
         public static decimal NetAmountToPay { get; set; }
         public static LocationDetails LocationDetailsObj { get; set; }
         public static SalesOrderWrapper SalesOrderWrapperobj { get; set; }
+        public static string NETQRImageBase64String { get;set; }
 
         static ApplicationStateContext()
         {
@@ -47,6 +48,7 @@ namespace HashGo.Infrastructure.DataContext
             NetAmountToPay = 0;
             LocationDetailsObj = null;
             SalesOrderWrapperobj = null;
+            NETQRImageBase64String = null;
         }
 
         public static void LoadSettings()

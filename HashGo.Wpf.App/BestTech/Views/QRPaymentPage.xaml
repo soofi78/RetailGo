@@ -1,4 +1,4 @@
-﻿<baseControls:BasePage x:Class="HashGo.Wpf.App.BestTech.Views.QRPaymentPage"
+﻿<Page x:Class="HashGo.Wpf.App.BestTech.Views.QRPaymentPage"
       xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,21 +18,29 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".2*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height=".1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
+            FontSize="25" Foreground="#00B5CB"
+            x:Name="tBlockTimer" 
+            FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
+            FontWeight="Bold"/>
+
+
+        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center"
                    FontSize="25"
                    Text="Please scan the QR for payment" x:Name="tBlock"
                    FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
                    FontWeight="Bold"/>
 
 
-        <Image x:Name="qrIamge"  Grid.Column="1" Grid.Row="2" Margin="0,10,0,10" 
+        <Image x:Name="qrIamge"  Grid.Column="1" Grid.Row="3" Margin="0,10,0,10" 
                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                Stretch="Uniform"/>
 
@@ -48,4 +56,4 @@
             </Viewbox>
         </ToggleButton>
     </Grid>
-</baseControls:BasePage>
+</Page>

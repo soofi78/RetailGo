@@ -115,5 +115,11 @@ namespace HashGo.Wpf.App.BestTech.Controls
         {
             restartIdleTimer();
         }
+
+        #region Properties
+
+        public virtual bool IsTimerRequired { get; set; } = true;
+
+        #endregion
     }
 }

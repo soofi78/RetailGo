@@ -214,7 +214,7 @@ public partial class App : Application
         services.AddTransient<ConfirmCustomerDetailsPopup>();
         services.AddTransient<ConfirmCustomerDetailsPopupViewModel>();
         services.AddTransient<ResetOrderPopup>();
-        services.AddSingleton<QRPaymentPage>();
+        services.AddTransient<QRPaymentPage>();
         services.AddSingleton<QRPaymentPageViewModel>();
         services.AddSingleton<ProcessingPaymentPage>();
         services.AddTransient<PurchaseConfirmedPage>();

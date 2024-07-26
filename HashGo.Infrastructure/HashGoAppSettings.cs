@@ -73,6 +73,11 @@ namespace HashGo.Infrastructure
             ShowLanguageSelection = Convert.ToBoolean(appSettingSection.Settings[nameof(ShowLanguageSelection)]?.Value);
             ShowMemberButton = Convert.ToBoolean(appSettingSection.Settings[nameof(ShowMemberButton)]?.Value);
             PrinterName = appSettingSection.Settings[nameof(PrinterName)]?.Value;
+
+            NETSQRHOSTID = appSettingSection.Settings[nameof(NETSQRHOSTID)]?.Value;
+            NETSQRHOSTMID = appSettingSection.Settings[nameof(NETSQRHOSTMID)]?.Value;
+            NETSQRGATEWAYTOKEN = appSettingSection.Settings[nameof(NETSQRGATEWAYTOKEN)]?.Value;
+            NETSQRTIMER = appSettingSection.Settings[nameof(NETSQRTIMER)]?.Value;
         }
 
         public static void SaveSettings()
@@ -95,6 +100,11 @@ namespace HashGo.Infrastructure
             AddOrUpdateAppSettings(nameof(ShowLanguageSelection), ShowLanguageSelection.ToString());
             AddOrUpdateAppSettings(nameof(ShowMemberButton), ShowMemberButton.ToString());
             AddOrUpdateAppSettings(nameof(PrinterName), PrinterName);
+
+            AddOrUpdateAppSettings(nameof(NETSQRHOSTID), NETSQRHOSTID);
+            AddOrUpdateAppSettings(nameof(NETSQRHOSTMID), NETSQRHOSTMID);
+            AddOrUpdateAppSettings(nameof(NETSQRGATEWAYTOKEN), NETSQRGATEWAYTOKEN);
+            AddOrUpdateAppSettings(nameof(NETSQRTIMER), NETSQRTIMER);
 
             LoadSettings();
         }

@@ -182,7 +182,7 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight6());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128("12345"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, "Thank You. Please come again. \n\n");

@@ -192,9 +192,30 @@ namespace HashGo.Domain.ViewModels
                 detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
                 detail.qty = selectedUnit.UnitCount;
                 detail.subTotal = detail.price * detail.qty;
+                detail.subTotal = detail.price;
                 detail.productName = selectedUnit.Name;
-                total += detail.subTotal;
+                total += detail.price;
                 lstSaleOrderDetails.Add(detail);
+
+                #region AddOns
+
+                if(selectedUnit.LstSelectedUnitInstallationTypes?.Count>0)
+                {
+                    foreach(var addon in  selectedUnit.LstSelectedUnitInstallationTypes) 
+                    {
+                        SalesOrderDetail addOnDetail = new SalesOrderDetail();
+                        addOnDetail.unitId = addon.UnitId;
+                        addOnDetail.productId = addon.InstallationTypeId;
+                        addOnDetail.price = Convert.ToDecimal(addon.AddOnPrice);
+                        addOnDetail.qty = addon.InstallationTypeCount;
+                        addOnDetail.subTotal = Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
+                        addOnDetail.productName = addon.InstallationType;
+                        total += Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
+                        lstSaleOrderDetails.Add(addOnDetail);
+                    }
+                }
+
+                #endregion
             }
 
             SalesOrderRequest salesOrderRequest = new SalesOrderRequest();

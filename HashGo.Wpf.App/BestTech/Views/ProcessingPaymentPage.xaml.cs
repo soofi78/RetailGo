@@ -58,7 +58,8 @@ namespace HashGo.Wpf.App.BestTech.Views
                 {
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                     {
-                        if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
+                        if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETS QR" &&
+                            (HashGoAppSettings.NETSIP == null ||  HashGoAppSettings.NETSIP.Length == 0))
                         {
                             string hostId = HashGoAppSettings.NETSQRHOSTID; // "37066801";   
                             string hostMId = HashGoAppSettings.NETSQRHOSTMID; //"11137066800";  

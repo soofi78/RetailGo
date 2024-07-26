@@ -51,12 +51,12 @@ namespace HashGo.Core.Models.BestTech
         public double lastPurchasePrice { get; set; }
         public double netDiscount { get; set; }
         public bool isBatch { get; set; }
-        public int vendorId { get; set; }
+        public int? vendorId { get; set; }
         public double poQuantity { get; set; }
         public double orderedQuantity { get; set; }
         public int departmentId { get; set; }
         public int categoryId { get; set; }
-        public int brandId { get; set; }
+        public int? brandId { get; set; }
         public double netCost { get; set; }
         public object priceGroupId { get; set; }
         public object transactionRemarks { get; set; }

@@ -112,7 +112,7 @@ namespace HashGo.Domain.ViewModels
                     //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
-                if (paymentMethod.Name.ToUpper() == "NETSQR")
+                if (paymentMethod.Name.ToUpper() == "NETS QR")
                 {
                     //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());

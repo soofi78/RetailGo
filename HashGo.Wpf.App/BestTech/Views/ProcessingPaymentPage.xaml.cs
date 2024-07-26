@@ -67,9 +67,15 @@ namespace HashGo.Wpf.App.BestTech.Views
                             NetsQRHelper netsQR = new NetsQRHelper();
 
                             // if host id, host mid and gateway token is empty then dont proceed this payment 
-                            if(string.IsNullOrEmpty(hostId) && string.IsNullOrEmpty(hostId) && string.IsNullOrEmpty(gatewayToken))
+                            if(string.IsNullOrEmpty(hostId) && string.IsNullOrEmpty(hostMId) && string.IsNullOrEmpty(gatewayToken))
                             {
                                 // throw error
+                                MessageBoxResult res = System.Windows.MessageBox.Show("Please make sure that QR Host ID, QR Host MID, QR Gateway Token, QR Timer values are configured");
+
+                                if(res == MessageBoxResult.OK)
+                                    navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
+
+                                return;
                             }
                             else
                             {

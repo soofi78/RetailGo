@@ -20,6 +20,12 @@ namespace HashGo.Infrastructure
         public static string PaymentScreenVisibleDelay { get; set; } = "10";
         public static string NETSPort { get; set; }
         public static string NETSIP { get; set; }
+
+        public static string NETSQRHOSTID { get; set; }
+
+        public static string NETSQRHOSTMID { get; set; }
+        public static string NETSQRGATEWAYTOKEN { get; set; }
+        public static string NETSQRTIMER { get; set; }
         public static string BackgroundImage { get; set; }
         public static string CurrencySymbol { get; set; }
         public static string MenuBackgroundTransparency { get; set; }

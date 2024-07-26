@@ -60,10 +60,10 @@ namespace HashGo.Wpf.App.BestTech.Views
                     {
                         if (HashGoAppSettings.NETSIP == null || HashGoAppSettings.NETSIP.Length == 0)
                         {
-                            string hostId = "37066801";  // move this to settings
-                            string hostMId = "11137066800"; // move this to settings
+                            string hostId = HashGoAppSettings.NETSQRHOSTID; // "37066801";   
+                            string hostMId = HashGoAppSettings.NETSQRHOSTMID; //"11137066800";  
                             string invoiceRef = DateTime.Now.ToString("MMddHHmmss");
-                            string gatewayToken = "gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl"; // move this to settings
+                            string gatewayToken = HashGoAppSettings.NETSQRGATEWAYTOKEN; //"gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl";    
                             NetsQRHelper netsQR = new NetsQRHelper();
                             PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.NetAmountToPay, invoiceRef, gatewayToken);
 

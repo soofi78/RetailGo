@@ -161,8 +161,7 @@ namespace HashGo.Domain.Services
                 new PaymentMethod()
                 {
                     Id = 1,
-                    Name = "NETS",
-                    //Icon = LoadImageToBase64String("\\Resources\\Images\\visa_logo.png"),
+                    Name = "NETS", 
                      Icon = "\\Resources\\Images\\Nets.png",
                      Description = "NETS",
                      PaymentMode = "NETS"
@@ -170,19 +169,20 @@ namespace HashGo.Domain.Services
                 new PaymentMethod()
                 {
                     Id = 2,
-                    Name = "VISA",
-                    //Icon = LoadImageToBase64String("\\Resources\\Images\\flashpay_logo.png"),
+                    Name = "VISA", 
                     Icon = "\\Resources\\Images\\Visa.png",
                     Description="Credit Card/Debit Card",
                     PaymentMode = "CREDITCARD"
                 },
-                //new PaymentMethod()
-                //{
-                //    Id = 3,
-                //    Name = "Cash",
-                //    Icon = LoadImageToBase64String("\\Resources\\Images\\paynow_logo.png"),
-                //}
-
+                new PaymentMethod()
+                {
+                    Id = 3,
+                    Name = "NETS QR",
+                    //Icon = LoadImageToBase64String("\\Resources\\Images\\flashpay_logo.png"),
+                    Icon = "\\Resources\\Images\\NetsQr.png",
+                    Description="Nets QR",
+                    PaymentMode = "NETSQR"
+                } 
             };
         }
 

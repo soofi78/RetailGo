@@ -79,6 +79,10 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             HashGoAppSettings.ShowMemberButton = ShowMemberButton;
             HashGoAppSettings.PrinterName = PrinterName;
             HashGoAppSettings.NETSIP = NetsIP;
+            HashGoAppSettings.NETSQRHOSTID = NetsQrHostId;
+            HashGoAppSettings.NETSQRHOSTMID = NetsQrHostMId;
+            HashGoAppSettings.NETSQRGATEWAYTOKEN = NetsQrGatewaytoken;
+            HashGoAppSettings.NETSQRTIMER = NetsQRTimer;
 
             HashGoAppSettings.SaveSettings();
             ConnectItem = new TenantConnect();
@@ -121,6 +125,10 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                  NETSPort = HashGoAppSettings.NETSPort
         };
             NetsIP = HashGoAppSettings.NETSIP;
+            NetsQrHostId= HashGoAppSettings.NETSQRHOSTID;
+            NetsQrHostMId = HashGoAppSettings.NETSQRHOSTMID;
+            NetsQrGatewaytoken = HashGoAppSettings.NETSQRGATEWAYTOKEN;
+            NetsQRTimer = HashGoAppSettings.NETSQRTIMER;
             BackgroundImage = HashGoAppSettings.BackgroundImage;
             CurrencySymbol = HashGoAppSettings.CurrencySymbol;
             MenuBackgroundTransparency = Convert.ToDouble(HashGoAppSettings.MenuBackgroundTransparency);
@@ -201,6 +209,50 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 netsIP = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string netsQrHostId;
+        public string NetsQrHostId
+        {
+            get => netsQrHostId;
+            set
+            {
+                netsQrHostId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string netsQrHostMId;
+        public string NetsQrHostMId
+        {
+            get => netsQrHostMId;
+            set
+            {
+                netsQrHostMId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string netsQrGatewaytoken;
+        public string NetsQrGatewaytoken
+        {
+            get => netsQrGatewaytoken;
+            set
+            {
+                netsQrGatewaytoken = value;
+                OnPropertyChanged();
+            }
+        }
+
+        string netsQRTimer;
+        public string NetsQRTimer
+        {
+            get => netsQRTimer;
+            set
+            {
+                netsQRTimer = value;
                 OnPropertyChanged();
             }
         }

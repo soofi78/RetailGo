@@ -759,5 +759,28 @@ namespace HashGo.Domain.Helper
                 .Select(x => Convert.ToByte(hexString.Substring(x, 2), 16))
                 .ToArray();
         }
+
+        public static string AppendValue(string value, int length, bool addToLast, char padChar = '0')
+        {
+
+            try
+            {
+                if (value.Length == length)
+                    return value;
+
+                if (value.Length > length)
+                    return value.Substring(0, length);
+
+                if (addToLast)
+                    return value.PadRight(length, padChar);
+                return value.PadLeft(length, padChar);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Please input a number.");
+                return "";
+            }
+        }
+
     }
 }

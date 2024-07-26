@@ -1,4 +1,5 @@
-﻿using HashGo.Core.Models;
+﻿using ControlzEx.Standard;
+using HashGo.Core.Models;
 using HashGo.Domain.Helper;
 using HashGo.Infrastructure;
 using Metsys.Bson;
@@ -24,16 +25,17 @@ namespace HashGo.Wpf.App.Helpers
             var paymentResponse = new PaymentResponseDto();
             try
             {
+                Random random = new Random();
                 var netsQrObj = new NetsQRDto
                 {
                     HostTid = hostId,
                     HostMid = hostMId,
+                    Stan = Utility.AppendValue(random.Next(0, 999999).ToString(), 10, true),
                     Amount = (amount * 100).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),
                     TransactionTime = DateTime.Now.ToString("HHmmss"),
                     InvoiceRef = invoiceRef //Helper.Utility.AppendValue(input.PaymentRequest.Id.ToString(), 10, true)
                 };
-
                 var client = new RestClient($"{GatewayUrl}netsqr/api/order/request");
                 var request = new RestRequest();
                 request.AddHeader("Authorization", $"Bearer {gatewayToken}");

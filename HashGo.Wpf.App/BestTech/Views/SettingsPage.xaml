@@ -524,12 +524,12 @@ CornerRadius="9" Grid.Column="0" Grid.ColumnSpan="2">
                         <Border Grid.Column="2" Grid.Row="4"  CornerRadius="12"
                     HorizontalAlignment="Stretch"  Margin="2,15,10,10"
                     VerticalAlignment="Stretch" >
-                            <TextBox  Foreground="Black" Background="White"
+                            <TextBox  Foreground="Black" Background="White" MaxLength="1"
                  VerticalContentAlignment="Center" Text="{Binding NetsQRTimer,UpdateSourceTrigger=PropertyChanged}"
                  BorderThickness="0" >
-                                <!--<i:Interaction.Behaviors>
+                                <i:Interaction.Behaviors>
                                     <behaviours:IntegerInputBehaviour />
-                                </i:Interaction.Behaviors>-->
+                                </i:Interaction.Behaviors>
                             </TextBox>
                         </Border>
                     </Grid> 

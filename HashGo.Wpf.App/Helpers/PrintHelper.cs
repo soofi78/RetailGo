@@ -16,7 +16,7 @@ namespace HashGo.Wpf.App.Helpers
 {
     public static class PrintHelper
     {
-        # region Printer Method
+        #region Printer Method
 
         public static byte[] GetLogo(string LogoPath)
         {
@@ -29,18 +29,29 @@ namespace HashGo.Wpf.App.Helpers
 
             int offset = 0;
             MemoryStream stream = new MemoryStream();
+            // BinaryWriter bw = new BinaryWriter(stream);
             byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
+            //bw.Write((char));
             byteList.Add(Convert.ToByte('@'));
+            //bw.Write('@');
             byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
+            // bw.Write((char)0x1B);
             byteList.Add(Convert.ToByte('3'));
+            //bw.Write('3');
+            //bw.Write((byte)24);
             byteList.Add((byte)24);
             while (offset < data.Height)
             {
                 byteList.Add(Convert.ToByte(Convert.ToChar(0x1B)));
                 byteList.Add(Convert.ToByte('*'));
+                //bw.Write((char)0x1B);
+                //bw.Write('*');         // bit-image mode
                 byteList.Add((byte)33);
+                //bw.Write((byte)33);    // 24-dot double-density
                 byteList.Add(width[0]);
                 byteList.Add(width[1]);
+                //bw.Write(width[0]);  // width low byte
+                //bw.Write(width[1]);  // width high byte
 
                 for (int x = 0; x < data.Width; ++x)
                 {
@@ -63,10 +74,12 @@ namespace HashGo.Wpf.App.Helpers
                             slice |= (byte)((v ? 1 : 0) << (7 - b));
                         }
                         byteList.Add(slice);
+                        //bw.Write(slice);
                     }
                 }
                 offset += 24;
                 byteList.Add(Convert.ToByte(0x0A));
+                //bw.Write((char));
             }
             // Restore the line spacing to the default of 30 dots.
             byteList.Add(Convert.ToByte(0x1B));
@@ -74,6 +87,9 @@ namespace HashGo.Wpf.App.Helpers
             //bw.Write('3');
             byteList.Add((byte)30);
             return byteList.ToArray();
+            //bw.Flush();
+            //byte[] bytes = stream.ToArray();
+            //return logo + Encoding.Default.GetString(bytes);
         }
 
         public static BitmapData GetBitmapData(string bmpFileName)
@@ -118,6 +134,8 @@ namespace HashGo.Wpf.App.Helpers
                 EscPosEpson escPosEpson = new EscPosEpson();
                 var BytesValue = Encoding.ASCII.GetBytes(string.Empty);
 
+                ApplicationStateContext.ServerImagePath = "";
+                //string lineChar = lineChar;
                 //Get the image from the server, if its not present
                 //then read the app settings image
                 string imgPath = (!string.IsNullOrEmpty(ApplicationStateContext.ServerImagePath)) ? ApplicationStateContext.ServerImagePath :
@@ -128,11 +146,12 @@ namespace HashGo.Wpf.App.Helpers
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.companyName+"\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
                 //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("UEN NO - 201705269N" + "\n\n"));  //this is hardcoded as it does not comes                                                                                                               from GetLocationForEdit
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.address1 + "\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.LocationDetailsObj?.address2 + "\n\n"));
@@ -141,50 +160,52 @@ namespace HashGo.Wpf.App.Helpers
                 //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Customer Care - 8585 8584 / 8485 8585" + "\n\n")); //this is hardcoded as                                                                                                            it does not comes from GetLocationForEdit
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SALES ORDER\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"SO No:  {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo}\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Date:  {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soDate}\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"SO No:     {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo}"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"       Date:      {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soDate}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Customer:  {ApplicationStateContext.CustomerDetailsObj.Name}\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Address:  {ApplicationStateContext.CustomerDetailsObj.AddressLine1}\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Address:   {ApplicationStateContext.CustomerDetailsObj.AddressLine1}\n\n"));
                 if (!string.IsNullOrEmpty(ApplicationStateContext.CustomerDetailsObj.AddressLine2))
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"          {ApplicationStateContext.CustomerDetailsObj.AddressLine2}\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Mobile:  {ApplicationStateContext.CustomerDetailsObj.ContactNumber}\n\n"));
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"           {ApplicationStateContext.CustomerDetailsObj.AddressLine2}\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Mobile:    {ApplicationStateContext.CustomerDetailsObj.ContactNumber}\n\n"));
 
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Item                                  Qty  Price     Net Total\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
                 foreach (var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
                 {
-                    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n\n", salesOrder.productName,
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-33}{1,6}{2,10}{3,12:N2}\n\n", salesOrder.productName,
                                                                                                                      salesOrder.qty,
                                                                                                                      salesOrder.price,
                                                                                                                      salesOrder.subTotal));
                 }
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"        Total Qty:  {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.balanceQty}\n\n"));   //doubt
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("-----------------------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Sub Total : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soSubTotal}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Gst       : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soTax}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Net Total : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal}\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Paid Amount : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.balance}\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Paid Amount :     {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.balance}\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Outstanding Amt : {ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.balance}\n\n"));   //doubt  
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("--------------------------------------------\n\n"));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight6());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
+                BytesValue = PrintExtensions.AddBytes(BytesValue, GetESCBarcodeString(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
+                
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo+"\n\n"));
+                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, "Thank You. Please come again. \n\n");
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
@@ -237,6 +258,22 @@ namespace HashGo.Wpf.App.Helpers
                 Console.WriteLine(ex.ToString());
             }
 
+        }
+
+        private static byte[]  GetESCBarcodeString(string sTransactionNo)
+        {
+            int EOT = 0x1D;
+            string GS = (char)EOT + "";
+            string sBarcode = "";
+            sBarcode += GS + "w" + Convert.ToChar(2); //Barcode Width
+            sBarcode += GS + "h" + Convert.ToChar(70); //Barcode Width
+            sBarcode += GS + "f" + Convert.ToChar(1); //Font for HRI characters
+            sBarcode += GS + "H" + Convert.ToChar(2); //Position of HRI characters
+            sBarcode += GS + "k" + Convert.ToChar(69) + Convert.ToChar(sTransactionNo.Length); //Print Barcode Smb 39
+            sBarcode = sBarcode + sTransactionNo + Convert.ToChar(0) + "\n"; //Print Text Under
+            sBarcode += GS + "d" + Convert.ToChar(3) + "\n";
+            sBarcode += GS + "@";
+            return (Encoding.ASCII.GetBytes(sBarcode));
         }
 
         public static byte[] CutPage()

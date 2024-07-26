@@ -43,13 +43,14 @@ namespace HashGo.Wpf.App.BestTech.Views
         DispatcherTimer timer;
         INavigationService navigationService;
         IRetailConnectService retailConnectService;
-        public ProcessingPaymentPage(INavigationService navigationService, IRetailConnectService retailConnectService)
+        private readonly ILoggingService _logger;
+        public ProcessingPaymentPage(INavigationService navigationService, IRetailConnectService retailConnectService, ILoggingService logger)
         {
             InitializeComponent();
 
             this.navigationService = navigationService;
             this.retailConnectService = retailConnectService;
-
+            _logger = logger;
             this.Loaded += (sender, e) =>
             {
                 //performOperation();
@@ -65,7 +66,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                             string hostMId = HashGoAppSettings.NETSQRHOSTMID; //"11137066800";  
                             string invoiceRef = DateTime.Now.ToString("MMddHHmmss");
                             string gatewayToken = HashGoAppSettings.NETSQRGATEWAYTOKEN; //"gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl";    
-                            NetsQRHelper netsQR = new NetsQRHelper();
+                            NetsQRHelper netsQR = new NetsQRHelper(_logger);
 
                             // if host id, host mid and gateway token is empty then dont proceed this payment 
                             if(string.IsNullOrEmpty(hostId) && string.IsNullOrEmpty(hostMId) && string.IsNullOrEmpty(gatewayToken))

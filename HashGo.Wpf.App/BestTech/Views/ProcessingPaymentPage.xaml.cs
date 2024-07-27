@@ -59,6 +59,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                 {
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                     {
+                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                         if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETS QR" &&
                             (HashGoAppSettings.NETSIP == null ||  HashGoAppSettings.NETSIP.Length == 0))
                         {
@@ -140,6 +141,10 @@ namespace HashGo.Wpf.App.BestTech.Views
                 catch (Exception ex)
                 {
 
+                }
+                finally
+                {
+                    Mouse.OverrideCursor = null;
                 }
             };
 

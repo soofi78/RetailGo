@@ -18,6 +18,7 @@ public static class RetailConnectApiRouterNames
     public const string GET_SALESORDER = "/api/services/app/salesorder/GetSalesOrderForEdit";
     public const string GET_STORELOCATORS = "/api/services/app/location/ApiGetLocations";
     public const string GET_LOCATIONDETAILS = "/api/services/app/location/GetLocationForEdit";
+    public const string GET_ALLSETTINGS = "/api/services/app/tenantsettings/getallsettings";
 }
  
 public static class AppConfigKeys

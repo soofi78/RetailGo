@@ -19,6 +19,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
         {
             InitializeComponent();
             this.sharedDataService = sharedDataService;
+            tBoxInput.Focus();
 
             this.Loaded += (sender, e) =>
             {

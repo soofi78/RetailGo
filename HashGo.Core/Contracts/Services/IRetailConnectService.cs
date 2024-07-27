@@ -25,5 +25,6 @@ namespace HashGo.Core.Contracts.Services
         Task<LocationDetails> GetLocationDetails();
 
         Task<SalesOrderWrapper> GetSalesOrderForEdit();
+        Task<TenantSettingsWrapper> GetAllSettings();
     }
 }

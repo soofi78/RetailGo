@@ -391,5 +391,28 @@ namespace HashGo.Domain.Services
 
             return null;
         }
+
+        public async Task<TenantSettingsWrapper> GetAllSettings()
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post("",
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_ALLSETTINGS);
+
+                TenantSettingsResponse result = JsonConvert.DeserializeObject<TenantSettingsResponse>(responeString);
+
+                if (result != null && result.success && result.result != null)
+                {
+                    return result.result;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return null;
+        }
     }
 }

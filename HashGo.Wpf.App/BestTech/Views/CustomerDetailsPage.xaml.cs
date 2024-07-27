@@ -32,6 +32,7 @@ namespace HashGo.Wpf.App.BestTech.Views
             InitializeComponent();
 
             this.DataContext = customerDetailsPageViewModel;
+            tBoxName.Focus();
 
             //this.Loaded += (sender, e) =>
             //{

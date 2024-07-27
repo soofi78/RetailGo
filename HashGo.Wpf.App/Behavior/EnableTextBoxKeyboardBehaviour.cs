@@ -27,16 +27,24 @@ namespace HashGo.Wpf.App.Behavior
         {
             try
             {
-                string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
-
-                ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
-                processStartInfo.UseShellExecute = true;
-                Process oskProcess = Process.Start(processStartInfo);
+                var uiHostNoLaunch = new UIHostNoLaunch();
+                var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+                tipInvocation.Toggle(GetDesktopWindow());
+                Marshal.ReleaseComObject(uiHostNoLaunch);
             }
             catch (Exception ex)
             {
-
+                startOSKProcess();
             }
+        }
+
+        void startOSKProcess()
+        {
+            string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
+            processStartInfo.UseShellExecute = true;
+            Process oskProcess = Process.Start(processStartInfo);
         }
 
         protected override void OnDetaching()
@@ -51,27 +59,20 @@ namespace HashGo.Wpf.App.Behavior
         {
             try
             {
-                //var uiHostNoLaunch = new UIHostNoLaunch();
-                //var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                //tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
-                //Marshal.ReleaseComObject(uiHostNoLaunch);
-                Process[] oskProcesses = Process.GetProcessesByName("TabTip");
-
-                if (oskProcesses?.Length > 0)
-                {
-                    foreach (Process process in oskProcesses)
-                    {
-                        //process.Close();
-                        process.Kill();
-                    }
-                }
+                var uiHostNoLaunch = new UIHostNoLaunch();
+                var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+                tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
+                Marshal.ReleaseComObject(uiHostNoLaunch);
             }
             catch (Exception ex)
             {
-
+               
             }
 
-
+            finally
+            {
+                closeOSKProcess();
+            }
             //Process[] oskProcesses = Process.GetProcessesByName("TabTip");
 
             //if (oskProcesses?.Length > 0)
@@ -82,6 +83,20 @@ namespace HashGo.Wpf.App.Behavior
             //        process.Kill();
             //    }
             //}
+        }
+
+        void closeOSKProcess()
+        {
+            Process[] oskProcesses = Process.GetProcessesByName("TabTip");
+
+            if (oskProcesses?.Length > 0)
+            {
+                foreach (Process process in oskProcesses)
+                {
+                    //process.Close();
+                    process.Kill();
+                }
+            }
         }
 
         private void AssociatedObject_TextInput(object sender, TextCompositionEventArgs e)

@@ -56,11 +56,20 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.sharedDataService = sharedDataService;
 
             LoadCompanyLogo();
+            LoadSettingsFromServer();
         }
 
         async void LoadCompanyLogo()
         {
             ImagePath = await retailConnectService.GetCompanyLogo(HashGoAppSettings.LocationId);
+        }
+
+        async void LoadSettingsFromServer()
+        {
+            var settings = await retailConnectService.GetAllSettings();
+
+            if(settings?.connect != null)
+                ApplicationStateContext.IsSalesTaxInclusive = settings.connect.salesTaxInclusive;
         }
 
         void OnNavigateToSettingsScreen()

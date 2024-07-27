@@ -28,6 +28,7 @@ namespace HashGo.Infrastructure.DataContext
         public static LocationDetails LocationDetailsObj { get; set; }
         public static SalesOrderWrapper SalesOrderWrapperobj { get; set; }
         public static string NETQRImageBase64String { get;set; }
+        public static bool IsSalesTaxInclusive { get; set; }
 
         static ApplicationStateContext()
         {
@@ -49,6 +50,7 @@ namespace HashGo.Infrastructure.DataContext
             LocationDetailsObj = null;
             SalesOrderWrapperobj = null;
             NETQRImageBase64String = null;
+            IsSalesTaxInclusive = false;
         }
 
         public static void LoadSettings()

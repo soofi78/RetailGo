@@ -90,7 +90,11 @@
                 <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
                           MinHeight="44" MaxHeight="66" MaxWidth="713" x:Name="tBoxName"
            Text="{Binding CustomerDetailsObj.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-KeyDown="TextBox_KeyDown"/>
+KeyDown="TextBox_KeyDown">
+                    <i:Interaction.Behaviors>
+                        <behaviours:EnableTextBoxKeyboardBehaviour />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
 
             <StackPanel >
@@ -102,7 +106,11 @@ KeyDown="TextBox_KeyDown"/>
                 <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
                           MinHeight="44" MaxHeight="66" MaxWidth="713" 
            Text="{Binding CustomerDetailsObj.AddressLine1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-KeyDown="TextBox_KeyDown"/>
+KeyDown="TextBox_KeyDown">
+                    <i:Interaction.Behaviors>
+                        <behaviours:EnableTextBoxKeyboardBehaviour />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
 
             <StackPanel >
@@ -112,7 +120,11 @@ KeyDown="TextBox_KeyDown"/>
                 <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
                           MinHeight="44" MaxHeight="66" MaxWidth="713" 
            Text="{Binding CustomerDetailsObj.AddressLine2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-KeyDown="TextBox_KeyDown"/>
+KeyDown="TextBox_KeyDown">
+                    <i:Interaction.Behaviors>
+                        <behaviours:EnableTextBoxKeyboardBehaviour />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
@@ -133,6 +145,7 @@ Text="{Binding CustomerDetailsObj.ContactNumber,Mode=TwoWay,UpdateSourceTrigger=
 KeyDown="TextBox_KeyDown">
                         <i:Interaction.Behaviors>
                             <behaviours:IntegerInputBehaviour />
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </StackPanel>
@@ -154,6 +167,7 @@ Text="{Binding CustomerDetailsObj.PostalCode,Mode=TwoWay,UpdateSourceTrigger=Pro
 KeyDown="TextBox_KeyDown">
                         <i:Interaction.Behaviors>
                             <behaviours:IntegerInputBehaviour />
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </StackPanel>
@@ -174,7 +188,11 @@ Text="{Binding CustomerDetailsObj.UnitNo,Mode=TwoWay,UpdateSourceTrigger=Propert
                                MinHeight="44" MaxHeight="62" 
          MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
          MaxWidth="342"
-KeyDown="TextBox_KeyDown"/>
+KeyDown="TextBox_KeyDown">
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel>
@@ -190,7 +208,11 @@ KeyDown="TextBox_KeyDown"/>
                                MinHeight="44" MaxHeight="62" 
          MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
          MaxWidth="342"
-     KeyDown="TextBox_KeyDown"/>
+     KeyDown="TextBox_KeyDown">
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
                 </StackPanel>
 
             </StackPanel>
@@ -203,7 +225,11 @@ KeyDown="TextBox_KeyDown"/>
                  MinHeight="102"         MaxHeight="140" MaxWidth="713"
                           
            Text="{Binding CustomerDetailsObj.Remarks,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-KeyDown="TextBox_KeyDown"/>
+KeyDown="TextBox_KeyDown">
+                    <i:Interaction.Behaviors>
+                        <behaviours:EnableTextBoxKeyboardBehaviour />
+                    </i:Interaction.Behaviors>
+                </TextBox>
             </StackPanel>
             <ToggleButton   Margin="0,10,0,0" MaxHeight="78" MinHeight="50"
                              MaxWidth="529" 

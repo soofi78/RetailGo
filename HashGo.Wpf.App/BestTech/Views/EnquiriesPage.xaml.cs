@@ -32,54 +32,11 @@ namespace HashGo.Wpf.App.BestTech.Views
         {
             InitializeComponent();
             this.DataContext = enquiriesPageViewModel;
-
-            this.Loaded += (sender, e) =>
-            {
-                tBoxEnquiries.Focus();
-
-                try
-                {
-                    var uiHostNoLaunch = new UIHostNoLaunch();
-                    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                    tipInvocation.Toggle(GetDesktopWindow());
-                    Marshal.ReleaseComObject(uiHostNoLaunch);
-                }
-                catch (Exception ex)
-                {
-                    string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
-
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
-                    processStartInfo.UseShellExecute = true;
-                    Process oskProcess = Process.Start(processStartInfo);
-                }
-            };
-
-            this.Unloaded += (sender, e) =>
-            {
-                try
-                {
-                    var uiHostNoLaunch = new UIHostNoLaunch();
-                    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                    tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
-                    Marshal.ReleaseComObject(uiHostNoLaunch);
-                }
-                catch (Exception ex)
-                {
-
-                }
-
-
-                Process[] oskProcesses = Process.GetProcessesByName("TabTip");
-
-                if (oskProcesses?.Length > 0)
-                {
-                    foreach (Process process in oskProcesses)
-                    {
-                        //process.Close();
-                        process.Kill();
-                    }
-                }
-            };
+            tBoxEnquiries.Focus();
+            //this.Loaded += (sender, e) =>
+            //{
+            //    tBoxEnquiries.Focus();
+            //};
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -115,24 +72,7 @@ namespace HashGo.Wpf.App.BestTech.Views
             while (nextElement is TextBlock);
         }
 
-        #region touch keyboard
-
-        [ComImport, Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
-        class UIHostNoLaunch
-        {
-        }
-
-        [ComImport, Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        interface ITipInvocation
-        {
-            void Toggle(IntPtr hwnd);
-        }
-
-        [DllImport("user32.dll", SetLastError = false)]
-        static extern IntPtr GetDesktopWindow();
-
-        #endregion
+        
 
         private void TextBox_KeyDown_1(object sender, KeyEventArgs e)
         {

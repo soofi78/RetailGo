@@ -26,80 +26,80 @@ namespace HashGo.Wpf.App.BestTech.Views
     /// </summary>
     public partial class CustomerDetailsPage : BasePage
     {
-        string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
+        //string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
         public CustomerDetailsPage(CustomerDetailsPageViewModel customerDetailsPageViewModel, IPopupService popupService) : base(popupService)
         {
             InitializeComponent();
 
             this.DataContext = customerDetailsPageViewModel;
 
-            this.Loaded += (sender, e) =>
-            {
-                tBoxName.Focus();
+            //this.Loaded += (sender, e) =>
+            //{
+            //    //tBoxName.Focus();
 
 
-                try
-                {
-                    var uiHostNoLaunch = new UIHostNoLaunch();
-                    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                    tipInvocation.Toggle(GetDesktopWindow());
-                    Marshal.ReleaseComObject(uiHostNoLaunch);
-                }
-                catch (Exception ex)
-                {
-                    string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
+            //    //try
+            //    //{
+            //    //    var uiHostNoLaunch = new UIHostNoLaunch();
+            //    //    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+            //    //    tipInvocation.Toggle(GetDesktopWindow());
+            //    //    Marshal.ReleaseComObject(uiHostNoLaunch);
+            //    //}
+            //    //catch (Exception ex)
+            //    //{
+            //    //    string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
 
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
-                    processStartInfo.UseShellExecute = true;
-                    Process oskProcess = Process.Start(processStartInfo);
-                }   
-            };
+            //    //    ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
+            //    //    processStartInfo.UseShellExecute = true;
+            //    //    Process oskProcess = Process.Start(processStartInfo);
+            //    //}   
+            //};
 
-            this.Unloaded += (sender, e) => 
-            {
-                try
-                {
-                    var uiHostNoLaunch = new UIHostNoLaunch();
-                    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                    tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
-                    Marshal.ReleaseComObject(uiHostNoLaunch);
-                }
-                catch (Exception ex)
-                {
+            //this.Unloaded += (sender, e) => 
+            //{
+            //    try
+            //    {
+            //        var uiHostNoLaunch = new UIHostNoLaunch();
+            //        var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+            //        tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
+            //        Marshal.ReleaseComObject(uiHostNoLaunch);
+            //    }
+            //    catch (Exception ex)
+            //    {
 
-                }
+            //    }
 
-                Process[] oskProcesses = Process.GetProcessesByName("TabTip");
+            //    Process[] oskProcesses = Process.GetProcessesByName("TabTip");
 
-                if (oskProcesses?.Length > 0)
-                {
-                    foreach (Process process in oskProcesses)
-                    {
-                        //process.Close();
-                        process.Kill();
-                    }
-                }
-            };
+            //    if (oskProcesses?.Length > 0)
+            //    {
+            //        foreach (Process process in oskProcesses)
+            //        {
+            //            //process.Close();
+            //            process.Kill();
+            //        }
+            //    }
+            //};
         }
 
-        #region touch keyboard
+        //#region touch keyboard
 
-        [ComImport, Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
-        class UIHostNoLaunch
-        {
-        }
+        //[ComImport, Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
+        //class UIHostNoLaunch
+        //{
+        //}
 
-        [ComImport, Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        interface ITipInvocation
-        {
-            void Toggle(IntPtr hwnd);
-        }
+        //[ComImport, Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
+        //[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        //interface ITipInvocation
+        //{
+        //    void Toggle(IntPtr hwnd);
+        //}
 
-        [DllImport("user32.dll", SetLastError = false)]
-        static extern IntPtr GetDesktopWindow();
+        //[DllImport("user32.dll", SetLastError = false)]
+        //static extern IntPtr GetDesktopWindow();
 
-        #endregion
+        //#endregion
 
         private static readonly Regex _regex = new Regex("^[896][0-9]*$");
 

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" Keyboard.KeyDown="Window_PreviewKeyDown"
+        xmlns:behaviours="clr-namespace:HashGo.Wpf.App.Behavior"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True"
         Title="VirtualKeyboard" >
     <Window.Resources>
@@ -40,9 +41,12 @@
                    Margin="0,10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
-        <TextBox x:Name="tBoxInput"  Grid.Row="2" Style="{StaticResource RoundedTextBoxWithShadowStyle}" Margin="0,5,0,5" 
-                 KeyDown="tBoxInput_KeyDown"
-                MaxHeight="113" MaxWidth="637"  MinHeight="60" MinWidth="400"/>
+        <TextBox x:Name="tBoxInput"  Grid.Row="2" Style="{StaticResource RoundedTextBoxWithShadowStyle}" Margin="0,5,0,5"
+                MaxHeight="113" MaxWidth="637"  MinHeight="60" MinWidth="400">
+            <i:Interaction.Behaviors>
+                <behaviours:EnableTextBoxKeyboardBehaviour />
+            </i:Interaction.Behaviors>
+        </TextBox>
 
         <Border Background="#00B5CB" Margin="0,10,0,10" Grid.Row="3" 
                  Cursor="Hand" BorderBrush="Black" BorderThickness="1"

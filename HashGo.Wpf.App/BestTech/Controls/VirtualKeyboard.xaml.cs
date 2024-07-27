@@ -22,7 +22,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
 
             this.Loaded += (sender, e) =>
             {
-                tBoxInput.Focus();
+                //tBoxInput.Focus();
                 tBoxInput.Text = null;
 
                 if(!string.IsNullOrEmpty(sharedDataService.RefferalCode))
@@ -36,96 +36,95 @@ namespace HashGo.Wpf.App.BestTech.Controls
             this.MinHeight = SystemParameters.PrimaryScreenHeight/4;
             this.Width = SystemParameters.PrimaryScreenWidth - 10;
 
-            this.Unloaded += (sender, e) =>
-            {
-                closeVirtualKeyboard();
-            };
+            //this.Unloaded += (sender, e) =>
+            //{
+            //    closeVirtualKeyboard();
+            //};
 
-            OpenVirtualKeyboard();
+            //OpenVirtualKeyboard();
         }
 
-        void closeVirtualKeyboard()
-        {
-            try
-            {
-                var uiHostNoLaunch = new UIHostNoLaunch();
-                var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
-                Marshal.ReleaseComObject(uiHostNoLaunch);
-            }
-            catch(Exception ex)
-            {
+        //void closeVirtualKeyboard()
+        //{
+        //    try
+        //    {
+        //        var uiHostNoLaunch = new UIHostNoLaunch();
+        //        var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+        //        tipInvocation.Toggle(IntPtr.Zero); // Pass IntPtr.Zero to close the keyboard
+        //        Marshal.ReleaseComObject(uiHostNoLaunch);
+        //    }
+        //    catch(Exception ex)
+        //    {
 
-            }
+        //    }
 
-            Process[] oskProcesses = Process.GetProcessesByName("TabTip");
+        //    Process[] oskProcesses = Process.GetProcessesByName("TabTip");
 
-            if (oskProcesses?.Length > 0)
-            {
-                foreach (Process process in oskProcesses)
-                {
-                    //process.Close();
-                    process.Kill();
-                }
-            }
-        }
+        //    if (oskProcesses?.Length > 0)
+        //    {
+        //        foreach (Process process in oskProcesses)
+        //        {
+        //            //process.Close();
+        //            process.Kill();
+        //        }
+        //    }
+        //}
 
-        string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
+        //string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
 
-        void OpenVirtualKeyboard()
-        {
-            try
-            {
-                try
-                {
-                    var uiHostNoLaunch = new UIHostNoLaunch();
-                    var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                    tipInvocation.Toggle(GetDesktopWindow());
-                    Marshal.ReleaseComObject(uiHostNoLaunch);
-                }
-                catch(Exception ex)
-                {
-                    string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
+        //void OpenVirtualKeyboard()
+        //{
+        //    try
+        //    {
+        //        try
+        //        {
+        //            var uiHostNoLaunch = new UIHostNoLaunch();
+        //            var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+        //            tipInvocation.Toggle(GetDesktopWindow());
+        //            Marshal.ReleaseComObject(uiHostNoLaunch);
+        //        }
+        //        catch(Exception ex)
+        //        {
+        //            string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
 
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
-                    processStartInfo.UseShellExecute = true;
+        //            ProcessStartInfo processStartInfo = new ProcessStartInfo(onScreenkeyboardPath);
+        //            processStartInfo.UseShellExecute = true;
 
-                    Process oskProcess = Process.Start(processStartInfo);
-                    oskProcessId = oskProcess.Id;
-                }
-            }
-            catch (Exception ex)
-            {
+        //            Process oskProcess = Process.Start(processStartInfo);
+        //            oskProcessId = oskProcess.Id;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
+        //    }
             
-        }
+        //}
 
-        #region touch keyboard
+        //#region touch keyboard
 
-        [ComImport, Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
-        class UIHostNoLaunch
-        {
-        }
+        //[ComImport, Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
+        //class UIHostNoLaunch
+        //{
+        //}
 
-        [ComImport, Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        interface ITipInvocation
-        {
-            void Toggle(IntPtr hwnd);
-        }
+        //[ComImport, Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
+        //[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        //interface ITipInvocation
+        //{
+        //    void Toggle(IntPtr hwnd);
+        //}
 
-        [DllImport("user32.dll", SetLastError = false)]
-        static extern IntPtr GetDesktopWindow();
+        //[DllImport("user32.dll", SetLastError = false)]
+        //static extern IntPtr GetDesktopWindow();
 
-        #endregion
+        //#endregion
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                //e.Handled = true;
-                closeVirtualKeyboard();
+                //closeVirtualKeyboard();
                 sharedDataService.RefferalCode = tBoxInput.Text;
                 this.DialogResult = true;
                 return;
@@ -199,7 +198,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
 
         private void Path_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            closeVirtualKeyboard();
+            //closeVirtualKeyboard();
             //sharedDataService.RefferalCode = tBoxInput.Text;
             this.Close();
             //this.DialogResult = false;
@@ -209,7 +208,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
         {
             if (e.Key == Key.Enter)
             {
-                closeVirtualKeyboard();
+                //closeVirtualKeyboard();
             }
         }
     }

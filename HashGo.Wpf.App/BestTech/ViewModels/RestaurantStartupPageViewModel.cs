@@ -100,21 +100,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         /// </summary>
         void OnMoveToNextScreen()
         {
-
-            //This code is commented intentionally dont delete
-            //var selectedProduct = lstProducts.FirstOrDefault(ee => ee.IsSelected == true);
-
-            // if(selectedProduct != null)
-            // {
-
-            // }
             var selectedDepartment = LstDepartments.First(ee => ee.IsSelected == true);
             ApplicationStateContext.DepartmentId = selectedDepartment.Id;
-            //var parameters = new Dictionary<string, object>
-            //    {
-            //        { "IsServiceDepartment", selectedDepartment.DepartmentName.ToUpper() == "SERVICING" },
-            //    };
-            //navigationService.NavigateToAsync(Pages.DineDateSelect.ToString(), parameters );
 
             sharedDataService.DepartmentName = selectedDepartment.DepartmentName;
             navigationService.NavigateToAsync(Pages.ProductSelection.ToString());

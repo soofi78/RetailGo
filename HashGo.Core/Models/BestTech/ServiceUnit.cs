@@ -18,5 +18,7 @@ namespace HashGo.Core.Models.BestTech
         public string imagePath { get; set; }
         public double price { get; set; }
         public string remarks { get; set; }
+        public string tax { get; set; }
+        public string taxPercentage { get; set; }
     }
 }

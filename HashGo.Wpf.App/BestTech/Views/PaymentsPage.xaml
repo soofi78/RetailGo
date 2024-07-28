@@ -187,7 +187,7 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
 
                 <TextBlock Text="Total(incl. Deposit)" VerticalAlignment="Center" FontSize="18"
                             Grid.Row="2" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}"/>
-                <TextBlock Text="{Binding TotalPrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
+                <TextBlock Text="{Binding NetTotalPrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
                            FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                             Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 10 0" FontSize="18" />
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using HashGo.Core.Models.BestTech;
 using HashGo.Infrastructure.Common;
+using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -148,7 +149,7 @@ namespace HashGo.Domain.Models.Base
             //                       };
         }
 
-        public Unit(int unitId, int id, string unitName, string name, string imageSource, double unitPrice, string remarks)
+        public Unit(int unitId, int id, string unitName, string name, string imageSource, double unitPrice, string remarks, string taxPerc)
         {
             Name = name;
             UnitId = unitId;
@@ -159,13 +160,12 @@ namespace HashGo.Domain.Models.Base
             TotalPrice = unitPrice * unitCount;
              DescriptionNotes = remarks;
 
-            descriptionNotes = "An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.";
-            //LstUnitInstallationTypes = new List<SelectedUnitInstallationType>()
-            //                       {
-            //                           new SelectedUnitInstallationType(UniqueIdGenerator.GenerateId(), "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId),
-            //                           new SelectedUnitInstallationType(UniqueIdGenerator.GenerateId(),"Power Point", CommonConstants.DEFAULTIMAGE, UnitId),
-            //                           new SelectedUnitInstallationType(UniqueIdGenerator.GenerateId(),"Stainless Steel Bracket", CommonConstants.DEFAULTIMAGE, UnitId),
-            //                       };
+            //descriptionNotes = "An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.";
+
+            if(ApplicationStateContext.Tax  == null)
+            {
+                ApplicationStateContext.Tax = Convert.ToDecimal(taxPerc);
+            }
         }
 
         SelectedUnitInstallationType selectedUnitInstallationTypeObj;

@@ -8,6 +8,7 @@ using HashGo.Domain.Models.Base;
 using HashGo.Domain.Services;
 using HashGo.Domain.ViewModels;
 using HashGo.Domain.ViewModels.Base;
+using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.Events;
 using HashGo.Wpf.App.BestTech.Views;
 using Prism.Events;
@@ -108,7 +109,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         }
         void CalculateTotalPrice()
         {
-            this.TotalPrice = sharedDataService.SelectedUnits?.Sum(ee => ((ee.UnitPrice+ee.AddOnsPrice) * ee.UnitCount));
+            this.TotalPrice = Convert.ToDecimal(sharedDataService.SelectedUnits?.Sum(ee => ((ee.UnitPrice+ee.AddOnsPrice) * ee.UnitCount)));
         }
 
         void OnRemoveClicked(Unit unit)
@@ -259,8 +260,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             }
         }
 
-        double? totalPrice;
-        public double? TotalPrice
+        decimal? totalPrice;
+        public decimal? TotalPrice
         {
             get => totalPrice;
             set
@@ -269,15 +270,43 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
                 if(totalPrice != null)
                 {
-                    Deposit = totalPrice / 5;
+                    CalculateNetTotal();
+                     Deposit = Convert.ToDecimal(NetTotalPrice / 5);
                 }
                 OnPropertyChanged();
             }
         }
 
-        double? deposit;
+        void CalculateNetTotal()
+        {
+            decimal taxAmount = 0.0M;
 
-        public double? Deposit 
+            if (ApplicationStateContext.IsSalesTaxInclusive)
+            {
+                 taxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value);
+            }
+            else
+            {
+                 taxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
+            }
+
+            NetTotalPrice = totalPrice + taxAmount;
+        }
+
+        decimal? netTotalPrice;
+        public decimal? NetTotalPrice
+        {
+            get => netTotalPrice;
+            set
+            {
+                netTotalPrice = value;
+                OnPropertyChanged();
+            }
+        }
+
+        decimal? deposit;
+
+        public decimal? Deposit 
         {
             get => deposit;
             set
@@ -299,7 +328,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         public RelayCommand<Unit> EditProductCommand { get; set; }
         public RelayCommand<Unit> RemoveUnitCommand { get; private set; }
         public ICommand AddRefferalCodeCommand { get; private set; }
-        
+
         #endregion
     }
 }

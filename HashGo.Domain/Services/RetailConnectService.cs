@@ -199,7 +199,7 @@ namespace HashGo.Domain.Services
                 var client = HttpHelper.GetInstance();
 
                 if (client == null) throw new Exception("Unable to create HttpClient.");
-
+                var vv = JsonConvert.SerializeObject(saleOrder);
                 string? responeString = client.Post(
                        JsonConvert.SerializeObject(saleOrder),
 
@@ -243,7 +243,7 @@ namespace HashGo.Domain.Services
 
                 Base<ServiceUnit> result = JsonConvert.DeserializeObject<Base<ServiceUnit>>(responeString);
 
-                if (result != null && result.success && result.result.items != null)
+                 if (result != null && result.success && result.result.items != null)
                 {
                     return result.result.items;
                 }

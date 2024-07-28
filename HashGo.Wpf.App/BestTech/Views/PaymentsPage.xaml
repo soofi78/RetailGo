@@ -7,6 +7,7 @@
       mc:Ignorable="d"
       xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:applicationConstants="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
       xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PaymentsPage">
@@ -20,7 +21,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="95"/>
             <RowDefinition Height="170"/>
         </Grid.RowDefinitions>
 
@@ -171,6 +172,7 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Order Summary" VerticalAlignment="Center" FontSize="18"
@@ -185,17 +187,26 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                 <TextBlock Text="{Binding TotalPrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
                            Grid.Row="1" Grid.Column="1" Margin="0 0 10 0" HorizontalAlignment="Right" FontSize="18"/>
 
+                <TextBlock VerticalAlignment="Center" FontSize="18"
+                           Grid.Row="2" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}">
+                    <Run>Tax Percentage (</Run>
+                     <Run Text="{Binding Source={x:Static applicationConstants:ApplicationStateContext.Tax}, Mode=OneWay}"/>
+                    <Run>%)</Run>
+                </TextBlock>
+                <TextBlock Text="{Binding TaxAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
+                           Grid.Row="2" Grid.Column="1" Margin="0 0 10 0" HorizontalAlignment="Right" FontSize="18"/>
+
                 <TextBlock Text="Total(incl. Deposit)" VerticalAlignment="Center" FontSize="18"
-                            Grid.Row="2" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}"/>
+                            Grid.Row="3" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}"/>
                 <TextBlock Text="{Binding NetTotalPrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
                            FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                            Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 10 0" FontSize="18" />
+                            Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 10 0" FontSize="18" />
 
                 <TextBlock Text="Deposit (20%)" VerticalAlignment="Center" FontSize="18" FontWeight="Bold"
-             Grid.Row="3" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"/>
+             Grid.Row="4" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"/>
                 <TextBlock Text="{Binding Deposit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
             FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}" FontWeight="Bold" TextDecorations="Underline"
-             Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 10 0" FontSize="18" />
+             Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 10 0" FontSize="18" />
             </Grid>
         </Grid>
         <StackPanel Grid.Row="5" Margin="10,10,10,0">

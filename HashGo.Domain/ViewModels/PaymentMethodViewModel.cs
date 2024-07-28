@@ -166,18 +166,18 @@ namespace HashGo.Domain.ViewModels
             }
         }
 
-        public decimal TotalAmount
-        {
-            get
-            {
-                decimal amount = Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
-                if (ApplicationStateContext.NetAmountToPay == 0)
-                {
-                    ApplicationStateContext.NetAmountToPay = amount;
-                }
-                return amount;
-            }
-        }
+        //public decimal TotalAmount
+        //{
+        //    get
+        //    {
+        //        decimal amount = Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
+        //        if (ApplicationStateContext.NetAmountToPay == 0)
+        //        {
+        //            ApplicationStateContext.NetAmountToPay = amount;
+        //        }
+        //        return amount;
+        //    }
+        //}
 
         private SalesOrderRequest GetSalesOrderRequest()
         {
@@ -187,7 +187,7 @@ namespace HashGo.Domain.ViewModels
             foreach (var selectedUnit in SelectedUnits)
             {
                 SalesOrderDetail detail = new SalesOrderDetail();
-                detail.unitId = selectedUnit.UnitId;
+                detail.unitId =  selectedUnit.UnitId; 
                 detail.productId = selectedUnit.Id;
                 detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
                 detail.qty = selectedUnit.UnitCount;
@@ -210,7 +210,7 @@ namespace HashGo.Domain.ViewModels
                         addOnDetail.qty = addon.InstallationTypeCount;
                         addOnDetail.subTotal = Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
                         addOnDetail.productName = addon.InstallationType;
-                        total += Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
+                        //total += Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
                         lstSaleOrderDetails.Add(addOnDetail);
                     }
                 }
@@ -231,8 +231,8 @@ namespace HashGo.Domain.ViewModels
                 unitName = ApplicationStateContext.CustomerDetailsObj?.UnitNo,
                 floorNumber = ApplicationStateContext.CustomerDetailsObj?.FloorNo,
                 locationId = Convert.ToInt32(HashGoAppSettings.LocationId),
-                netTotal = total,
-                //saleOrderDetails = lstSaleOrderDetails 
+                netTotal = ApplicationStateContext.NetAmountToPay
+                //netTotal = total
             };
             return salesOrderRequest;
         }

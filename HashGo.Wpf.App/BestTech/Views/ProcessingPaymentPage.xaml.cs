@@ -60,8 +60,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                     {
                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-                        if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETS QR" &&
-                            (HashGoAppSettings.NETSIP == null ||  HashGoAppSettings.NETSIP.Length == 0))
+                        if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETS QR")
                         {
                             string hostId = HashGoAppSettings.NETSQRHOSTID; // "37066801";   
                             string hostMId = HashGoAppSettings.NETSQRHOSTMID; //"11137066800";  
@@ -108,6 +107,11 @@ namespace HashGo.Wpf.App.BestTech.Views
                         }
                         else
                         {
+                            if(string.IsNullOrEmpty(HashGoAppSettings.NETSIP))
+                            {
+                                System.Windows.MessageBox.Show("Please make sure that NETSIP is configured");
+                                return;
+                            }
                             PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
                             if (PaymentHelper.mbTransactionSuccess)

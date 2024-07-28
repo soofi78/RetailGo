@@ -30,6 +30,7 @@ namespace HashGo.Infrastructure.DataContext
         public static string NETQRImageBase64String { get;set; }
         public static bool IsSalesTaxInclusive { get; set; }
         public static decimal? Tax { get; set; }
+        public static decimal? Deposit { get; set; }
 
         static ApplicationStateContext()
         {
@@ -52,7 +53,7 @@ namespace HashGo.Infrastructure.DataContext
             SalesOrderWrapperobj = null;
             NETQRImageBase64String = null;
             IsSalesTaxInclusive = false;
-            NetTotal = 0.0M;
+            Deposit = null;
         }
 
         public static void LoadSettings()

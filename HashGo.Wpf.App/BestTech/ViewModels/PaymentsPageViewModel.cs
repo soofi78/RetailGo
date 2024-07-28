@@ -272,6 +272,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 {
                     CalculateNetTotal();
                      Deposit = Convert.ToDecimal(NetTotalPrice / 5);
+                    ApplicationStateContext.Deposit = Deposit;
                 }
                 OnPropertyChanged();
             }
@@ -279,18 +280,29 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void CalculateNetTotal()
         {
-            decimal taxAmount = 0.0M;
 
             if (ApplicationStateContext.IsSalesTaxInclusive)
             {
-                 taxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value);
+                TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value);
             }
             else
             {
-                 taxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
+                TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
             }
 
-            NetTotalPrice = totalPrice + taxAmount;
+            NetTotalPrice = totalPrice + TaxAmount;
+            ApplicationStateContext.NetAmountToPay = NetTotalPrice.Value;
+        }
+
+        decimal taxAmount = 0.0M;
+        public decimal TaxAmount 
+        {
+            get => taxAmount;
+            set
+            {
+                taxAmount = value;
+                OnPropertyChanged();
+            }
         }
 
         decimal? netTotalPrice;

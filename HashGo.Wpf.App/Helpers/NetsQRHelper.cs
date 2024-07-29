@@ -38,7 +38,7 @@ namespace HashGo.Wpf.App.Helpers
                     HostTid = hostId,
                     HostMid = hostMId,
                     //Stan = Utility.AppendValue(random.Next(0, 999999).ToString(), 10, true),
-                    Amount = (amount * 100).ToString().PadLeft(12, '0'),
+                    Amount = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),
                     TransactionTime = DateTime.Now.ToString("HHmmss"),
                     InvoiceRef = invoiceRef //Helper.Utility.AppendValue(input.PaymentRequest.Id.ToString(), 10, true)

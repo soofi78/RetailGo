@@ -60,7 +60,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
                     {
                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-                        if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETS QR")
+                        if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "NETSQR")
                         {
                             string hostId = HashGoAppSettings.NETSQRHOSTID; // "37066801";   
                             string hostMId = HashGoAppSettings.NETSQRHOSTMID; //"11137066800";  

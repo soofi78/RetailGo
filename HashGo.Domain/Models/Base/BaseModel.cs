@@ -134,6 +134,21 @@ namespace HashGo.Domain.Models.Base
             set => taxPercantage = value;
         }
 
+        decimal taxAmount;
+        public decimal TaxAmount
+        {
+            get { return taxAmount; }
+            set
+            {
+                //taxAmount = value;
+
+                if(value != default(decimal))
+                {
+                    taxAmount = Math.Round(value, 2);
+                }
+            }
+        }
+
         List<string> imageSources = new List<string>();
 
         string descriptionNotes;
@@ -165,13 +180,25 @@ namespace HashGo.Domain.Models.Base
             ImageSource = imageSource;
             UnitPrice = unitPrice;
             TotalPrice = unitPrice * unitCount;
-             DescriptionNotes = remarks;
-             TaxPercantage = Convert.ToDecimal(taxPerc);
+            DescriptionNotes = remarks;
+            TaxPercantage = Convert.ToDecimal(taxPerc);
             //descriptionNotes = "An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.";
 
             if (ApplicationStateContext.Tax  == null)
             {
                 ApplicationStateContext.Tax = TaxPercantage;
+            }
+
+            if(TaxPercantage > 0)
+            {
+                if (ApplicationStateContext.IsSalesTaxInclusive)
+                {
+                    TaxAmount = Convert.ToDecimal(UnitPrice) * (TaxPercantage / 100);
+                }
+                else
+                {
+                    TaxAmount = (Convert.ToDecimal(UnitPrice) * TaxPercantage) / (100 + TaxPercantage);
+                }
             }
         }
 
@@ -281,6 +308,20 @@ namespace HashGo.Domain.Models.Base
             set => taxPercantage = value;
         }
 
+        decimal taxAmount=0.0M;
+        public decimal TaxAmount
+        {
+            get { return taxAmount; }
+            set
+            {
+                //taxAmount = value;
+
+                if (value != default(decimal))
+                {
+                    taxAmount = Math.Round(value, 2);
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -304,6 +345,18 @@ namespace HashGo.Domain.Models.Base
             AddOnPrice = addOnPrice;
             InstallationTypeCount = installationTypeCount;
             TaxPercantage = taxPercentage;
+
+            if (TaxPercantage > 0)
+            {
+                if (ApplicationStateContext.IsSalesTaxInclusive)
+                {
+                    TaxAmount = Convert.ToDecimal(AddOnPrice) * (TaxPercantage / 100);
+                }
+                else
+                {
+                    TaxAmount = (Convert.ToDecimal(AddOnPrice) * TaxPercantage) / (100 + TaxPercantage);
+                }
+            }
         }
     }
 

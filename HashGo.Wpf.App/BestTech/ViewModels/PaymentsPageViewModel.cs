@@ -271,7 +271,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 if(totalPrice != null)
                 {
                     CalculateNetTotal();
-                     Deposit = Convert.ToDecimal(NetTotalPrice / 5);
+                    Deposit = Convert.ToDecimal(NetTotalPrice / 5);
                     ApplicationStateContext.Deposit = Deposit;
                 }
                 OnPropertyChanged();

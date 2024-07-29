@@ -85,13 +85,8 @@ namespace HashGo.Wpf.App.BestTech.Views
                             }
                             else
                             {
-                                PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.NetAmountToPay, invoiceRef, gatewayToken);
-
-                                // TODO - set the timer in descending order once u convert the responst to QR
-                                // timeout field in settings
-                                // if it failed stay until the time is out
-                                // when timer is running PaymentStatus (next line) should fire and wait for a response
-
+                                PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.Deposit.Value, invoiceRef, gatewayToken);
+                                 
                                 if(netsResponse != null && !string.IsNullOrEmpty(netsResponse.NetsQrCode))
                                 {
                                     ApplicationStateContext.NETQRImageBase64String = netsResponse.NetsQrCode;
@@ -102,13 +97,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                                     };
 
                                     navigationService.NavigateToAsync(Pages.QRPayment.ToString(), parameters);
-
-                                    //PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
-                                    //if (netsStatus.IsSuccess)
-                                    //{
-                                    //    performOperation();
-                                    //}
-
+                                     
                                     return;
                                 }
                                 else 
@@ -116,22 +105,14 @@ namespace HashGo.Wpf.App.BestTech.Views
                             } 
                         }
                         else
-                        {
-                            //if(string.IsNullOrEmpty(HashGoAppSettings.NETSIP))
-                            //{
-                            //    System.Windows.MessageBox.Show("Please make sure that NETSIP is configured");
-                            //    navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
-                            //    return;
-                            //}
+                        { 
                             PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.Deposit.Value);
 
                             if (PaymentHelper.mbTransactionSuccess)
                             {
                                 paymentService.PerformPayment();
                             }
-                        }
-
-                        //ApplicationStateContext.TransactionNo = transactionNo;
+                        } 
 
                         timer = new DispatcherTimer()
                         {

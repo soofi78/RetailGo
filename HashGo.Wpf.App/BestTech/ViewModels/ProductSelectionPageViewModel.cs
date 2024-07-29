@@ -3,6 +3,7 @@ using HashGo.Core.Contracts.Services;
 using HashGo.Core.Contracts.Views;
 using HashGo.Core.Enum;
 using HashGo.Core.Models;
+using HashGo.Core.Models.BestTech;
 using HashGo.Domain.DataContext;
 using HashGo.Domain.Models;
 using HashGo.Domain.Models.Base;
@@ -78,6 +79,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         async Task InitializeDataAsync()
         {
             logger.Trace($"{nameof(ProductSelectionPageViewModel)} : {nameof(InitializeDataAsync)}() Started.");
+            categories = new List<UICategory>();
             var lstCategories = await Task.Run(() => LoadCategories());
 
             if(lstCategories != null && lstCategories.Count > 0)
@@ -170,8 +172,32 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 { "CanAddItem", true },
             };
 
+            if (sharedDataService.AddOnId != 0)
+            {
+                IReadOnlyCollection<ServiceUnit> lstAddOns = this.retailConnectService.GetProductsByCategoryId(sharedDataService.AddOnId).Result;
+
+                if(lstAddOns != null )
+                {
+                    sharedDataService.SelectedUnit?.AddAddOns(lstAddOns);
+                    //OnPropertyChanged(nameof(LstUnitInstallationTypes));
+                    navigationService.NavigateToAsync(Pages.Addons.ToString(), parameters);  //, parameters
+                }
+                else
+                {
+                    sharedDataService.AddItem(this.SelectedUnit);
+                    sharedDataService.SelectedUnit = null;
+                    OnPropertyChanged(nameof(SelectedProductsCount));
+                }
+            }
+            else //directly add the product to cart
+            {
+                sharedDataService.AddItem(this.SelectedUnit);
+                sharedDataService.SelectedUnit = null;
+                OnPropertyChanged(nameof(SelectedProductsCount));
+            }
+
             OnPropertyChanged(nameof(CanMoveTopaymentsScreen));
-            navigationService.NavigateToAsync(Pages.Addons.ToString(), parameters);  //, parameters
+            
         }
 
         /// <summary>
@@ -232,17 +258,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 navigationService.NavigateToAsync(Pages.RestaurantStartup.ToString());
             }
         }
-
-        //void OnMoveToStartScreen()
-        //{
-        //    //var parameters = new Dictionary<string, object>
-        //    //{
-        //    //    { "CanAddItem", true },
-        //    //};
-        //    //navigationService.NavigateToAsync(Pages.Addons.ToString(), parameters);  //, parameters
-
-        //    navigationService.NavigateToAsync(Pages.RestaurantStartup.ToString());
-        //}
 
         #region Commands
 

@@ -223,12 +223,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             OnPropertyChanged(nameof(SelectedAddOns));
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
 
-            if (sharedDataService.AddOnId != 0)
-            {
-                sharedDataService.SelectedUnit?.AddAddOns(this.retailConnectService.GetProductsByCategoryId(sharedDataService.AddOnId).Result);
-                OnPropertyChanged(nameof(LstUnitInstallationTypes));
-            }
-
+            //if (sharedDataService.AddOnId != 0)
+            //{
+            //    sharedDataService.SelectedUnit?.AddAddOns(this.retailConnectService.GetProductsByCategoryId(sharedDataService.AddOnId).Result);
+            //    OnPropertyChanged(nameof(LstUnitInstallationTypes));
+            //}
+            OnPropertyChanged(nameof(LstUnitInstallationTypes));
             OnPropertyChanged(nameof(CanEnableAddToCart));
         }
 

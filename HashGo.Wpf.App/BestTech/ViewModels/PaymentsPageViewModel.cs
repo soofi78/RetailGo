@@ -283,11 +283,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             if (ApplicationStateContext.IsSalesTaxInclusive)
             {
-                TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value);
+                TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
             }
             else
             {
-                TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
+                TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value); 
             }
 
             NetTotalPrice = totalPrice + TaxAmount;

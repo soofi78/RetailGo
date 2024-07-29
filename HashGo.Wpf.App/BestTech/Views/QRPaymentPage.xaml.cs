@@ -53,31 +53,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
             this.Loaded += (sender, e) =>
             {
-                qrIamge.Source = Base64StringToBitmapImage(ApplicationStateContext.NETQRImageBase64String);
-                //int tmpTime  = Convert.ToInt32(HashGoAppSettings.NETSQRTIMER);
-
-                //if (tmpTime != 0)
-                //    time = TimeSpan.FromMinutes(tmpTime);
-                //timer = new DispatcherTimer()
-                //{
-                //    Interval = TimeSpan.FromSeconds(1)
-                //};
-
-                //timer.Tick += (sender, e) =>
-                //{
-                //    tBlockTimer.Text = time.ToString(@"m\:ss");
-                //    time = time.Add(TimeSpan.FromSeconds(-1));
-                //    if (time == TimeSpan.FromSeconds(0))
-                //    {
-                //        timer.Stop();
-                //        navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
-                //        return;
-                //    }
-                //    checkPaymentStatusCallBack();
-
-                //};
-
-                //timer.Start();
+                qrIamge.Source = Base64StringToBitmapImage(ApplicationStateContext.NETQRImageBase64String); 
             };
             this.Unloaded += (sender, e) =>
             {
@@ -87,13 +63,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
             this.DataContext = qRPaymentPageViewModel;
         }
-
-        void checkPaymentStatusCallBack()
-        {
-            //PaymentResponseDto netsStatus = netsQR.PaymentStatus(HashGoAppSettings.NETSQRHOSTID,
-            //                                                     HashGoAppSettings.NETSQRHOSTMID, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
-        }
-
+         
         public BitmapImage Base64StringToBitmapImage(string base64String)
         {
             byte[] imageBytes = Convert.FromBase64String(base64String);

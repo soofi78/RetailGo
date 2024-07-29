@@ -127,6 +127,13 @@ namespace HashGo.Domain.Models.Base
             }
         }
 
+        decimal taxPercantage = 0.0M;
+        public decimal TaxPercantage 
+        {
+            get => taxPercantage; 
+            set => taxPercantage = value;
+        }
+
         List<string> imageSources = new List<string>();
 
         string descriptionNotes;
@@ -159,12 +166,12 @@ namespace HashGo.Domain.Models.Base
             UnitPrice = unitPrice;
             TotalPrice = unitPrice * unitCount;
              DescriptionNotes = remarks;
-
+             TaxPercantage = Convert.ToDecimal(taxPerc);
             //descriptionNotes = "An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.";
 
-            if(ApplicationStateContext.Tax  == null)
+            if (ApplicationStateContext.Tax  == null)
             {
-                ApplicationStateContext.Tax = Convert.ToDecimal(taxPerc);
+                ApplicationStateContext.Tax = TaxPercantage;
             }
         }
 
@@ -183,7 +190,7 @@ namespace HashGo.Domain.Models.Base
         public void AddAddOns(IReadOnlyCollection<ServiceUnit> result)
         {
             List<SelectedUnitInstallationType> tmpPlst = new List<SelectedUnitInstallationType>();
-            tmpPlst.Add(new SelectedUnitInstallationType(-1, "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId,0));
+            tmpPlst.Add(new SelectedUnitInstallationType(-1, "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId,0,0.0M));
 
             if (result != null && result.Count > 0)
             {
@@ -206,7 +213,7 @@ namespace HashGo.Domain.Models.Base
                     tmpPlst.Add(new SelectedUnitInstallationType(addOn.id, 
                                                                  addOn.name,
                                                                  string.IsNullOrEmpty(addOn.imagePath)?CommonConstants.DEFAULTIMAGE: addOn.imagePath,
-                                                                 addOn.unitId, addOn.price, installationTypeCount));
+                                                                 addOn.unitId, addOn.price, Convert.ToDecimal(addOn.taxPercentage), installationTypeCount));
                 }
             }
 
@@ -267,6 +274,13 @@ namespace HashGo.Domain.Models.Base
 
         double addOnPrice=1500.00;
 
+        decimal taxPercantage = 0.0M;
+        public decimal TaxPercantage
+        {
+            get => taxPercantage;
+            set => taxPercantage = value;
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -279,8 +293,9 @@ namespace HashGo.Domain.Models.Base
         public SelectedUnitInstallationType(int installationTypeId, 
                                             string installationType, 
                                             string imageSource, int unitId, 
-                                            double addOnPrice, 
-                                            int installationTypeCount = 0)
+                                            double addOnPrice,
+                                            decimal taxPercentage,
+                                            int installationTypeCount = 0 )
         {
             InstallationTypeId = installationTypeId;
             InstallationType = installationType;
@@ -288,6 +303,7 @@ namespace HashGo.Domain.Models.Base
             UnitId = unitId;
             AddOnPrice = addOnPrice;
             InstallationTypeCount = installationTypeCount;
+            TaxPercantage = taxPercentage;
         }
     }
 

@@ -25,6 +25,9 @@ using HashGo.Infrastructure;
 using HashGo.Core.Enum;
 using HashGo.Wpf.App.Services;
 using HashGo.Core.Contracts.Views;
+using HashGo.Wpf.App.Helpers;
+using Microsoft.Extensions.Hosting;
+using HashGo.Core.Contracts.Services;
 
 namespace HashGo.Wpf.App.BestTech.Views
 {
@@ -36,45 +39,59 @@ namespace HashGo.Wpf.App.BestTech.Views
         private DispatcherTimer timer;
         INavigationService navigationService;
         private TimeSpan time = TimeSpan.FromMinutes(2);
+        NetsQRHelper netsQR;
 
-        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, INavigationService navigationService,IPopupService popupService) //: base(popupService)
+        public QRPaymentPage(QRPaymentPageViewModel qRPaymentPageViewModel, 
+                            INavigationService navigationService,
+                            IPopupService popupService, 
+                            ILoggingService logger) //: base(popupService)
         {
             InitializeComponent();
 
             this.navigationService = navigationService;
+            netsQR = new NetsQRHelper(logger);
 
             this.Loaded += (sender, e) =>
             {
                 qrIamge.Source = Base64StringToBitmapImage(ApplicationStateContext.NETQRImageBase64String);
-                int tmpTime  = Convert.ToInt32(HashGoAppSettings.NETSQRTIMER);
+                //int tmpTime  = Convert.ToInt32(HashGoAppSettings.NETSQRTIMER);
 
-                if (tmpTime != 0)
-                    time = TimeSpan.FromMinutes(tmpTime);
-                timer = new DispatcherTimer()
-                {
-                    Interval = TimeSpan.FromSeconds(1),
-                };
+                //if (tmpTime != 0)
+                //    time = TimeSpan.FromMinutes(tmpTime);
+                //timer = new DispatcherTimer()
+                //{
+                //    Interval = TimeSpan.FromSeconds(1)
+                //};
 
-                timer.Tick += (sender, e) =>
-                {
-                    tBlockTimer.Text = time.ToString(@"m\:ss");
-                    time = time.Add(TimeSpan.FromSeconds(-1));
-                    if (time == TimeSpan.FromSeconds(0))
-                    {
-                        timer.Stop();
-                        navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
-                    }
-                };
+                //timer.Tick += (sender, e) =>
+                //{
+                //    tBlockTimer.Text = time.ToString(@"m\:ss");
+                //    time = time.Add(TimeSpan.FromSeconds(-1));
+                //    if (time == TimeSpan.FromSeconds(0))
+                //    {
+                //        timer.Stop();
+                //        navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
+                //        return;
+                //    }
+                //    checkPaymentStatusCallBack();
 
-                timer.Start();
+                //};
+
+                //timer.Start();
             };
             this.Unloaded += (sender, e) =>
             {
-                timer?.Stop();
-                timer = null;
+                //timer?.Stop();
+                //timer = null;
             };
 
             this.DataContext = qRPaymentPageViewModel;
+        }
+
+        void checkPaymentStatusCallBack()
+        {
+            //PaymentResponseDto netsStatus = netsQR.PaymentStatus(HashGoAppSettings.NETSQRHOSTID,
+            //                                                     HashGoAppSettings.NETSQRHOSTMID, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
         }
 
         public BitmapImage Base64StringToBitmapImage(string base64String)
@@ -90,5 +107,11 @@ namespace HashGo.Wpf.App.BestTech.Views
                 return bitmapImage;
             }
         }
+
+        #region Properties
+
+        
+
+        #endregion
     }
 }

@@ -44,12 +44,16 @@ namespace HashGo.Wpf.App.BestTech.Views
         INavigationService navigationService;
         IRetailConnectService retailConnectService;
         private readonly ILoggingService _logger;
-        public ProcessingPaymentPage(INavigationService navigationService, IRetailConnectService retailConnectService, ILoggingService logger)
+        IPaymentService paymentService;
+        public ProcessingPaymentPage(INavigationService navigationService, 
+                                     IRetailConnectService retailConnectService,
+                                     ILoggingService logger, IPaymentService paymentService)
         {
             InitializeComponent();
 
             this.navigationService = navigationService;
             this.retailConnectService = retailConnectService;
+            this.paymentService = paymentService;
             _logger = logger;
             this.Loaded += (sender, e) =>
             {
@@ -91,13 +95,19 @@ namespace HashGo.Wpf.App.BestTech.Views
                                 if(netsResponse != null && !string.IsNullOrEmpty(netsResponse.NetsQrCode))
                                 {
                                     ApplicationStateContext.NETQRImageBase64String = netsResponse.NetsQrCode;
-                                    navigationService.NavigateToAsync(Pages.QRPayment.ToString());
 
-                                    PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
-                                    if (netsStatus.IsSuccess)
+                                    var parameters = new Dictionary<string, object>
                                     {
-                                        performOperation();
-                                    }
+                                        { "NetsResponse", netsResponse }
+                                    };
+
+                                    navigationService.NavigateToAsync(Pages.QRPayment.ToString(), parameters);
+
+                                    //PaymentResponseDto netsStatus = netsQR.PaymentStatus(hostId, hostMId, netsResponse.NetQRPaymentResponse.data.InstitutionCode, netsResponse.NetQRPaymentResponse.data.TxnIdentifier, netsResponse.NetQRPaymentResponse.data.InvoiceRef, gatewayToken);
+                                    //if (netsStatus.IsSuccess)
+                                    //{
+                                    //    performOperation();
+                                    //}
 
                                     return;
                                 }
@@ -107,20 +117,21 @@ namespace HashGo.Wpf.App.BestTech.Views
                         }
                         else
                         {
-                            if(string.IsNullOrEmpty(HashGoAppSettings.NETSIP))
-                            {
-                                System.Windows.MessageBox.Show("Please make sure that NETSIP is configured");
-                                return;
-                            }
+                            //if(string.IsNullOrEmpty(HashGoAppSettings.NETSIP))
+                            //{
+                            //    System.Windows.MessageBox.Show("Please make sure that NETSIP is configured");
+                            //    navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
+                            //    return;
+                            //}
                             PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
 
                             if (PaymentHelper.mbTransactionSuccess)
                             {
-                                performOperation();
+                                paymentService.PerformPayment();
                             }
                         }
 
-                        ApplicationStateContext.TransactionNo = transactionNo;
+                        //ApplicationStateContext.TransactionNo = transactionNo;
 
                         timer = new DispatcherTimer()
                         {
@@ -129,7 +140,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
                         timer.Tick += (sender, e) =>
                         {
-                            if (!string.IsNullOrEmpty(transactionNo) && PaymentHelper.mbTransactionSuccess)
+                            if (!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo) && PaymentHelper.mbTransactionSuccess)
                             {
                                 navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
                             }
@@ -159,48 +170,48 @@ namespace HashGo.Wpf.App.BestTech.Views
             };
         }
 
-        void performOperation()
-        {
-            DoTransaction();
+        //void performOperation()
+        //{
+        //    DoTransaction();
 
-            if (!string.IsNullOrEmpty(transactionNo))
-            {
-                GetLocationDetails();
-                GetSalesOrder();
-                PrintHelper.Print();
-            }
-        }
+        //    if (!string.IsNullOrEmpty(transactionNo))
+        //    {
+        //        GetLocationDetails();
+        //        GetSalesOrder();
+        //        PrintHelper.Print();
+        //    }
+        //}
 
-        async void GetLocationDetails()
-        {
-            ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
-        }
+        //async void GetLocationDetails()
+        //{
+        //    ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
+        //}
 
-        async void GetSalesOrder()
-        {
-            ApplicationStateContext.SalesOrderWrapperobj = await retailConnectService.GetSalesOrderForEdit();
-        }
+        //async void GetSalesOrder()
+        //{
+        //    ApplicationStateContext.SalesOrderWrapperobj = await retailConnectService.GetSalesOrderForEdit();
+        //}
 
-        #region Region Payment Transaction
+        //#region Region Payment Transaction
 
-        async void DoTransaction()
-        {
-            CreateTransaction(ApplicationStateContext.SalesOrderRequestObject);
-        }
+        //async void DoTransaction()
+        //{
+        //    CreateTransaction(ApplicationStateContext.SalesOrderRequestObject);
+        //}
 
-        private string transactionNo;
+        //private string transactionNo;
 
-        private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
-        {
-            TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
+        //private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
+        //{
+        //    TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
           
-            if (transactionDetails != null)
-            {
-                transactionNo = transactionDetails.transactionNo;
-                ApplicationStateContext.TransactionId = transactionDetails.id;
-            }
-        }
+        //    if (transactionDetails != null)
+        //    {
+        //        transactionNo = transactionDetails.transactionNo;
+        //        ApplicationStateContext.TransactionId = transactionDetails.id;
+        //    }
+        //}
 
-        #endregion
+        //#endregion
     }
 }

@@ -126,6 +126,7 @@ namespace HashGo.Wpf.App.Helpers
                 paymentResponse.Message = e.Message;
             }
 
+            //paymentResponse.IsSuccess = true;
             return paymentResponse;
         }
 

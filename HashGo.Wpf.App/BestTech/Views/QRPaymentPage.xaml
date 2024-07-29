@@ -6,9 +6,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
       xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
-      mc:Ignorable="d" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="QRPaymentPage">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ViewLoadedCommand}"/>
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding ViewUnLoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
@@ -27,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
-            FontSize="25" Foreground="#00B5CB"
+            FontSize="25" Foreground="#00B5CB" Text="{Binding TimerText,Mode=TwoWay}"
             x:Name="tBlockTimer" 
             FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
             FontWeight="Bold"/>

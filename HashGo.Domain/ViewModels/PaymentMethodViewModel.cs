@@ -166,18 +166,19 @@ namespace HashGo.Domain.ViewModels
             }
         }
 
-        //public decimal TotalAmount
-        //{
-        //    get
-        //    {
-        //        decimal amount = Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
-        //        if (ApplicationStateContext.NetAmountToPay == 0)
-        //        {
-        //            ApplicationStateContext.NetAmountToPay = amount;
-        //        }
-        //        return amount;
-        //    }
-        //}
+        public decimal Deposit
+        {
+            get
+            {
+                //decimal amount = Convert.ToDecimal(0.20 * SelectedUnits.Sum(ee => ((ee.UnitPrice + ee.AddOnsPrice) * ee.UnitCount)));
+                //if (ApplicationStateContext.NetAmountToPay == 0)
+                //{
+                //    ApplicationStateContext.NetAmountToPay = amount;
+                //}
+                //return amount;
+                return ApplicationStateContext.Deposit.Value;
+            }
+        }
 
         private SalesOrderRequest GetSalesOrderRequest()
         {

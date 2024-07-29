@@ -73,7 +73,7 @@
               FontSize="20" Foreground="#00B5CB"
               FontWeight="Bold"
               FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
-              Text="{Binding TotalAmount,StringFormat=C}" />
+              Text="{Binding Deposit,StringFormat=C}" />
             <TextBlock 
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"

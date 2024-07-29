@@ -123,7 +123,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                             //    navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
                             //    return;
                             //}
-                            PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.NetAmountToPay);
+                            PaymentHelper.ProcessNetsNetwork(ApplicationStateContext.PaymentMethodObject.PaymentMode, ApplicationStateContext.Deposit.Value);
 
                             if (PaymentHelper.mbTransactionSuccess)
                             {

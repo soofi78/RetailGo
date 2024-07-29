@@ -59,8 +59,8 @@
                                                FontSize="18"
                                                FontFamily="{StaticResource BaijamureeFontMediumStyle}"/>
                                     <TextBlock FontWeight="Regular" FontSize="16" Margin="0,8,0,0"
-TextWrapping="Wrap" FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
-Text="{Binding SelectedAddOnsCheckOutPage}" />
+                                               TextWrapping="Wrap" FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
+                                               Text="{Binding SelectedAddOnsCheckOutPage}" />
                                 </StackPanel>
 
                                 <local:ProductCountControl  Grid.Column="2" Margin="10,0,0,0" CanMakeItemsCountZero="False"
@@ -70,12 +70,12 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                                                             Count="{Binding UnitCount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                 <StackPanel Grid.Column="3" Margin="10,0,2,0" VerticalAlignment="Center">
                                     <Border Background="Red" Grid.Column="1"
-    BorderBrush="Gray"
-    BorderThickness="1" Margin="0,5,0,6"
-    Cursor="Hand"
-    HorizontalAlignment="Center" 
-    Width="92" Height="29"
-    CornerRadius="5">
+                                            BorderBrush="Gray"
+                                            BorderThickness="1" Margin="0,5,0,6"
+                                            Cursor="Hand"
+                                            HorizontalAlignment="Center" 
+                                            Width="92" Height="29"
+                                            CornerRadius="5">   
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                                 <i:InvokeCommandAction Command="{Binding DataContext.RemoveUnitCommand,RelativeSource={RelativeSource AncestorType=baseControls:BasePage}}"
@@ -84,7 +84,7 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                                         </i:Interaction.Triggers>
                                         <TextBlock Text="Remove" HorizontalAlignment="Center"
                                                    FontSize="15" FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-           VerticalAlignment="Center" Foreground="Black" />
+                                                   VerticalAlignment="Center" Foreground="Black" />
                                     </Border>
                                     
                                     <TextBlock Text="{Binding TotalPrice,StringFormat=C,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -92,12 +92,12 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                                                Foreground="Black" />
 
                                     <Border Background="Gray" Grid.Column="1"
-         BorderBrush="Gray"
-         BorderThickness="1"
-         Cursor="Hand" Margin="0,5,0,6"
-         HorizontalAlignment="Center" 
-         Width="92" Height="24"
-         CornerRadius="5">
+                     BorderBrush="Gray"
+                     BorderThickness="1"
+                     Cursor="Hand" Margin="0,5,0,6"
+                     HorizontalAlignment="Center" 
+                     Width="92" Height="24"
+                     CornerRadius="5">
                                         <i:Interaction.Triggers>
          <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                                 <i:InvokeCommandAction Command="{Binding DataContext.EditProductCommand,RelativeSource={RelativeSource AncestorType=baseControls:BasePage}}"
@@ -187,12 +187,8 @@ Text="{Binding SelectedAddOnsCheckOutPage}" />
                 <TextBlock Text="{Binding TotalPrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
                            Grid.Row="1" Grid.Column="1" Margin="0 0 10 0" HorizontalAlignment="Right" FontSize="18"/>
 
-                <TextBlock VerticalAlignment="Center" FontSize="18"
-                           Grid.Row="2" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}">
-                    <Run>Tax Percentage (</Run>
-                     <Run Text="{Binding Source={x:Static applicationConstants:ApplicationStateContext.Tax}, Mode=OneWay}"/>
-                    <Run>%)</Run>
-                </TextBlock>
+                <TextBlock VerticalAlignment="Center" FontSize="18" Text="Tax Amount"
+                           Grid.Row="2" Grid.Column="0" FontFamily="{StaticResource BaijamureeFontMediumStyle}" />
                 <TextBlock Text="{Binding TaxAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=C}" VerticalAlignment="Center"
                            Grid.Row="2" Grid.Column="1" Margin="0 0 10 0" HorizontalAlignment="Right" FontSize="18"/>
 

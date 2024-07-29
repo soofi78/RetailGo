@@ -281,16 +281,37 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         void CalculateNetTotal()
         {
 
+            //if (ApplicationStateContext.IsSalesTaxInclusive)
+            //{
+            //    TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
+            //}
+            //else
+            //{
+            //    TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value); 
+            //}
+
+            foreach(var product in sharedDataService.SelectedUnits)
+            {
+                TaxAmount += product.TaxAmount;
+                if(product.LstSelectedUnitInstallationTypes?.Count > 0)
+                {
+                    foreach(var addOn in product.LstSelectedUnitInstallationTypes)
+                    {
+                        TaxAmount += addOn.TaxAmount;
+                    }
+                }
+            }
+
             if (ApplicationStateContext.IsSalesTaxInclusive)
             {
-                TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
+                NetTotalPrice = totalPrice;
             }
             else
             {
-                TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value); 
+                NetTotalPrice = totalPrice + TaxAmount;
             }
-
-            NetTotalPrice = totalPrice + TaxAmount;
+            
+            //NetTotalPrice = totalPrice + TaxAmount;
             ApplicationStateContext.NetAmountToPay = NetTotalPrice.Value;
         }
 

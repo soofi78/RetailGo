@@ -40,6 +40,8 @@ namespace HashGo.Core.Models
     public class SalesOrder
     {
         public DateTime date { get; set; }
+        public decimal subTotal { get; set; }
+        public decimal tax { get; set; }
         public decimal netTotal { get; set; }
         public int locationId { get; set; }
         public string name { get; set; }
@@ -54,9 +56,12 @@ namespace HashGo.Core.Models
     public class SalesOrderDetail
     {
         public int productId { get; set; }
+        public int taxId { get; set; }
         public int unitId { get; set; }
         public decimal price { get; set; }
         public decimal subTotal { get; set; }
+        public decimal tax { get; set; }
+        public decimal netTotal { get; set; }
         public int qty { get; set; }
         public string productName { get; set; }
     }

@@ -40,6 +40,7 @@ namespace HashGo.Core.Models
     public class SalesOrder
     {
         public DateTime date { get; set; }
+        public string type { get; set; }
         public decimal subTotal { get; set; }
         public decimal tax { get; set; }
         public decimal netTotal { get; set; }

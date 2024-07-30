@@ -109,7 +109,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                         {
                             PaymentHelper.mbTransactionSuccess = true;
                             paymentService.PerformPayment();
-                            return;
+                            navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
                         }
                         else
                         { 

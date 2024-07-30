@@ -20,5 +20,6 @@ namespace HashGo.Core.Models.BestTech
         public string remarks { get; set; }
         public string tax { get; set; }
         public string taxPercentage { get; set; }
+        public int taxId { get; set; }
     }
 }

@@ -196,7 +196,7 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Paid Amount :     {ApplicationStateContext.Deposit}\n\n"));
-                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Outstanding Amt : {ApplicationStateContext.NetAmountToPay - ApplicationStateContext.Deposit.Value}\n\n"));   //doubt  
+                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes($"Outstanding Amt : {Convert.ToDecimal(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal)   - ApplicationStateContext.Deposit.Value}\n\n"));   //doubt  
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());

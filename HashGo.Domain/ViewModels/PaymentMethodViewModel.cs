@@ -194,8 +194,8 @@ namespace HashGo.Domain.ViewModels
                 detail.subTotal = detail.price * detail.qty;
                 detail.subTotal = detail.price;
                 detail.productName = selectedUnit.Name;
-                //detail.taxId = selectedUnit.ta;
-                //detail.tax = detail.tax;
+                detail.taxId = selectedUnit.TaxId;
+                detail.tax = selectedUnit.TaxAmount;
 
                 total += detail.price;
                 lstSaleOrderDetails.Add(detail);
@@ -213,6 +213,8 @@ namespace HashGo.Domain.ViewModels
                         addOnDetail.qty = addon.InstallationTypeCount;
                         addOnDetail.subTotal = Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
                         addOnDetail.productName = addon.InstallationType;
+                        addOnDetail.tax = addon.TaxAmount;
+                        addOnDetail.taxId = addon.TaxId;
                         //total += Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
                         lstSaleOrderDetails.Add(addOnDetail);
                     }

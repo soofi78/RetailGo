@@ -365,7 +365,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                                                                                 string.IsNullOrEmpty(ee.imagePath) ?
                                                       CommonConstants.DEFAULTIMAGE : ee.imagePath,
                                                       ee.price,
-                                                      ee.remarks, ee.taxPercentage)).ToList();
+                                                      ee.remarks, ee.taxPercentage,ee.taxId)).ToList();
             }
             catch(Exception ex)
             {

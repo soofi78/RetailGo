@@ -148,6 +148,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                 finally
                 {
                     Mouse.OverrideCursor = null;
+                    PaymentHelper.mbTransactionSuccess = false;
                 }
             };
 

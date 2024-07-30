@@ -51,6 +51,7 @@
     <None Remove="Resources\Images\Nets.png" />
     <None Remove="Resources\Images\NetsQr.png" />
     <None Remove="Resources\Images\NoAddOn.png" />
+    <None Remove="Resources\Images\RightArrow.png" />
     <None Remove="Resources\Images\ShoppingCart.png" />
     <None Remove="Resources\Images\ViewCart.png" />
     <None Remove="Resources\Images\Visa.png" />
@@ -276,6 +277,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\NoAddOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\RightArrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\ShoppingCart.png">

@@ -182,7 +182,17 @@ namespace HashGo.Domain.Services
                     Icon = "\\Resources\\Images\\NetsQr.png",
                     Description="Nets QR",
                     PaymentMode = "NETSQR"
-                } 
+                },
+                new PaymentMethod()
+                {
+                    Id = 4,
+                    Name = "CASH",
+                    //Icon = LoadImageToBase64String("\\Resources\\Images\\RightArrow.png"),
+                    Icon = "\\Resources\\Images\\RightArrow.png",
+                    Description="CASH",
+                    PaymentMode = "CASH"
+                }
+
             };
         }
 

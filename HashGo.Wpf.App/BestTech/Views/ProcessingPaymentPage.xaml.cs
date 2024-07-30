@@ -103,6 +103,13 @@ namespace HashGo.Wpf.App.BestTech.Views
                                 else 
                                     return;
                             } 
+                        
+                        }
+                        else if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "CASH")
+                        {
+                            PaymentHelper.mbTransactionSuccess = true;
+                            paymentService.PerformPayment();
+                            return;
                         }
                         else
                         { 
@@ -112,26 +119,26 @@ namespace HashGo.Wpf.App.BestTech.Views
                             {
                                 paymentService.PerformPayment();
                             }
-                        } 
-
-                        timer = new DispatcherTimer()
-                        {
-                            Interval = TimeSpan.FromSeconds(4),
-                        };
-
-                        timer.Tick += (sender, e) =>
-                        {
-                            if (!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo) && PaymentHelper.mbTransactionSuccess)
+                            timer = new DispatcherTimer()
                             {
-                                navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
-                            }
-                            else
-                            {
-                                navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
-                            }
-                        };
+                                Interval = TimeSpan.FromSeconds(4),
+                            };
 
-                        timer.Start();
+                            timer.Tick += (sender, e) =>
+                            {
+                                if (!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo) && PaymentHelper.mbTransactionSuccess)
+                                {
+                                    navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
+                                }
+                                else
+                                {
+                                    navigationService.NavigateToAsync(Pages.PurchaseFailed.ToString());
+                                }
+                            };
+
+                            timer.Start();
+                        }
+
                     }
                 }
                 catch (Exception ex)

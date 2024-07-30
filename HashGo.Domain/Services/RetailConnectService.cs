@@ -196,6 +196,7 @@ namespace HashGo.Domain.Services
         {
             try
             {
+                saleOrder.salesOrder.type = "I"; 
                 var client = HttpHelper.GetInstance();
 
                 if (client == null) throw new Exception("Unable to create HttpClient.");

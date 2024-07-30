@@ -101,12 +101,7 @@ namespace HashGo.Domain.ViewModels
                 ApplicationStateContext.SalesOrderRequestObject = salesOrderRequest;
                 ApplicationStateContext.PaymentMethodObject = paymentMethod;
 
-                //var parameters = new Dictionary<string, object>
-                //{
-                //    { "SalesOrderRequestObject", salesOrderRequest },
-                //    { "PaymentMethodObject", paymentMethod },
-                //};
-
+              
                 if (paymentMethod.Name.ToUpper() == "NETS")
                 {
                     //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
@@ -118,6 +113,10 @@ namespace HashGo.Domain.ViewModels
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
                 else if (paymentMethod.Name.ToUpper() == "VISA")
+                {
+                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                }
+                else if (paymentMethod.Name.ToUpper() == "CASH")
                 {
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
@@ -195,6 +194,9 @@ namespace HashGo.Domain.ViewModels
                 detail.subTotal = detail.price * detail.qty;
                 detail.subTotal = detail.price;
                 detail.productName = selectedUnit.Name;
+                //detail.taxId = selectedUnit.ta;
+                //detail.tax = detail.tax;
+
                 total += detail.price;
                 lstSaleOrderDetails.Add(detail);
 
@@ -232,6 +234,7 @@ namespace HashGo.Domain.ViewModels
                 unitName = ApplicationStateContext.CustomerDetailsObj?.UnitNo,
                 floorNumber = ApplicationStateContext.CustomerDetailsObj?.FloorNo,
                 locationId = Convert.ToInt32(HashGoAppSettings.LocationId),
+                tax = ApplicationStateContext.Tax ?? 0,
                 netTotal = ApplicationStateContext.NetAmountToPay
                 //netTotal = total
             };
@@ -252,8 +255,8 @@ namespace HashGo.Domain.ViewModels
                     sPaymentType = "QR Code";
                     //picNets.Image = Image.FromFile(Application.StartupPath + @"\images\Nets\NetsQR.gif");
                     break;
-                case "NETSCC":
-                    sPaymentType = "CASHCARD";
+                case "CASH":
+                    sPaymentType = "CASH";
                     break;
                 case "CREDITCARD":
                     sPaymentType = "CREDITCARD";

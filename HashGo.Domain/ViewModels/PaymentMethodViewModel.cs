@@ -181,7 +181,7 @@ namespace HashGo.Domain.ViewModels
 
         private SalesOrderRequest GetSalesOrderRequest()
         {
-            decimal total = 0;
+            decimal total = 0, tax = 0;
             List<SalesOrderDetail> lstSaleOrderDetails = new List<SalesOrderDetail>();
 
             foreach (var selectedUnit in SelectedUnits)
@@ -192,12 +192,13 @@ namespace HashGo.Domain.ViewModels
                 detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
                 detail.qty = selectedUnit.UnitCount;
                 detail.subTotal = detail.price * detail.qty;
-                detail.subTotal = detail.price;
+                //detail.subTotal = detail.price;
                 detail.productName = selectedUnit.Name;
                 detail.taxId = selectedUnit.TaxId;
                 detail.tax = selectedUnit.TaxAmount;
 
                 total += detail.price;
+                tax += detail.tax;
                 lstSaleOrderDetails.Add(detail);
 
                 #region AddOns
@@ -215,6 +216,7 @@ namespace HashGo.Domain.ViewModels
                         addOnDetail.productName = addon.InstallationType;
                         addOnDetail.tax = addon.TaxAmount;
                         addOnDetail.taxId = addon.TaxId;
+                        tax += addOnDetail.tax;
                         //total += Convert.ToDecimal(addon.AddOnPrice * addOnDetail.qty);
                         lstSaleOrderDetails.Add(addOnDetail);
                     }
@@ -222,6 +224,7 @@ namespace HashGo.Domain.ViewModels
 
                 #endregion
             }
+            ApplicationStateContext.Tax = tax;
 
             SalesOrderRequest salesOrderRequest = new SalesOrderRequest();
             salesOrderRequest.salesOrderDetail = lstSaleOrderDetails;

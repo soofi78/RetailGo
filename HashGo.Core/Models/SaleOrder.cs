@@ -44,6 +44,7 @@ namespace HashGo.Core.Models
         public decimal subTotal { get; set; }
         public decimal tax { get; set; }
         public decimal netTotal { get; set; }
+        public decimal paidAmount { get; set; }
         public int locationId { get; set; }
         public string name { get; set; }
         public object referralCode { get; set; }

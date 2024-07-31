@@ -187,10 +187,10 @@ namespace HashGo.Domain.Models.Base
             TaxId = taxId;
             //descriptionNotes = "An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.An article is a piece of writing written for a large audience. The main motive behind writing an article is that it should be published in either newspapers or magazines or journals so as to make some difference to the world. It may be the topics of interest of the writer or it may be related to some current issues.";
 
-            if (ApplicationStateContext.Tax  == null)
-            {
-                ApplicationStateContext.Tax = TaxPercantage;
-            }
+            //if (ApplicationStateContext.Tax  == null)
+            //{
+            //    ApplicationStateContext.Tax = TaxPercantage;
+            //}
 
             if(TaxPercantage > 0)
             {

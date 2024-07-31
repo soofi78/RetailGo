@@ -42,6 +42,16 @@ namespace HashGo.Wpf.App.Services
 
         private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
         {
+            //salesOrderRequest.salesOrder.netTotal = salesOrderRequest.salesOrder.subTotal;
+            salesOrderRequest.salesOrder.subTotal = salesOrderRequest.salesOrder.netTotal - salesOrderRequest.salesOrder.tax;
+            salesOrderRequest.salesOrder.paidAmount = ApplicationStateContext.Deposit ?? 0;
+
+            foreach (var item in salesOrderRequest.salesOrderDetail)
+            {
+                item.netTotal = item.subTotal;
+                //item.subTotal = item.netTotal - item.tax;
+            }
+            
             TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
 
             if (transactionDetails != null)

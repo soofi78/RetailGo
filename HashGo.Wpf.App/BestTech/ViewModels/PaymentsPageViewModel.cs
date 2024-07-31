@@ -280,17 +280,9 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void CalculateNetTotal()
         {
+            TaxAmount = 0.0M;
 
-            //if (ApplicationStateContext.IsSalesTaxInclusive)
-            //{
-            //    TaxAmount = totalPrice.Value * (ApplicationStateContext.Tax.Value / 100);
-            //}
-            //else
-            //{
-            //    TaxAmount = (totalPrice.Value * ApplicationStateContext.Tax.Value) / (100 + ApplicationStateContext.Tax.Value); 
-            //}
-
-            foreach(var product in sharedDataService.SelectedUnits)
+            foreach (var product in sharedDataService.SelectedUnits)
             {
                 TaxAmount += product.TaxAmount;
                 if(product.LstSelectedUnitInstallationTypes?.Count > 0)

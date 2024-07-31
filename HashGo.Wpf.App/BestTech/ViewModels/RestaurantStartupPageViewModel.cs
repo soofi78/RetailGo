@@ -56,7 +56,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.sharedDataService = sharedDataService;
 
             LoadCompanyLogo();
-            LoadSettingsFromServer();
+            //LoadSettingsFromServer();
         }
 
         async void LoadCompanyLogo()
@@ -192,7 +192,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             ApplicationStateContext.ClearData();
             sharedDataService.ClearData();
             sharedDataService.ClearCustomerData();
-            //ApplicationStateContext.CustomerDate = null;
+            LoadSettingsFromServer();
         }
 
         string imagePath;

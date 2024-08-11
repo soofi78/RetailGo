@@ -31,6 +31,7 @@ namespace HashGo.Infrastructure.DataContext
         public static bool IsSalesTaxInclusive { get; set; }
         public static decimal? Tax { get; set; }
         public static decimal? Deposit { get; set; }
+        public static string Template { get; set; }
 
         static ApplicationStateContext()
         {
@@ -54,6 +55,7 @@ namespace HashGo.Infrastructure.DataContext
             NETQRImageBase64String = null;
             IsSalesTaxInclusive = false;
             Deposit = null;
+            Template = null;
         }
 
         public static void LoadSettings()

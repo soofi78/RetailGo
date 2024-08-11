@@ -126,6 +126,7 @@ public partial class App : Application
         services.AddSingleton<IQueueSettingStoreService, QueueSettingStoreService>();
         services.AddSingleton<IEventAggregator, EventAggregator>();
         services.AddSingleton<IPaymentService, PaymentService>();
+        services.AddSingleton<IPrintTemplateParserService, PrintTemplateParserService>();
 
         #endregion
 

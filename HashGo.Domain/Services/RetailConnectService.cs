@@ -415,5 +415,33 @@ namespace HashGo.Domain.Services
 
             return null;
         }
+
+        public async Task<TemplateReceiptResponse> GetTemplateReceiptResponse()
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           Type = 13,  //doubt -- whether this value is hardcoded always or need to read from anywhere?
+                           locationId = HashGoAppSettings.LocationId
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_RECEIPTTEMPLATEBYLOCATION);
+
+                TemplateReceiptResponse result = JsonConvert.DeserializeObject<TemplateReceiptResponse>(responeString);
+
+                if (result != null && result.success && result.result != null)
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return null;
+        }
     }
 }

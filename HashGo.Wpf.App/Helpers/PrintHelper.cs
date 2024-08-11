@@ -127,6 +127,8 @@ namespace HashGo.Wpf.App.Helpers
             }
         }
 
+
+
         public static void Print()
         {
             try
@@ -163,7 +165,6 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SALES ORDER\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.Nomarl());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
@@ -201,53 +202,12 @@ namespace HashGo.Wpf.App.Helpers
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight6());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, GetESCBarcodeString(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
                 
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo+"\n\n"));
                 BytesValue = PrintExtensions.AddBytes(BytesValue, "Thank You. Please come again. \n\n");
                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
                 BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
-
-
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.Name + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.AddressLine1 + "\n\n"));
-
-                //if (!string.IsNullOrEmpty(ApplicationStateContext.CustomerDetailsObj.AddressLine2))
-                //    BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.AddressLine2 + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.CustomerDetailsObj.ContactNumber + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight2());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SALES ORDER\n\n"));
-
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("SO No. : " + ApplicationStateContext.TransactionId + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Date        : " + ApplicationStateContext.CustomerDate.ToString("dd/MM/yyyy") + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Item                                  Qty  Price     Net Total\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-
-                //foreach (var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
-                //{
-                //    BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n\n", salesOrder.productName,
-                //                                                                                                     salesOrder.qty,
-                //                                                                                                     salesOrder.price,
-                //                                                                                                     salesOrder.subTotal));
-                //}
-                ////BytesValue = PrintExtensions.AddBytes(BytesValue, string.Format("{0,-40}{1,6}{2,9}{3,9:N2}\n\n", "item 1", 12, 11, 144.00));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Right());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes("Total\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(ApplicationStateContext.NetAmountToPay + "\n\n"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Lf());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight6());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.BarCode.Code128("12345"));
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, "Please visit again. \n\n");
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
-                //BytesValue = PrintExtensions.AddBytes(BytesValue, CutPage());
 
                 //read the printer name from settings
                 string printerName = !string.IsNullOrEmpty(HashGoAppSettings.PrinterName) ? HashGoAppSettings.PrinterName : "OneNotepad (Desktop)";

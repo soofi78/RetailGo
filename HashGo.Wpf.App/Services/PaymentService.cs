@@ -27,12 +27,23 @@ namespace HashGo.Wpf.App.Services
             {
                 GetLocationDetails();
                 GetSalesOrder();
+                GetPrintTemplateReceipt();
                 PrintHelper.Print();
 
                 return true;
             }
 
             return false;
+        }
+
+        async void GetPrintTemplateReceipt()
+        {
+            var templateReceipt = await retailConnectService.GetTemplateReceiptResponse();
+
+            if(templateReceipt != null) 
+            {
+                ApplicationStateContext.Template = templateReceipt.result.First().template;
+            }
         }
 
         async void DoTransaction()

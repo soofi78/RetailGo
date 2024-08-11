@@ -1,8 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Threading;
 using HashGo.Core.Contracts.Services;
 using HashGo.Core.Contracts.StoreService;
@@ -25,7 +23,6 @@ using HashGo.Wpf.App.BestTech.ViewModels.Popups;
 using HashGo.Wpf.App.BestTech.Views;
 using HashGo.Wpf.App.Contracts.Services;
 using HashGo.Wpf.App.Contracts.Views;
-using HashGo.Wpf.App.Helpers;
 using HashGo.Wpf.App.Models;
 using HashGo.Wpf.App.Services;
 using HashGo.Wpf.App.ViewModels;
@@ -85,10 +82,6 @@ public partial class App : Application
                 }
             }
 
-            EventManager.RegisterClassHandler(typeof(TextBox), UIElement.GotFocusEvent, new RoutedEventHandler(OnTextBoxGotFocus));
-            EventManager.RegisterClassHandler(typeof(TextBox), UIElement.LostFocusEvent, new RoutedEventHandler(OnTextBoxLostFocus));
-
-
             await _host.StartAsync();
         }
         catch (Exception exception)
@@ -96,20 +89,6 @@ public partial class App : Application
             this._logger.TraceException(exception);
         }
        
-    }
-
-    private void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
-    {
-        TabTipHelper.ShowTabTip();
-    }
-
-    private void OnTextBoxLostFocus(object sender, RoutedEventArgs e)
-    {
-        // Close TabTip if the focus is not on any TextBox in the application
-        if (!(FocusManager.GetFocusedElement(Application.Current.MainWindow) is TextBox))
-        {
-            TabTipHelper.HideTabTip();
-        }
     }
 
     private void ConfigureServices(HostBuilderContext context, IServiceCollection services)

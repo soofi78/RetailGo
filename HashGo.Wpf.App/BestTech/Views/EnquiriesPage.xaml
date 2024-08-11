@@ -79,9 +79,9 @@
                       
                 AcceptsReturn="True" TextWrapping="Wrap"
                     KeyDown="TextBox_KeyDown">
-                <!--<i:Interaction.Behaviors>
+                <i:Interaction.Behaviors>
                     <behaviours:EnableTextBoxKeyboardBehaviour />
-                </i:Interaction.Behaviors>-->
+                </i:Interaction.Behaviors>
             </TextBox>
         </Grid>
 
@@ -96,9 +96,9 @@ Grid.Row="2" Grid.Column="1" Margin="0,25,0,0">
             <TextBox  Grid.Row="1" Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
                       KeyDown="TextBox_KeyDown_1"
  Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                <!--<i:Interaction.Behaviors>
+                <i:Interaction.Behaviors>
                     <behaviours:EnableTextBoxKeyboardBehaviour />
-                </i:Interaction.Behaviors>-->
+                </i:Interaction.Behaviors>
             </TextBox>
         </Grid>
 
@@ -117,7 +117,7 @@ Grid.Row="2" Grid.Column="1" Margin="0,25,0,0">
        KeyDown="TextBox_KeyDown">
                 <i:Interaction.Behaviors>
                     <behaviours:IntegerInputBehaviour />
-                    <!--<behaviours:EnableTextBoxKeyboardBehaviour />-->
+                    <behaviours:EnableTextBoxKeyboardBehaviour />
                 </i:Interaction.Behaviors>
             </TextBox>
         </Grid>

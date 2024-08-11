@@ -43,9 +43,9 @@
 
         <TextBox x:Name="tBoxInput"  Grid.Row="2" Style="{StaticResource RoundedTextBoxWithShadowStyle}" Margin="0,5,0,5"
                 MaxHeight="113" MaxWidth="637"  MinHeight="60" MinWidth="400">
-            <!--<i:Interaction.Behaviors>
+            <i:Interaction.Behaviors>
                 <behaviours:EnableTextBoxKeyboardBehaviour />
-            </i:Interaction.Behaviors>-->
+            </i:Interaction.Behaviors>
         </TextBox>
 
         <Border Background="#00B5CB" Margin="0,10,0,10" Grid.Row="3" 

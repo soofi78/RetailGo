@@ -30,12 +30,5 @@ namespace HashGo.Wpf.App.BestTech.Views
 
             this.DataContext = addOnsSelectionPageViewmodel;
         }
-
-        //public void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    // Handle the event and prevent it from propagating to child controls
-        //    e.Handled = true;
-        //    //MessageBox.Show("Grid clicked!");
-        //}
     }
 }

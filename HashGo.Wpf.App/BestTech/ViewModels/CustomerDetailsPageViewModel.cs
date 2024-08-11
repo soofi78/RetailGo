@@ -72,25 +72,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void OnMoveToNextScreen()
         {
-            //Write the customer object to applicationContext
-            //IsEnabled = false;
             ApplicationStateContext.CustomerDetailsObj = this.CustomerDetailsObj;
-
-            //if(IsNavigateToConfirmCustomerDetailsScreen)
-            //{
-            //    IsNavigateToConfirmCustomerDetailsScreen = false;
-
-            //    var parameters = new Dictionary<string, object>
-            //        {
-            //            { "IsNavigatetoConfirmCustomerDetailsPopup", true },
-            //            //{ nameof(ReferralCode), },
-            //        };
-            //    navigationService.NavigateToAsync(Pages.Payment.ToString(), parameters);
-            //}
-            //else
-            //{
-            //    navigationService.NavigateToAsync(Pages.ProductSelection.ToString());
-            //}
 
             bool canProceedFurthur = popupService.ShowPopup(Core.Contracts.Enums.PopupType.eConfirmCustomerDetails);
 

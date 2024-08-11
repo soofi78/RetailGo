@@ -61,15 +61,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         {
             this.IsMorningSelected = ApplicationStateContext.IsMorningTime;
             this.IsEveningSelected = ApplicationStateContext.IsEveningTime;
-            //IsServiceDepartment = (ApplicationStateContext.DepartmentId == 706);
-            //SelectedDate = DateTime.Now;
-            //eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
             this.SelectedDate = sharedDataService.CustomerDateTime;
         }
 
         public override void ViewUnloaded()
         {
-            //eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Unsubscribe(OnClearData);
+
         }
 
         #region Commands

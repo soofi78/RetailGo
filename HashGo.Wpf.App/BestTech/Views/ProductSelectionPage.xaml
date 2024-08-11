@@ -29,7 +29,6 @@
         </Grid.RowDefinitions>
 
         <Viewbox Width="573" Height="140" Grid.Row="1" >
-            <!--<Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
             <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Viewbox>
@@ -195,15 +194,6 @@
                                         Width="{Binding ActualWidth, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.26'}"
                                         Height="{Binding ActualWidth, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.25'}"/>
 
-                                    <!--<Image Source="{Binding ImageSource,Converter={StaticResource imageValueConverter}}" Grid.Row="0"
-                                       Visibility="{Binding Converter={StaticResource screenOrientationVisibility},ConverterParameter=LANDSCAPE}"
-                                        Width="{Binding ActualWidth, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.26'}"
-                                        Height="{Binding ActualWidth, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.24'}"/>
-                                <Image Source="{Binding ImageSource,Converter={StaticResource imageValueConverter}}" Grid.Row="0"
-                                           Visibility="{Binding Converter={StaticResource screenOrientationVisibility},ConverterParameter=PORTRAIT}"
-                                            Width="{Binding ActualHeight, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.25'}"
-                                            Height="{Binding ActualHeight, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.25'}"/>-->
-
                                     <Border BorderBrush="Gray" BorderThickness="0.5"  Grid.Row="1" Margin="5"
                                             HorizontalAlignment="Stretch"  CornerRadius="15" x:Name="bdrDesc"
                                             Width="{Binding ActualWidth, ElementName=lstBox, Converter={converters:PercentageConverter}, ConverterParameter='.26'}">
@@ -238,10 +228,7 @@
 
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
-                            <!--<Setter Property="Height" Value="130"/>
-                            <Setter Property="Width" Value="105"/>-->
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <!--<Setter Property="HorizontalAlignment" Value="Left"/>-->
                             <Setter Property="Background" Value="White" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -270,14 +257,6 @@
                             </Style.Triggers>
                         </Style>
                     </ListBox.ItemContainerStyle>
-
-                    <!--<ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="Height" Value="150"/>
-                            <Setter Property="Width" Value="105"/>
-                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>-->
 
                 </ListBox>
             </Grid>

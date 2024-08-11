@@ -38,25 +38,6 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
-            <!--<Viewbox Grid.Column="2">
-                <Canvas Width="247" Height="86">
-                    <Border Width="247" Height="86" Background="#00B5CB" Cursor="Hand">
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"
-                                   FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
-                                   Text="Back" Foreground="White"/>
-                    </Border>
-                </Canvas>
-            </Viewbox>
-            <Viewbox Grid.Column="3">
-                <Canvas Width="247" Height="86">
-                    <Border Width="247" Height="86" Background="#00B5CB" Cursor="Hand">
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-           FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}" FontSize="22"
-           Text="Try again" Foreground="White"/>
-                    </Border>
-                </Canvas>
-            </Viewbox>-->
         </Grid>
        
     </Grid>

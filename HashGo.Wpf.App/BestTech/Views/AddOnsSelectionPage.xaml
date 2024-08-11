@@ -43,13 +43,6 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
             <RowDefinition Height="90" />
         </Grid.RowDefinitions>
 
-        <!--<StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="0,20,0,0"
-HorizontalAlignment="Center">
-            <Image Source="/Resources/Images/Home.png"
-
-HorizontalAlignment="Left"/>
-        </StackPanel>-->
-
         <StackPanel  Grid.Row="0"
              Orientation="Horizontal">
             <!--<TextBlock Text="Selected Product: " FontWeight="Bold"/>-->
@@ -104,12 +97,6 @@ HorizontalAlignment="Left"/>
                          SelectionMode="Single" x:Name="lstBoxAddOns" BorderThickness="0"
                          SelectedItem="{Binding SelectedUnitInstallationTypeObj}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding AddOnsSelectionChangedCommand}" 
-              CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -120,13 +107,6 @@ HorizontalAlignment="Left"/>
                         <DataTemplate>
                             <Grid VerticalAlignment="Top" Cursor="Hand"
                                   Margin="5">
-                                <!--<i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                                        --><!--<i:CallMethodAction MethodName="Grid_MouseLeftButtonUp" TargetObject="{Binding RelativeSource={RelativeSource AncestorType=Page}}" />--><!--
-                                        <i:InvokeCommandAction Command="{Binding DataContext.AddOnsSelectionChangedCommand,RelativeSource={RelativeSource AncestorType=Page}}" 
-                                                               CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=SelectedItem}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>-->
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto"/>
@@ -201,13 +181,6 @@ CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
                                         
-                                            <!--<StackPanel>
-                                            <Border x:Name="ItemBorder" CornerRadius="10" BorderThickness="2" >
-                                                <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="Stretch" />
-                                            </Border>
-                                            <TextBlock  HorizontalAlignment="Center"
-                                                           Text="{Binding InstallationType}"/>
-                                            </StackPanel>-->
                                         <Border x:Name="ItemBorder" CornerRadius="10" BorderThickness="2" >
                                             <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="Stretch" />
                                         </Border>
@@ -228,13 +201,6 @@ CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                             </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
-                    <!--<ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="Height" Value="150"/>
-                            <Setter Property="Width" Value="105"/>
-                            <Setter Property="HorizontalAlignment" Value="Left"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>-->
                 </ListBox>
             </Grid>
         </Grid>

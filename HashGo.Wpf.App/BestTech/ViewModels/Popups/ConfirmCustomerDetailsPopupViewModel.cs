@@ -26,7 +26,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels.Popups
             this.sharedDataService = sharedDataService;
             this.navigationService = navigationService;
 
-            //CustomerDetailsObj = sharedDataService.CustomerDetailsObj;
             CloseConfirmCustomerDetailsCommand = new RelayCommand(OnCloseConfirmCustomerDetails);
             EditCustomerDetailsCommand = new RelayCommand(OnEditCustomerDetails);
             this.ConfirmCustomerDetailsCommand = new RelayCommand(OnConfirmCustomerDetails);
@@ -36,11 +35,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels.Popups
         {
             DialogResult = true;
 
-            //var parameters = new Dictionary<string, object>
-            //{
-            //    { "IsNavigateToConfirmCustomerDetailsScreen", true },
-            //};
-            //navigationService.NavigateToAsync(Pages.CustomerDetails.ToString(), parameters);
 
             navigationService.NavigateToAsync(Pages.DineDateSelect.ToString());
         }
@@ -48,18 +42,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels.Popups
         void OnConfirmCustomerDetails()
         {
             DialogResult = true;
-            //var parameters = new Dictionary<string, object>
-            //    {
-            //        { "SelectedUnits", sharedDataService.SelectedUnits },
-            //        //{ nameof(ReferralCode), },
-            //    };
             navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
-
-            //var parameters = new Dictionary<string, object>
-            //    {
-            //        { "IsServiceDepartment", sharedDataService.DepartmentName.ToUpper() == "SERVICING" },
-            //    };
-            //navigationService.NavigateToAsync(Pages.DineDateSelect.ToString(), parameters);
         }
 
         void OnCloseConfirmCustomerDetails()

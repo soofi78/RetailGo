@@ -58,7 +58,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             UnitsSelectionChangedCommand = new RelayCommand<object>(OnUnitsSelectionChanged);
             PreviousScreenCommand = new RelayCommand(OnMoveToPreviousScreen);
 
-            //eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
         }
 
         void OnMoveToPreviousScreen()
@@ -73,7 +72,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             sharedDataService.ClearData();
             sharedDataService.ClearCustomerData();
             sharedDataService.CustomerDetailsObj = new CustomerDetails();
-            //SelectedUnits = new List<Unit>();
         }
 
         async Task InitializeDataAsync()
@@ -119,13 +117,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 }
 
                 return lst;
-
-                //if (categories != null && categories.Count > 0)
-                //{
-                //    SelectedCategory = categories.First();
-                //}
-
-                //OnPropertyChanged(nameof(Categories));
             }
             catch( Exception ex )
             {
@@ -179,7 +170,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 if(lstAddOns != null )
                 {
                     sharedDataService.SelectedUnit?.AddAddOns(lstAddOns);
-                    //OnPropertyChanged(nameof(LstUnitInstallationTypes));
                     navigationService.NavigateToAsync(Pages.Addons.ToString(), parameters);  //, parameters
                 }
                 else
@@ -205,12 +195,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         /// </summary>
         void OnMoveToViewCartScreen(Point point)
         {
-            //if (point == default(Point)) return;
-
-            //ViewCartPopup viewCartPopup = new ViewCartPopup(point);
-            //viewCartPopup.Owner = Application.Current.MainWindow;
-            //viewCartPopup.DataContext = new ViewCartPopupViewModel(sharedDataService, navigationService);
-            //viewCartPopup.Show();
 
             navigationService.NavigateToAsync(Pages.Payment.ToString());
         }
@@ -220,11 +204,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         /// </summary>
         void OnMoveToNextScreen()
         {
-            //var parameters = new Dictionary<string, object>
-            //    {
-            //        { nameof(SelectedUnits), SelectedUnits },
-            //    };
-            
             navigationService.NavigateToAsync(Pages.Addons.ToString());  //parameters
         }
 
@@ -240,7 +219,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public override void ViewUnloaded()
         {
-            //eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Unsubscribe(OnClearData);
+           
         }
 
         /// <summary>
@@ -382,19 +361,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             {
                 sharedDataService.SelectedUnit = value;
                 OnPropertyChanged();
-
-                //if(value != null)
-                //   {
-                //        if (SelectedUnits.Count > 0)
-                //        {
-                //            var alreadyExistingItem = SelectedUnits.FirstOrDefault(ee => ee.Id == selectedUnit.Id);
-
-                //            if (alreadyExistingItem != null)
-                //                alreadyExistingItem.UnitCount++;
-                //            else SelectedUnits.Add(SelectedUnit);
-                //        }
-                //        else SelectedUnits.Add(SelectedUnit);
-                //  }
             }
         }
 

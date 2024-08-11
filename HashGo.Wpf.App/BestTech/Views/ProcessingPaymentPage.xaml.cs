@@ -57,8 +57,6 @@ namespace HashGo.Wpf.App.BestTech.Views
             _logger = logger;
             this.Loaded += (sender, e) =>
             {
-                //performOperation();
-
                 try
                 {
                     if (ApplicationStateContext.PaymentMethodObject != null && ApplicationStateContext.SalesOrderRequestObject != null)
@@ -158,49 +156,6 @@ namespace HashGo.Wpf.App.BestTech.Views
                 timer = null;
             };
         }
-
-        //void performOperation()
-        //{
-        //    DoTransaction();
-
-        //    if (!string.IsNullOrEmpty(transactionNo))
-        //    {
-        //        GetLocationDetails();
-        //        GetSalesOrder();
-        //        PrintHelper.Print();
-        //    }
-        //}
-
-        //async void GetLocationDetails()
-        //{
-        //    ApplicationStateContext.LocationDetailsObj = await retailConnectService.GetLocationDetails();
-        //}
-
-        //async void GetSalesOrder()
-        //{
-        //    ApplicationStateContext.SalesOrderWrapperobj = await retailConnectService.GetSalesOrderForEdit();
-        //}
-
-        //#region Region Payment Transaction
-
-        //async void DoTransaction()
-        //{
-        //    CreateTransaction(ApplicationStateContext.SalesOrderRequestObject);
-        //}
-
-        //private string transactionNo;
-
-        //private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
-        //{
-        //    TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
-          
-        //    if (transactionDetails != null)
-        //    {
-        //        transactionNo = transactionDetails.transactionNo;
-        //        ApplicationStateContext.TransactionId = transactionDetails.id;
-        //    }
-        //}
-
-        //#endregion
+       
     }
 }

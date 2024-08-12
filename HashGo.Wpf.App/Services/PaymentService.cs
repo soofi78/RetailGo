@@ -15,9 +15,11 @@ namespace HashGo.Wpf.App.Services
     public class PaymentService : IPaymentService
     {
         IRetailConnectService retailConnectService;
-        public PaymentService(IRetailConnectService retailConnectService)
+        IPrintTemplateParserService printTemplateParserService;
+        public PaymentService(IRetailConnectService retailConnectService, IPrintTemplateParserService printTemplateParserService)
         {
             this.retailConnectService = retailConnectService;
+            this.printTemplateParserService = printTemplateParserService;
         }
         public async Task<bool> PerformPayment()
         {
@@ -28,6 +30,12 @@ namespace HashGo.Wpf.App.Services
                 GetLocationDetails();
                 GetSalesOrder();
                 GetPrintTemplateReceipt();
+
+                //if(!string.IsNullOrEmpty(ApplicationStateContext.Template))
+                //{
+                //    await printTemplateParserService.GetReceipt(ApplicationStateContext.Template);
+                //}
+                
                 PrintHelper.Print();
 
                 return true;

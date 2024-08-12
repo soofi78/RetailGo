@@ -16,6 +16,7 @@ using HashGo.Infrastructure.DataContext;
 using System.Text.RegularExpressions;
 using Avalonia.Markup.Xaml.Templates;
 using Prism.Common;
+using Windows.UI.Composition;
 
 namespace HashGo.Wpf.App.Services
 {
@@ -31,12 +32,14 @@ namespace HashGo.Wpf.App.Services
                 {
                     EscPosEpson escPosEpson = new EscPosEpson();
 
+                    //Step 1: Replace curly braces values with actual values
                     var replacementValues = GetReplacementValues();
                     var replacementProductValues = GetReplacementProductItems();
                     template = ReplacePlaceholders(template, replacementValues, replacementProductValues);
 
                     var lines = template.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
+                    //Step 2: Align the content.
                     //This loop is to aling text, make text bold etc....
                     foreach (var line in lines)
                     {

@@ -99,6 +99,16 @@ namespace HashGo.Wpf.App.Services
                                                                       PrintHelper.GetESCBarcodeString(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
                                 break;
 
+                            case string s when s.StartsWith(ParseTypes.BOLD):
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
+                                break;
+
+                            //case string s when s.StartsWith(ParseTypes.Ita):
+                            //    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
+                            //    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
+                            //    break;
+
                             default:
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
                                 break;
@@ -219,5 +229,7 @@ namespace HashGo.Wpf.App.Services
         public static string RIGHT = "[R]";
         public static string RIGHTBOLD = "[RB]";
         public static string BARCODE = "[BARCODE]";
+        public static string BOLD = "[B]";
+        //public static string BOLD = "[I]";
     }
 }

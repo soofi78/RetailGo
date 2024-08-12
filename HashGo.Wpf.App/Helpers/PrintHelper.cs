@@ -220,7 +220,7 @@ namespace HashGo.Wpf.App.Helpers
 
         }
 
-        private static byte[]  GetESCBarcodeString(string sTransactionNo)
+        public static byte[]  GetESCBarcodeString(string sTransactionNo)
         {
             int EOT = 0x1D;
             string GS = (char)EOT + "";

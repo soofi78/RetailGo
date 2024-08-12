@@ -31,12 +31,13 @@ namespace HashGo.Wpf.App.Services
                 GetSalesOrder();
                 GetPrintTemplateReceipt();
 
-                //if(!string.IsNullOrEmpty(ApplicationStateContext.Template))
-                //{
-                //    await printTemplateParserService.GetReceipt(ApplicationStateContext.Template);
-                //}
-                
-                PrintHelper.Print();
+                if (!string.IsNullOrEmpty(ApplicationStateContext.Template))
+                {
+                    await printTemplateParserService.GetReceipt(ApplicationStateContext.Template);
+                }
+                else return false;
+
+                //PrintHelper.Print();
 
                 return true;
             }

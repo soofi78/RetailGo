@@ -12,6 +12,10 @@ using System.IO;
 using Windows.Media.AppBroadcasting;
 using HashGo.Wpf.App.Helpers;
 using PrinterUtility;
+using HashGo.Infrastructure.DataContext;
+using System.Text.RegularExpressions;
+using Avalonia.Markup.Xaml.Templates;
+using Prism.Common;
 
 namespace HashGo.Wpf.App.Services
 {
@@ -23,19 +27,17 @@ namespace HashGo.Wpf.App.Services
 
             try
             {
-
                 if (!string.IsNullOrEmpty(template))
                 {
                     EscPosEpson escPosEpson = new EscPosEpson();
+
+                    var replacementValues = GetReplacementValues();
+                    var replacementProductValues = GetReplacementProductItems();
+                    template = ReplacePlaceholders(template, replacementValues, replacementProductValues);
+
                     var lines = template.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    //Once splitting of lines is done first replace the {{....}} with exact values.
-                    foreach (var line in lines)
-                    {
-
-                    }
-
-                    //This loop is to aling test, make text bold etc....
+                    //This loop is to aling text, make text bold etc....
                     foreach (var line in lines)
                     {
                         switch(line)
@@ -89,10 +91,17 @@ namespace HashGo.Wpf.App.Services
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
                                 break;
 
+                            case string s when s.StartsWith(ParseTypes.BARCODE):
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, 
+                                                                      PrintHelper.GetESCBarcodeString(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
+                                break;
+
                             default:
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
                                 break;
                         }
+
+                        BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                     }
                 }
             }
@@ -121,7 +130,81 @@ namespace HashGo.Wpf.App.Services
             return fileFullName;
         }
 
+        Dictionary<string,string> GetReplacementValues()
+        {
+            return new Dictionary<string, string>
+        {
+            { "salesorder.salesorderNo", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo },
+            { "salesorder.salesorderDate", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soDate.ToString() },
+            { "salesorder.customerName",ApplicationStateContext.CustomerDetailsObj?.Name },
+            { "customer.address1", ApplicationStateContext.CustomerDetailsObj?.AddressLine1 },
+            { "customer.address2", ApplicationStateContext.CustomerDetailsObj?.AddressLine2 },
+            { "customer.mobile", ApplicationStateContext.CustomerDetailsObj?.ContactNumber },
+            //{ "salesOrder.productName", "Product A" },
+            //{ "salesOrder.qty", "10" },
+            //{ "salesOrder.price", "$50.00" },
+            //{ "salesOrder.subTotal", "$500.00" },
+            //{ "salesorder.qty", "10" }, 
+            { "salesorder.salesorderSubTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soSubTotal.ToString()},
+            { "salesorder.tax", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soTax.ToString() },
+            { "salesorder.netTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal.ToString() },
+            { "customer.balanceAmount", ApplicationStateContext.Deposit.ToString() },
+            { "customer.outstandingAmount", (Convert.ToDecimal(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal)   - ApplicationStateContext.Deposit.Value).ToString() }
+        };
+        }
 
+        List<Dictionary<string, string>> GetReplacementProductItems() 
+        {
+            List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();
+            foreach (var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
+            {
+                items.Add(new Dictionary<string, string>
+                {
+                    { "salesOrder.productName",  salesOrder.productName },
+                { "salesOrder.qty", salesOrder.qty.ToString() },
+                { "salesOrder.price", salesOrder.price.ToString() },
+                { "salesOrder.subTotal", salesOrder.subTotal.ToString()}
+                });
+            }
+
+            return items;
+        }
+
+        string ReplacePlaceholders(string template, Dictionary<string, string> replacements, List<Dictionary<string, string>> replacementProducts)
+        {
+            foreach (var tmp in replacements)
+            {
+                string pattern = @"\{\{" + Regex.Escape(tmp.Key) + @"\}\}";
+                template = Regex.Replace(template, pattern, tmp.Value);
+            }
+
+            //replace Products
+            string productSectionPattern = @"\{\{#items\}\}(.+?)\{\{\/items\}\}";
+            var match = Regex.Match(template, productSectionPattern, RegexOptions.Singleline);
+
+            if(match.Success)
+            {
+                string itemTemplate = match.Groups[1].Value;
+                string itemsResult = string.Empty;
+
+                // Loop through each item and replace placeholders
+                foreach (var item in replacementProducts)
+                {
+                    string itemResult = itemTemplate;
+                    foreach (var kvp in item)
+                    {
+                        string pattern = @"\{\{" + Regex.Escape(kvp.Key) + @"\}\}";
+                        itemResult = Regex.Replace(itemResult, pattern, kvp.Value);
+                    }
+                    itemsResult += itemResult + "\n";
+                }
+
+                // Replace the items section with the processed items
+                template = template.Replace(match.Value, itemsResult.TrimEnd());
+            }
+
+            return template;
+        }
     }
 
     public static class ParseTypes
@@ -132,5 +215,6 @@ namespace HashGo.Wpf.App.Services
         public static string LEFTBOLD = "[LB]";
         public static string RIGHT = "[R]";
         public static string RIGHTBOLD = "[RB]";
+        public static string BARCODE = "[BARCODE]";
     }
 }

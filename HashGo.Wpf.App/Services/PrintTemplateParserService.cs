@@ -60,38 +60,38 @@ namespace HashGo.Wpf.App.Services
 
                             case string s when s.StartsWith(ParseTypes.CENTER):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.CENTER.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.CENTERBOLD):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.CENTERBOLD.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.LEFT):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.LEFT.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.LEFTBOLD):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Left());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.LEFTBOLD.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.RIGHT):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Right());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.RIGHT.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.RIGHTBOLD):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Right());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line));
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.RIGHTBOLD.Length)));
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.BARCODE):
@@ -102,6 +102,7 @@ namespace HashGo.Wpf.App.Services
                             case string s when s.StartsWith(ParseTypes.BOLD):
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
                                 BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
+                                BytesValue = PrintExtensions.AddBytes(BytesValue, Encoding.ASCII.GetBytes(line.Substring(ParseTypes.BOLD.Length)));
                                 break;
 
                             //case string s when s.StartsWith(ParseTypes.Ita):

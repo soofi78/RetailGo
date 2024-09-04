@@ -63,7 +63,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <baseControls:BusyIndicator IsBusy="{Binding IsBusy,Mode=TwoWay}"/>
 
         <StackPanel Grid.Column="1" Grid.Row="1"
                     Margin="10,0,0,0">

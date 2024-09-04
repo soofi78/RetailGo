@@ -102,11 +102,6 @@
                         Cursor="Hand" BorderBrush="Black" BorderThickness="1"
                         Width="100" HorizontalAlignment="Left" Style="{StaticResource borderStyle}"
                         CornerRadius="5">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding StartOverScreenCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
                     <TextBlock Text="Cancel" HorizontalAlignment="Center"
                                 VerticalAlignment="Center" Foreground="Black" />
                 </Border>
@@ -116,11 +111,6 @@
                         Cursor="Hand" BorderBrush="Black" BorderThickness="1" Margin="0,0,10,0"
                         Width="100" 
                         CornerRadius="5">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding ViewCartCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
                     <TextBlock Text="Next" HorizontalAlignment="Center"
        VerticalAlignment="Center" Foreground="Black" />
                 </Border>

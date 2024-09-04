@@ -11,10 +11,6 @@
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Cursor" Value="Hand"/>
-            <!--<Setter Property="MinHeight" Value="67"/>-->
-            <!--<Setter Property="MinWidth" Value="67"/>-->
-            <!--<Setter Property="MinHeight" Value="30"/>
-     <Setter Property="MinWidth" Value="30"/>-->
         </Style>
     </Window.Resources>
     <Grid Background="White">
@@ -23,7 +19,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <!--<RowDefinition MinHeight="384"/>-->
         </Grid.RowDefinitions>
 
         <Border Width="72" Height="72" Cursor="Hand"
@@ -53,88 +48,10 @@
                  HorizontalAlignment="Center" PreviewMouseLeftButtonUp="Border_PreviewMouseLeftButtonUp"
                  Width="372" Height="60"
                  CornerRadius="20">
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding StartOverScreenCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
             <TextBlock Text="Confirm" HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Foreground="Black" FontSize="24"
                         FontFamily="{StaticResource BaijamureeFontRegularStyle}"/>
         </Border>
-
-        <!--<Grid Grid.Row="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            --><!-- Row 0 --><!--
-            <Button Grid.Row="0" Grid.Column="0" Content="1" Click="Button_Click" Cursor="Hand" />
-            <Button Grid.Row="0" Grid.Column="1" Content="2" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="2" Content="3" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="3" Content="4" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="4" Content="5" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="5" Content="6" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="6" Content="7" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="7" Content="8" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="8" Content="9" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="0" Grid.Column="9" Content="0" Click="Button_Click" Cursor="Hand"/>
-
-            --><!-- Row 1 --><!--
-            <Button Grid.Row="1" Grid.Column="0" Content="Q" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="1" Content="W" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="2" Content="E" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="3" Content="R" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="4" Content="T" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="5" Content="Y" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="6" Content="U" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="7" Content="I" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="8" Content="O" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="1" Grid.Column="9" Content="P" Click="Button_Click" Cursor="Hand"/>
-
-            --><!-- Row 2 -->
-            <!--<Button Grid.Row="1" Grid.Column="0" Content="CAPSLOCK" Click="Button_Click" Cursor="Hand"/>--><!--
-            <Button Grid.Row="2" Grid.Column="0" Content="A" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="1" Content="S" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="2" Content="D" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="3" Content="F" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="4" Content="G" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="5" Content="H" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="6" Content="J" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="7" Content="K" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="8" Content="L" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="2" Grid.Column="9" Content="Delete" Click="Button_Click"/>
-
-            --><!-- Row 3 --><!--
-            <Button Grid.Row="3" Grid.Column="1" Content="Z" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="2" Content="X" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="3" Content="C" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="4" Content="V" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="5" Content="B" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="6" Content="N" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="7" Content="M" Click="Button_Click" Cursor="Hand"/>
-            <Button Grid.Row="3" Grid.Column="8" Content="Backspace" Grid.ColumnSpan="2" Click="Button_Click" />
-
-            --><!-- Row 4 --><!--
-            <Button Grid.Row="4" Grid.Column="2" Content="Space Bar" Grid.ColumnSpan="5" Click="Button_Click" Cursor="Hand"/>
-        </Grid>-->
     </Grid>
 
 </Window>

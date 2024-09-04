@@ -146,7 +146,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             logger.Trace($"{nameof(RestaurantStartupPageViewModel)} : {nameof(LoadDataAsync)}() Started.");
 
             var departments = this.retailConnectService.GetAllDepartments().Result;
-            //var products = await productDetailStoreService.ReadAllAsync();
             LstDepartments = new ObservableCollection<DepartmentModel>(departments.Select(ee => new DepartmentModel(ee.name, ee.id)));
 
             foreach (var item in LstDepartments)

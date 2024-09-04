@@ -55,11 +55,6 @@ namespace HashGo.Wpf.App.BestTech.Views
             {
                 qrIamge.Source = Base64StringToBitmapImage(ApplicationStateContext.NETQRImageBase64String); 
             };
-            this.Unloaded += (sender, e) =>
-            {
-                //timer?.Stop();
-                //timer = null;
-            };
 
             this.DataContext = qRPaymentPageViewModel;
         }

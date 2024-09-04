@@ -31,15 +31,11 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
-            //Storyboard slideInStoryboard = (Storyboard)this.Resources["SlideInStoryboard"];
-            //slideInStoryboard.Begin();
             img.Visibility = Visibility.Visible;
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
         {
-            //Storyboard slideOutStoryboard = (Storyboard)this.Resources["SlideOutStoryboard"];
-            //slideOutStoryboard.Begin();
             img.Visibility = Visibility.Collapsed;
         }
     }

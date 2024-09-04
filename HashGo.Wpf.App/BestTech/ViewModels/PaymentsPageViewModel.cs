@@ -92,8 +92,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void OnProceedToPayments()
         {
-            //bool canProceedFurthur = popupService.ShowPopup(Core.Contracts.Enums.PopupType.eConfirmCustomerDetails);
-
             var parameters = new Dictionary<string, object>
                 {
                     { "IsServiceDepartment", sharedDataService.DepartmentName?.ToUpper() == "SERVICING" },
@@ -211,21 +209,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 sharedDataService.SelectedUnit = value;
-
-                //if (value != null)
-                //{
-                //    if (SelectedUnits.Count > 0)
-                //    {
-                //        var alreadyExistingItem = SelectedUnits.FirstOrDefault(ee => ee.Id == selectedUnit.Id);
-
-                //        if (alreadyExistingItem != null)
-                //            alreadyExistingItem.UnitCount++;
-                //        else SelectedUnits.Add(SelectedUnit);
-                //    }
-                //    else SelectedUnits.Add(SelectedUnit);
-
-                //    SelectedUnits = new List<Unit>(SelectedUnits);
-                //}
             }
         }
 
@@ -303,7 +286,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 NetTotalPrice = totalPrice + TaxAmount;
             }
             
-            //NetTotalPrice = totalPrice + TaxAmount;
             ApplicationStateContext.NetAmountToPay = NetTotalPrice.Value;
         }
 

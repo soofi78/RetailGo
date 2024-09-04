@@ -41,7 +41,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);
             PreviousScreenCommand = new RelayCommand(OnMoveToPreviousScreen);
-            //SelectedTabChangedCommand = new RelayCommand<object>(OnSelectedTabChanged);
             AddOnsSelectionChangedCommand = new RelayCommand<object>(OnAddOnsSelectionChanged);
             SelectedAddonCommand = new RelayCommand<SelectedUnitInstallationType>(OnSelectedAddon);
             RemoveAddOnCommand = new RelayCommand<SelectedUnitInstallationType>(OnRemoveAddOn);
@@ -50,25 +49,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void OnAddProductClicked(object obj)
         {
-            //if(CanAddItem)
-            //{
-            //    sharedDataService.AddItem(this.SelectedUnit);
-            //    sharedDataService.SelectedUnit = null;
-
-            //    ItemsAddedPopup itemsAddedPopup = new ItemsAddedPopup() { UnitsCount = sharedDataService.SelectedUnits.Sum(ee => ee.UnitCount) };
-            //    itemsAddedPopup.Show();
-
-            //    var timer = new System.Windows.Threading.DispatcherTimer();
-            //    timer.Tick += (s, args) =>
-            //    {
-            //        itemsAddedPopup.Close();
-            //        timer.Stop();
-            //    };
-            //    timer.Interval = TimeSpan.FromSeconds(1);
-            //    timer.Start();
-            //}
-
-            //navigationService.NavigateToAsync(Pages.ProductSelection.ToString());
 
             if (CanAddItem)
             {
@@ -91,10 +71,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         private void OnRemoveAddOn(SelectedUnitInstallationType selectedUnitInstallationType)
         {
-            //if (selectedUnitInstallationType == null || selectedUnitInstallationType.InstallationTypeCount == 0)
-            //    return;
-
-            //selectedUnitInstallationType.InstallationTypeCount--;
 
             if (selectedUnitInstallationType == null)
                 return;
@@ -223,11 +199,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             OnPropertyChanged(nameof(SelectedAddOns));
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
 
-            //if (sharedDataService.AddOnId != 0)
-            //{
-            //    sharedDataService.SelectedUnit?.AddAddOns(this.retailConnectService.GetProductsByCategoryId(sharedDataService.AddOnId).Result);
-            //    OnPropertyChanged(nameof(LstUnitInstallationTypes));
-            //}
             OnPropertyChanged(nameof(LstUnitInstallationTypes));
             OnPropertyChanged(nameof(CanEnableAddToCart));
         }
@@ -235,8 +206,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         private void OnClearData(bool obj)
         {
             this.sharedDataService.ClearData();
-            //SelectedUnit = null;
-            //SelectedUnits = new List<Unit>();
         }
 
         public override void ViewUnloaded()
@@ -248,7 +217,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public ICommand PreviousScreenCommand { get; private set; }
         public ICommand NextScreenCommand { get; private set; }
-        //public RelayCommand<object> SelectedTabChangedCommand { get; private set; }
         public RelayCommand<object> AddOnsSelectionChangedCommand { get; private set; }
 
         public RelayCommand<SelectedUnitInstallationType> SelectedAddonCommand { get; private set; }
@@ -293,22 +261,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 sharedDataService.SelectedUnit.LstUnitInstallationTypes = value;
-
-                //if(sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes != null &&
-                //    sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes.Count>0)
-                //{
-                //    foreach(var selectedUnitInstallationType in sharedDataService.SelectedUnit.LstSelectedUnitInstallationTypes)
-                //    {
-                //        var selectedUnitToBeUpdated = sharedDataService.SelectedUnit
-                //                                                       .LstUnitInstallationTypes.FirstOrDefault(ee => ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId &&
-                //                                                                                       ee.UnitId == selectedUnitInstallationType.UnitId);
-
-                //        if(selectedUnitToBeUpdated != null)
-                //        {
-                //            selectedUnitToBeUpdated = selectedUnitInstallationType;
-                //        }
-                //    }
-                //}
 
                 OnPropertyChanged();
             }

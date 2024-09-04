@@ -66,8 +66,6 @@ namespace HashGo.Wpf.App.BestTech.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Point location = Mouse.GetPosition(this);
-            //double from = SystemParameters.PrimaryScreenHeight;
-            //double to = TargetTop;
             this.Top = SystemParameters.WorkArea.Bottom;
             this.Height = 477;
 
@@ -75,17 +73,10 @@ namespace HashGo.Wpf.App.BestTech.Views
             {
                 From = SystemParameters.WorkArea.Bottom,   //
                 To = SystemParameters.WorkArea.Bottom - this.Height,
-                //From = 1536,   //
-                //To = 1536 - 477,
                 Duration = TimeSpan.FromSeconds(0.5),
                 EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
             };
 
-            //this.Top = location.X-355;
-            //this.Left = 0;  // location.Y;
-            //this.Top = cartImagePosition.X;
-            //this.Left = 0;  // cartImagePosition.Y;
-            //this.Height = 477;
             this.Left = SystemParameters.WorkArea.Left+2;
             this.Width = SystemParameters.PrimaryScreenWidth-4;
             this.BeginAnimation(Window.TopProperty, animation);
@@ -120,7 +111,6 @@ namespace HashGo.Wpf.App.BestTech.Views
         {
             if (d is Window window)
             {
-                //window.DialogResult = (bool?)e.NewValue;
                 window.Close();
             }
         }

@@ -19,6 +19,7 @@ public static class RetailConnectApiRouterNames
     public const string GET_STORELOCATORS = "/api/services/app/location/ApiGetLocations";
     public const string GET_LOCATIONDETAILS = "/api/services/app/location/GetLocationForEdit";
     public const string GET_ALLSETTINGS = "/api/services/app/tenantsettings/getallsettings";
+    public const string GET_RECEIPTTEMPLATEBYLOCATION = "/api/services/app/receipttemplate/GetReceiptTemplateByLocation";
 }
  
 public static class AppConfigKeys

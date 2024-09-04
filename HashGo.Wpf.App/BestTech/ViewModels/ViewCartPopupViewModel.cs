@@ -25,15 +25,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         {
             this.sharedDataService = sharedDataService;
             this.navigationService = navigationService;
-            //if (selectedUnits != null && selectedUnits.Count > 0)
-            //{
-            //    foreach(var unit in selectedUnits)
-            //    {
-            //        for (int i = 0; i < unit.UnitCount; i++)
-            //            SelectedUnits.Add(unit);
-            //    }
-            //    SelectedUnits = new List<Unit>(SelectedUnits);
-            //}
                 
             NavigateToCheckoutScreen = new RelayCommand(OnNavigateToCheckoutScreen);
             EditProductCommand = new RelayCommand<Unit>(OnEditProduct);

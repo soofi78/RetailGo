@@ -53,17 +53,6 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Cart" FontWeight="Medium" FontSize="18"/>
-
-                <!--<Border HorizontalAlignment="Right" Grid.Column="1" Cursor="Hand" Background="Transparent"
-                        BorderThickness="1" BorderBrush="Transparent" MouseLeftButtonUp="TextBlock_PreviewMouseLeftButtonUp">
-                    <StackPanel Cursor="Hand" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <Path Fill="#8B8B8B"  
-Data="M19.2 57L15 52.8L31.8 36L15 19.2L19.2 15L36 31.8L52.8 15L57 19.2L40.2 36L57 52.8L52.8 57L36 40.2L19.2 57Z" 
- Stretch="Uniform"  
-  />
-                    </StackPanel>
-                    
-                </Border>-->
                 <Border HorizontalAlignment="Right" Grid.Column="1" Cursor="Hand" Background="Transparent"
                         BorderThickness="1" BorderBrush="Transparent" PreviewMouseLeftButtonUp="TextBlock_PreviewMouseLeftButtonUp">
                     <Path Fill="#8B8B8B"  
@@ -155,27 +144,8 @@ Cursor="Hand"  Grid.Column="1" Height="32" Width="142" HorizontalAlignment="Left
                 </ItemsControl>
             </ScrollViewer>
 
-            <!--<Border Background="#00B5CB"  Grid.Row="2"
-         Cursor="Hand" BorderBrush="Black" BorderThickness="1"
-          HorizontalAlignment="Center" Width="150" Height="32"
-                PreviewMouseLeftButtonUp="Border_PreviewMouseLeftButtonUp"
-                Margin="0,5,0,10">
-            <i:Interaction.Triggers>
-         <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-             <i:InvokeCommandAction Command="{Binding NavigateToCheckoutScreen}" />
-         </i:EventTrigger>
-     </i:Interaction.Triggers>
-            <TextBlock Text="Proceed to Checkout" HorizontalAlignment="Center"
-                 VerticalAlignment="Center" Foreground="Black" />
-        </Border>-->
-
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
               Margin="0,0,0,10">
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>-->
 
                 <ToggleButton   MaxWidth="432"  MaxHeight="61"
                             Background="Gray" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"

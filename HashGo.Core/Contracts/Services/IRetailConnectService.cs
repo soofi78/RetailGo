@@ -26,5 +26,7 @@ namespace HashGo.Core.Contracts.Services
 
         Task<SalesOrderWrapper> GetSalesOrderForEdit();
         Task<TenantSettingsWrapper> GetAllSettings();
+
+        Task<TemplateReceiptResponse> GetTemplateReceiptResponse();
     }
 }

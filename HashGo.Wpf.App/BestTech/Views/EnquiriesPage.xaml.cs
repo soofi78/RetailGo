@@ -33,10 +33,6 @@ namespace HashGo.Wpf.App.BestTech.Views
             InitializeComponent();
             this.DataContext = enquiriesPageViewModel;
             tBoxEnquiries.Focus();
-            //this.Loaded += (sender, e) =>
-            //{
-            //    tBoxEnquiries.Focus();
-            //};
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

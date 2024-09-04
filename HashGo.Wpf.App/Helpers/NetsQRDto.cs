@@ -71,6 +71,7 @@ namespace HashGo.Wpf.App.Helpers
     public class NetsQRNpxData
     {
         public string E103 { get; set; } = "37066801";
+        //Soofi 22-Aug-2024. remove hardcode.
         public string E201 { get; set; } = "000000000100";
         public string E202 { get; set; } = "SGD";
     }

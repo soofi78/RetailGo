@@ -30,6 +30,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+
 namespace HashGo.Wpf.App.BestTech.ViewModels
 {
     public class ProductSelectionPageViewModel : BaseViewModel

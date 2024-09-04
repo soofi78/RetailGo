@@ -4,6 +4,7 @@ using HashGo.Core.Contracts.Views;
 using HashGo.Core.Enum;
 using HashGo.Domain.ViewModels.Base;
 using HashGo.Infrastructure;
+using HashGo.Infrastructure.DataContext;
 using HashGo.Wpf.App.Helpers;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
@@ -53,7 +54,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             timer = new DispatcherTimer()
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromSeconds(2)
             };
 
             timer.Tick += (sender, e) =>
@@ -63,6 +64,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 if (time == TimeSpan.FromSeconds(0))
                 {
                     timer.Stop();
+                    //Call reverse api
+                    PaymentResponseDto reverseStatus = netsQR.ReverseTransaction(HashGoAppSettings.NETSQRHOSTID, HashGoAppSettings.NETSQRHOSTMID, ApplicationStateContext.NETQRStanId,
+                                                                    ApplicationStateContext.Deposit.Value, NetsResponse.NetQRPaymentResponse.data.InvoiceRef,
+                                                                    NetsResponse.NetQRPaymentResponse.data.TxnIdentifier,
+                                                                    HashGoAppSettings.NETSQRGATEWAYTOKEN);
                     navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
                     return;
                 }
@@ -77,7 +83,10 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             lock(lockobj)
             {
                 PaymentResponseDto netsStatus = netsQR.PaymentStatus(HashGoAppSettings.NETSQRHOSTID,
-                                                                HashGoAppSettings.NETSQRHOSTMID,        NetsResponse.NetQRPaymentResponse.data.InstitutionCode,
+                                                                HashGoAppSettings.NETSQRHOSTMID,        
+                                                                ApplicationStateContext.NETQRStanId,
+                                                                ApplicationStateContext.Deposit.Value,
+                                                                NetsResponse.NetQRPaymentResponse.data.InstitutionCode,
                                                                  NetsResponse.NetQRPaymentResponse.data.TxnIdentifier, NetsResponse.NetQRPaymentResponse.data.InvoiceRef,
                                                                  HashGoAppSettings.NETSQRGATEWAYTOKEN);
 
@@ -93,6 +102,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         private void OnNavigateToPreviousScreen()
         {
+            //Call reverse api
+            PaymentResponseDto reverseStatus = netsQR.ReverseTransaction(HashGoAppSettings.NETSQRHOSTID, HashGoAppSettings.NETSQRHOSTMID, ApplicationStateContext.NETQRStanId,
+                                                            ApplicationStateContext.Deposit.Value, NetsResponse.NetQRPaymentResponse.data.InvoiceRef,
+                                                            NetsResponse.NetQRPaymentResponse.data.TxnIdentifier,
+                                                            HashGoAppSettings.NETSQRGATEWAYTOKEN);
             navigationService.NavigateToAsync(Pages.PaymentMethod.ToString());
         }
 

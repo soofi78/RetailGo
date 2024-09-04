@@ -85,7 +85,8 @@ namespace HashGo.Wpf.App.BestTech.Views
                             }
                             else
                             {
-                                PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.Deposit.Value, invoiceRef, gatewayToken);
+                                ApplicationStateContext.NETQRStanId = Utility.AppendValue(new Random().Next(0, 999999).ToString(), 6, true);
+                                PaymentResponseDto netsResponse = netsQR.ProcessPayment(hostId, hostMId, ApplicationStateContext.NETQRStanId, ApplicationStateContext.Deposit.Value, invoiceRef, gatewayToken);
                                  
                                 if(netsResponse != null && !string.IsNullOrEmpty(netsResponse.NetsQrCode))
                                 {

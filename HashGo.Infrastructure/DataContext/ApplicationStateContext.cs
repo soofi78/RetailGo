@@ -28,6 +28,7 @@ namespace HashGo.Infrastructure.DataContext
         public static LocationDetails LocationDetailsObj { get; set; }
         public static SalesOrderWrapper SalesOrderWrapperobj { get; set; }
         public static string NETQRImageBase64String { get;set; }
+        public static string NETQRStanId { get; set; }
         public static bool IsSalesTaxInclusive { get; set; }
         public static decimal? Tax { get; set; }
         public static decimal? Deposit { get; set; }

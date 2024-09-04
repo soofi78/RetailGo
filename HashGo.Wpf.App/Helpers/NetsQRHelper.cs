@@ -15,6 +15,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using Windows.Networking.Connectivity;
 
 namespace HashGo.Wpf.App.Helpers
 {
@@ -27,7 +28,7 @@ namespace HashGo.Wpf.App.Helpers
             _logger = logger;
         }
 
-        public PaymentResponseDto ProcessPayment(string hostId, string hostMId, decimal amount, string invoiceRef, string gatewayToken)
+        public PaymentResponseDto ProcessPayment(string hostId, string hostMId, string stanId, decimal amount, string invoiceRef, string gatewayToken)
         {
             var paymentResponse = new PaymentResponseDto();
             try
@@ -37,14 +38,18 @@ namespace HashGo.Wpf.App.Helpers
                 {
                     HostTid = hostId,
                     HostMid = hostMId,
-                    //Stan = Utility.AppendValue(random.Next(0, 999999).ToString(), 10, true),
+                    Stan = stanId, //Utility.AppendValue(random.Next(0, 999999).ToString(), 6, true),
                     Amount = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),
                     TransactionTime = DateTime.Now.ToString("HHmmss"),
                     InvoiceRef = invoiceRef //Helper.Utility.AppendValue(input.PaymentRequest.Id.ToString(), 10, true)
                 };
+
+                netsQrObj.NpxData.E201 = ((int)(amount * 100)).ToString().PadLeft(12, '0');
+
                 var client = new RestClient($"{GatewayUrl}netsqr/api/order/request");
                 var request = new RestRequest();
+                request.Method = Method.Post;
                 request.AddHeader("Authorization", $"Bearer {gatewayToken}");
                 request.AddHeader("Content-Type", "application/json");
 
@@ -75,7 +80,7 @@ namespace HashGo.Wpf.App.Helpers
             return paymentResponse;
         }
 
-        public PaymentResponseDto PaymentStatus(string hostId, string hostMId, string institutionCode, string txnIdentifier, string invoiceRef, string gatewayToken)
+        public PaymentResponseDto PaymentStatus(string hostId, string hostMId, string stanId, decimal amount, string institutionCode, string txnIdentifier, string invoiceRef, string gatewayToken)
         {
             var paymentResponse = new PaymentResponseDto();
 
@@ -85,22 +90,25 @@ namespace HashGo.Wpf.App.Helpers
                 {
                     mti = "0100",
                     process_code = "330000",
-                    stan = "001002",
+                    stan = stanId, //"001002",
                     transaction_time = DateTime.Now.ToString("HHmmss"),
                     transaction_date = DateTime.Now.ToString("MMdd"),
                     entry_mode = "000",
-                    condition_code = "00",
+                    //Soofi 22-Aug-2024. Condition code change to 85
+                    condition_code = "85",
                     institution_code = institutionCode,//input.NetsQrPaymentResponse.data.InstitutionCode,
                     host_tid = hostId,
                     host_mid = hostMId,
                     txn_identifier = txnIdentifier, //input.NetsQrPaymentResponse.data.TxnIdentifier,
                     npx_data = new
                     {
-                        E103 = "37066801"
+                        E201 = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
+                        E202 = "SGD",
+                        E103 = hostId
                     },
                     invoice_ref = invoiceRef, // input.NetsQrPaymentResponse.data.InvoiceRef,
-
                 };
+
 
                 var client = new RestClient($"{GatewayUrl}netsqr/api/transaction/query");
                 var request = new RestRequest();
@@ -117,6 +125,10 @@ namespace HashGo.Wpf.App.Helpers
                     if (result != null)
                     {
                         paymentResponse.IsSuccess = result.data.ResponseCode.Equals("00");
+                        if (paymentResponse.IsSuccess)
+                        {
+                            _logger.Info("Receive from NETS QR Success - " + JsonConvert.SerializeObject(result.data));
+                        }
                     }
 
                 }
@@ -127,6 +139,63 @@ namespace HashGo.Wpf.App.Helpers
             }
 
             //paymentResponse.IsSuccess = true;
+            return paymentResponse;
+        }
+
+        public PaymentResponseDto ReverseTransaction(string hostId, string hostMId, string stanId, decimal amount, string invoiceRef, string txnIdentifier, string gatewayToken)
+        {
+            var paymentResponse = new PaymentResponseDto();
+            try
+            {
+                //var pReq = JsonConvert.DeserializeObject<FrontWheelPaymentRequest>(input.Request);
+
+                var netsQrObj = new TransactionReversalInput
+                {
+                    HostMid = hostMId,
+                    HostTid = hostId,
+                    TxnIdentifier = txnIdentifier,
+                    Amount = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
+                    TransactionDate = DateTime.Now.ToString("MMdd"),
+                    TransactionTime = DateTime.Now.ToString("HHmmss"),
+                    InvoiceRef = invoiceRef
+                };
+                netsQrObj.EntryMode = "000";
+                netsQrObj.ConditionCode = "85";
+                netsQrObj.NpxData = new
+                {
+                    //E201 = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
+                    //E202 = "SGD",
+                    E103 = hostId
+                };
+                netsQrObj.TransmissionTime = netsQrObj.TransactionDate + netsQrObj.TransactionTime;
+                netsQrObj.Stan = stanId;
+
+                var client = new RestClient($"{GatewayUrl}netsqr/api/transaction/reversal");
+                var request = new RestRequest();
+                request.Method = Method.Post;
+                request.AddHeader("Authorization", $"Bearer {gatewayToken}");
+                request.AddHeader("Content-Type", "application/json");
+                var myBody = JsonConvert.SerializeObject(netsQrObj);
+                request.AddParameter("application/json", myBody,
+                    ParameterType.RequestBody);
+
+                var response = (RestResponse)client.Execute(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = JsonConvert.DeserializeObject<TransactionReversalOutput>(response.Content);
+
+                    if (!result.Error)
+                    {
+                        paymentResponse.IsSuccess = true;
+                        paymentResponse.Message = result.message;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                paymentResponse.Message = ex.Message;
+            }
+
             return paymentResponse;
         }
 

@@ -20,8 +20,10 @@ public static class RetailConnectApiRouterNames
     public const string GET_LOCATIONDETAILS = "/api/services/app/location/GetLocationForEdit";
     public const string GET_ALLSETTINGS = "/api/services/app/tenantsettings/getallsettings";
     public const string GET_RECEIPTTEMPLATEBYLOCATION = "/api/services/app/receipttemplate/GetReceiptTemplateByLocation";
+    public const string GET_DELIVERYTIMINGBYDEPT = "/api/services/app/DeliveryTiming/GetDeliveryTimingByDepartment";
+    public const string GET_DELIVERYTIMINGBALSLOT = "/api/services/app/SalesOrder/GetSalesOrderSlots";
 }
- 
+
 public static class AppConfigKeys
 {
     public const string CONFIG_APPLCATIONURL = "ApplicationURL";

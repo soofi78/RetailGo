@@ -192,6 +192,71 @@ namespace HashGo.Domain.Services
             return new List<ServiceUnit>();
         }
 
+        public async Task<int> BalanceSlotByDeliveryTiming(int departmentId, int deliveryTimingId)
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           departmentId = departmentId,
+                           deliveryTimingId = deliveryTimingId,
+                           date = ApplicationStateContext.CustomerDate.ToString("yyyy-MM-dd"),
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_DELIVERYTIMINGBALSLOT);
+
+                DeliveryTimingSlotResponse result = JsonConvert.DeserializeObject<DeliveryTimingSlotResponse>(responeString);
+
+                if (result != null && result.success)
+                {
+                    return result.result.availableSlots;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.TraceException(ex);
+            }
+
+            return 0;
+        }
+
+
+        public async Task<IReadOnlyCollection<DeliveryTimings>> DeliveryTimingByDept(int departmentId)
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           departmentId = departmentId,
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_DELIVERYTIMINGBYDEPT);
+
+                Base<DeliveryTimings> result = JsonConvert.DeserializeObject<Base<DeliveryTimings>>(responeString);
+
+                if (result != null && result.success && result.result.items != null)
+                {
+                    return result.result.items;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.TraceException(ex);
+            }
+
+            return new List<DeliveryTimings>();
+        }
+
+
+
         public async Task<TransactionDetails> CreateSalesOrderWithPayment(SalesOrderRequest saleOrder)
         {
             try

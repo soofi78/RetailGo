@@ -52,4 +52,32 @@ namespace HashGo.Core.Models.BestTech
         public int id { get; set; }
         public string transactionNo { get; set; }
     }
+
+
+    public class DeliveryTimings
+    {
+        public string Description { get; set; }
+        public int Id { get; set; }
+    }
+
+
+    public class DeliveryTimingSlotResponse
+    {
+        public DeliveryTimingSlot result { get; set; }
+        public object targetUrl { get; set; }
+        public bool success { get; set; }
+        public object error { get; set; }
+        public bool unAuthorizedRequest { get; set; }
+        public bool __abp { get; set; }
+    }
+
+
+    public class DeliveryTimingSlot
+    {
+        public int totalSlots { get; set; }
+        public int usedSlots { get; set; }
+        public int availableSlots { get; set; }
+    }
+
+
 }

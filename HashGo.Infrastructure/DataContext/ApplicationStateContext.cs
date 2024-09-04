@@ -17,6 +17,8 @@ namespace HashGo.Infrastructure.DataContext
         //public static string? CustomerDate = null;
         public static DateTime CustomerDate = DateTime.Now;
         public static bool IsMorningTime = false;
+        public static int? deliverySlotId = 0;
+        
         public static bool IsEveningTime = false;
         public static TenantConnect ConnectItem = null;
         public static readonly int IdleTimeOutInSecs = 30;

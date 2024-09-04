@@ -65,6 +65,7 @@ namespace HashGo.Wpf.App.Services
             //salesOrderRequest.salesOrder.netTotal = salesOrderRequest.salesOrder.subTotal;
             salesOrderRequest.salesOrder.subTotal = salesOrderRequest.salesOrder.netTotal - salesOrderRequest.salesOrder.tax;
             salesOrderRequest.salesOrder.paidAmount = ApplicationStateContext.Deposit ?? 0;
+            salesOrderRequest.salesOrder.DeliveryTimingId = ApplicationStateContext.deliverySlotId ?? 0;
 
             foreach (var item in salesOrderRequest.salesOrderDetail)
             {

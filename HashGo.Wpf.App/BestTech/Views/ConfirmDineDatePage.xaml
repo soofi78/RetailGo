@@ -94,7 +94,7 @@
           IsChecked="{Binding IsMorningSelected,Mode=TwoWay}">
                     <ToggleButton.Content>
                         <Viewbox>
-                            <Label Content="Morning"/>
+                            <Label Content="{Binding DeliverySlotName1}"/>
                         </Viewbox>
                     </ToggleButton.Content>
                 </ToggleButton>
@@ -102,7 +102,7 @@
 Grid.Column="1" Foreground="Black" Margin="5,0,0,0"  FontFamily="{StaticResource BaijamureeFontRegularStyle}"
           IsChecked="{Binding IsEveningSelected,Mode=TwoWay}">
                     <Viewbox>
-                        <Label Content="Evening"/>
+                        <Label Content="{Binding DeliverySlotName2}"/>
                     </Viewbox>
                 </ToggleButton>
 

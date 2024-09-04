@@ -12,6 +12,9 @@ namespace HashGo.Core.Contracts.Services
 
         Task<IReadOnlyCollection<SubCategory>> GetSubCategoriesByCategoryId(int catId);
         Task<IReadOnlyCollection<ServiceUnit>> GetProductsByCategoryId(int categoryId);
+        Task<IReadOnlyCollection<DeliveryTimings>> DeliveryTimingByDept(int departmentId);
+        Task<int> BalanceSlotByDeliveryTiming(int departmentId, int deliveryTimingId);
+
         Task<TransactionDetails> CreateSalesOrderWithPayment(SalesOrderRequest saleOrder);
 
         Task<IReadOnlyCollection<ServiceUnit>> GetProductsByCategoryAndSubcategoryId(int categoryId, int subCtgryId);

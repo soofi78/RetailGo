@@ -53,6 +53,8 @@ namespace HashGo.Core.Models
         public string postalCode { get; set; }
         public string unitName { get; set; }
         public string floorNumber { get; set; }
+        public int? DeliveryTimingId { get; set; }
+
     }
 
     public class SalesOrderDetail

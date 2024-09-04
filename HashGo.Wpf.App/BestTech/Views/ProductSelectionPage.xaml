@@ -262,13 +262,14 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="4" Grid.ColumnSpan="2"
+        <Grid Grid.Row="4" Grid.ColumnSpan="3"
               Margin="10,0,0,15" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="0.6*" />
+                <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
-            <Border Background="white" Grid.Column="0"
+            <Border Background="white" Grid.Column="1"
          Cursor="Hand" BorderBrush="Black" BorderThickness="1"
          Margin="0,20,5,0" HorizontalAlignment="Left"
          Width="208" Height="73"
@@ -282,6 +283,10 @@
                            VerticalAlignment="Center" Foreground="Black" FontSize="24"
                            FontFamily="{StaticResource BaijamureeFontBoldStyle}"/>
             </Border>
+            <TextBlock Grid.Column="1"             FontSize="25"
+            HorizontalAlignment="Center" Margin="0"
+            Text="For other unlisted models or combinations, please contact our sales hotline at : 68172311." FontFamily="{StaticResource BaijamureeFontBoldStyle}"/>
+
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                         IsEnabled="{Binding CanMoveTopaymentsScreen}">
                 <Image Grid.Column="1" Cursor="Hand" 

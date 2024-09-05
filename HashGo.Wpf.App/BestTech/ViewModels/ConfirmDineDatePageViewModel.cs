@@ -133,6 +133,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.IsMorningSelected = ApplicationStateContext.IsMorningTime;
             this.IsEveningSelected = ApplicationStateContext.IsEveningTime;
             this.SelectedDate = sharedDataService.CustomerDateTime;
+            FillDeliverySlot();
+
         }
 
         public override void ViewUnloaded()

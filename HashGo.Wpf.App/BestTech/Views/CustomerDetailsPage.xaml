@@ -185,9 +185,8 @@ KeyDown="TextBox_KeyDown">
 
                     <TextBox  Style="{StaticResource RoundedTextBoxWithShadowStyle}" 
 Text="{Binding CustomerDetailsObj.UnitNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                               MinHeight="44" MaxHeight="62" 
-         MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
-         MaxWidth="342"
+                               MinHeight="44" MaxHeight="66" Width="703"
+          
 KeyDown="TextBox_KeyDown">
                         <i:Interaction.Behaviors>
                             <behaviours:EnableTextBoxKeyboardBehaviour />
@@ -195,7 +194,7 @@ KeyDown="TextBox_KeyDown">
                     </TextBox>
                 </StackPanel>
 
-                <StackPanel>
+                <!--<StackPanel>
                     <TextBlock Margin="10 10 0 5" 
              FontFamily="{StaticResource BaijamureeFontMediumStyle}"
              FontSize="12" Grid.Row="0" Grid.Column="1">
@@ -213,7 +212,7 @@ KeyDown="TextBox_KeyDown">
                             <behaviours:EnableTextBoxKeyboardBehaviour />
                         </i:Interaction.Behaviors>
                     </TextBox>
-                </StackPanel>
+                </StackPanel>-->
 
             </StackPanel>
 

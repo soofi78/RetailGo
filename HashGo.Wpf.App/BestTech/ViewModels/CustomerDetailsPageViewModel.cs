@@ -57,7 +57,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                    !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.ContactNumber) &&
                    sharedDataService.CustomerDetailsObj.PostalCode != null &&
                    !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.UnitNo) &&
-                   !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.FloorNo) &&
                    !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.AddressLine1);
         }
 

@@ -18,6 +18,7 @@ public static class RetailConnectApiRouterNames
     public const string GET_SALESORDER = "/api/services/app/salesorder/GetSalesOrderForEdit";
     public const string GET_STORELOCATORS = "/api/services/app/location/ApiGetLocations";
     public const string GET_LOCATIONDETAILS = "/api/services/app/location/GetLocationForEdit";
+    public const string GET_COMPANY_BACKGROUND_IMAGE = "/api/services/app/company/GetCompanyBackgrounImage";
     public const string GET_ALLSETTINGS = "/api/services/app/tenantsettings/getallsettings";
     public const string GET_RECEIPTTEMPLATEBYLOCATION = "/api/services/app/receipttemplate/GetReceiptTemplateByLocation";
     public const string GET_DELIVERYTIMINGBYDEPT = "/api/services/app/DeliveryTiming/GetDeliveryTimingByDepartment";

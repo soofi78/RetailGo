@@ -376,6 +376,33 @@ namespace HashGo.Domain.Services
             return CommonConstants.DEFAULTIMAGE;
         }
 
+        public async Task<CompanyImage?> GetCompanyBackgroundImage(string companyId)
+        {
+            try
+            {
+                var client = HttpHelper.GetInstance();
+
+                if (client == null) throw new Exception("Unable to create HttpClient.");
+
+                string? responeString = client.Post(
+                       JsonConvert.SerializeObject(new
+                       {
+                           companyId
+                       }),
+                       ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_COMPANY_BACKGROUND_IMAGE);
+
+                CompanyImageResponse result = JsonConvert.DeserializeObject<CompanyImageResponse>(responeString);
+
+                if (result != null && result.success)
+                {
+                    return result.result;
+                }
+            }
+            catch (Exception ex) { logger.TraceException(ex); }
+
+            return null;
+        }
+
         public async Task<IReadOnlyCollection<StoreLocators>> GetStoreLocations()
         {
             try

@@ -56,12 +56,18 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.sharedDataService = sharedDataService;
 
             LoadCompanyLogo();
+            //LoadCompanyBackgroundImage();
             //LoadSettingsFromServer();
         }
 
         async void LoadCompanyLogo()
         {
             ImagePath = await retailConnectService.GetCompanyLogo(HashGoAppSettings.LocationId);
+        }
+
+        async void LoadCompanyBackgroundImage()
+        {
+            var companyResponse = await retailConnectService.GetCompanyBackgroundImage(HashGoAppSettings.LocationId);
         }
 
         async void LoadSettingsFromServer()

@@ -380,6 +380,8 @@ namespace HashGo.Domain.Services
         {
             try
             {
+                companyId = "8";
+
                 var client = HttpHelper.GetInstance();
 
                 if (client == null) throw new Exception("Unable to create HttpClient.");
@@ -387,7 +389,7 @@ namespace HashGo.Domain.Services
                 string? responeString = client.Post(
                        JsonConvert.SerializeObject(new
                        {
-                           companyId
+                           Id = companyId
                        }),
                        ApplicationStateContext.ConnectItem.Url + RetailConnectApiRouterNames.GET_COMPANY_BACKGROUND_IMAGE);
 

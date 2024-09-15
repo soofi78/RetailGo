@@ -56,7 +56,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.sharedDataService = sharedDataService;
 
             LoadCompanyLogo();
-            //LoadCompanyBackgroundImage();
+            LoadCompanyBackgroundImage();
             //LoadSettingsFromServer();
         }
 

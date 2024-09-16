@@ -68,6 +68,10 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         async void LoadCompanyBackgroundImage()
         {
             var companyResponse = await retailConnectService.GetCompanyBackgroundImage(HashGoAppSettings.LocationId);
+            if(companyResponse != null)
+            {
+                BackgroundImagePath = companyResponse.backgroundImage;
+            }
         }
 
         async void LoadSettingsFromServer()
@@ -208,6 +212,19 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 imagePath = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        string backgroundImagePath;
+
+        public string BackgroundImagePath
+        {
+            get => backgroundImagePath;
+            set
+            {
+                backgroundImagePath = value;
                 OnPropertyChanged();
             }
         }

@@ -381,7 +381,6 @@ namespace HashGo.Domain.Services
             try
             {
                 companyId = "8";
-
                 var client = HttpHelper.GetInstance();
 
                 if (client == null) throw new Exception("Unable to create HttpClient.");

@@ -56,8 +56,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             this.sharedDataService = sharedDataService;
 
             LoadCompanyLogo();
-            LoadCompanyBackgroundImage();
-            //LoadSettingsFromServer();
+            LoadCompanyBackgroundImage(); 
         }
 
         async void LoadCompanyLogo()
@@ -71,6 +70,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             if(companyResponse != null)
             {
                 BackgroundImagePath = companyResponse.backgroundImage;
+                ApplicationStateContext.NoOfUnitItems = companyResponse.rowOfItems;
             }
         }
 

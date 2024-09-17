@@ -35,6 +35,7 @@ namespace HashGo.Infrastructure.DataContext
         public static decimal? Tax { get; set; }
         public static decimal? Deposit { get; set; }
         public static string Template { get; set; }
+        public static int NoOfUnitItems { get; set; }
 
         static ApplicationStateContext()
         {

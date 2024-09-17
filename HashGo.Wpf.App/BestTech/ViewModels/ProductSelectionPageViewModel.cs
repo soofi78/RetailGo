@@ -214,6 +214,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Unsubscribe(OnClearData);
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
 
+            RowOfItems = ApplicationStateContext.NoOfUnitItems;
+
             OnPropertyChanged(nameof(SelectedProductsCount));
             OnPropertyChanged(nameof(CanMoveTopaymentsScreen));
         }
@@ -251,6 +253,16 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         #region Properties
 
+        int rowOfItems = 3;
+        public int RowOfItems
+        {
+            get => rowOfItems;
+            set
+            {
+                rowOfItems = value;
+                OnPropertyChanged();
+            }
+        }
         public int SelectedProductsCount
         {
             get { return sharedDataService.SelectedUnits.Count; }

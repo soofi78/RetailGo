@@ -81,11 +81,18 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             ApplicationStateContext.IsMorningTime = this.isMorningSelected;
             ApplicationStateContext.IsEveningTime = this.isEveningSelected;
 
+
+
             int deliverySlotId = 0;
             if (IsServiceDepartment)
             {
                 if (ApplicationStateContext.IsMorningTime) deliverySlotId = deliverySlot1Id;
                 else if (ApplicationStateContext.IsEveningTime) deliverySlotId = deliverySlot2Id;
+                else
+                {
+                    MessageBox.Show("Select the Slot.");
+                    return;
+                }
             }
             else deliverySlotId = deliverySlot1Id;
 
@@ -130,6 +137,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public override void ViewLoaded()
         {
+            IsServiceDepartment = (ApplicationStateContext.DepartmentId == 420);
+
             this.IsMorningSelected = ApplicationStateContext.IsMorningTime;
             this.IsEveningSelected = ApplicationStateContext.IsEveningTime;
             this.SelectedDate = sharedDataService.CustomerDateTime;

@@ -216,6 +216,11 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             RowOfItems = ApplicationStateContext.NoOfUnitItems;
 
+            if(ApplicationStateContext.BackgroundColor != null)
+            {
+                BackgroundColor = new BrushConverter().ConvertFromString(ApplicationStateContext.BackgroundColor) as SolidColorBrush;
+            }
+
             OnPropertyChanged(nameof(SelectedProductsCount));
             OnPropertyChanged(nameof(CanMoveTopaymentsScreen));
         }
@@ -252,6 +257,23 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         #endregion
 
         #region Properties
+
+        public Brush _backgroundColor = Brushes.White;
+
+        public Brush BackgroundColor
+        {
+            get
+            {
+                return _backgroundColor;
+            }
+            set
+            {
+                _backgroundColor = value;
+                OnPropertyChanged();
+            }
+
+        }
+
 
         int rowOfItems = 3;
         public int RowOfItems

@@ -19,7 +19,7 @@
        
     </baseControls:BasePage.Resources>
 
-    <Grid Background="White">
+    <Grid Background="{Binding BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="140" />

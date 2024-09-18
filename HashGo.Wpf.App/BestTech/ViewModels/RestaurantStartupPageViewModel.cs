@@ -1,27 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HashGo.Core.Contracts.Services;
-using HashGo.Core.Contracts.StoreService;
 using HashGo.Core.Contracts.Views;
 using HashGo.Core.Enum;
-using HashGo.Core.Models;
-using HashGo.Domain.DataContext;
 using HashGo.Domain.Models.Base;
-using HashGo.Domain.ViewModels;
 using HashGo.Domain.ViewModels.Base;
 using HashGo.Infrastructure;
 using HashGo.Infrastructure.DataContext;
-using HashGo.Infrastructure.Events;
-using HashGo.Infrastructure.Services;
 using HashGo.Wpf.App.BestTech.Views;
-using Prism.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HashGo.Wpf.App.BestTech.ViewModels
@@ -71,6 +59,15 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             {
                 BackgroundImagePath = companyResponse.backgroundImage;
                 ApplicationStateContext.NoOfUnitItems = companyResponse.rowOfItems;
+
+                if(companyResponse.backgroundColor == null)
+                {
+                    ApplicationStateContext.BackgroundColor = "#FFFFFFFF";
+                }
+                else
+                {
+                    ApplicationStateContext.BackgroundColor = companyResponse.backgroundColor;
+                } 
             }
         }
 
@@ -202,7 +199,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             sharedDataService.ClearData();
             sharedDataService.ClearCustomerData();
             LoadSettingsFromServer();
-        }
+        } 
 
         string imagePath;
 

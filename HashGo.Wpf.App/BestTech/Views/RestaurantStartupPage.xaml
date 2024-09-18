@@ -31,8 +31,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="{Binding BackgroundImagePath,Converter={StaticResource imageValueConverter}}" 
-                         />
+            <ImageBrush ImageSource="{Binding BackgroundImagePath,Converter={StaticResource imageValueConverter}}"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.25*"/>

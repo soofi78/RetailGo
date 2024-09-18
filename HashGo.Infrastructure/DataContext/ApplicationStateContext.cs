@@ -37,6 +37,8 @@ namespace HashGo.Infrastructure.DataContext
         public static string Template { get; set; }
         public static int NoOfUnitItems { get; set; }
 
+        public static string BackgroundColor { get; set; }
+
         static ApplicationStateContext()
         {
             LoadSettings();

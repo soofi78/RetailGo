@@ -49,11 +49,10 @@
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
 
-        <!--<Viewbox Width="573" Height="140" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-            --><!--<Image Source="/Resources/Images/Home.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>--><!--
+        <Viewbox Width="573" Height="140" Grid.Row="0" Grid.Column="1" Visibility="Collapsed"> 
             <Image Source="{Binding ImagePath,Converter={StaticResource imageValueConverter},ConverterParameter='LOGO'}" 
                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        </Viewbox>-->
+        </Viewbox>
 
         <Border Background="Transparent" Width="80" Height="50"
                 x:Name="SlidingRectangle" 
@@ -122,7 +121,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                    <TextBlock VerticalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center" FontSize="15">
                    <Hyperlink Command="{Binding NavigateToStoreLocatorsCommand}" >
                          <Run Text="Store Locator" Foreground="Black" FontFamily="{StaticResource BaijamureeFontRegularStyle}"/>
                     </Hyperlink>

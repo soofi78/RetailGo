@@ -5,6 +5,7 @@ using HashGo.Core.Enum;
 using HashGo.Domain.Models.Base;
 using HashGo.Domain.Services;
 using HashGo.Domain.ViewModels.Base;
+using HashGo.Infrastructure.DataContext;
 using HashGo.Infrastructure.Events;
 using HashGo.Wpf.App.BestTech.Views;
 using Prism.Events;
@@ -195,6 +196,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 LstUnitInstallationTypes = new List<SelectedUnitInstallationType>(sharedDataService.SelectedUnit?.LstUnitInstallationTypes);
             if (sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj != null)
                 SelectedUnitInstallationTypeObj = sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj;
+            RowOfItems = ApplicationStateContext.NoOfUnitItems;
 
             OnPropertyChanged(nameof(SelectedAddOns));
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Subscribe(OnClearData);
@@ -236,6 +238,17 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         public string SelectedUnitImage { get { return sharedDataService?.SelectedUnit?.ImageSource; } }
 
         public bool CanAddItem { get; set; } = true;
+
+        int rowOfItems = 3;
+        public int RowOfItems
+        {
+            get => rowOfItems;
+            set
+            {
+                rowOfItems = value;
+                OnPropertyChanged();
+            }
+        }
 
         Unit selectedUnit;
 

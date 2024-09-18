@@ -83,8 +83,8 @@ namespace HashGo.Domain.Models.Base
                     {
                         addOnText += ".   " + addOn.InstallationType + "\t" + 
                                               addOn.InstallationTypeCount + 
-                                              "X" + "\t" +"+" + 
-                                              string.Format("{0:C}", addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
+                                              "X" + "\t" +"+  " + " $" +
+                                              string.Format("{0:N}", addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
                     }
                     
                 }

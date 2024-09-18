@@ -200,7 +200,7 @@
                                             <ColumnDefinition Width="0.65*" />
                                             <ColumnDefinition Width="0.35*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock FontWeight="Regular"  MinWidth="70" FontSize="12"
+                                        <TextBlock FontWeight="Regular"  MinWidth="70" FontSize="15"
                                                    FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
                                                    HorizontalAlignment="Left" VerticalAlignment="Center"
                                                    TextWrapping="Wrap" Margin="2,0,1,0"

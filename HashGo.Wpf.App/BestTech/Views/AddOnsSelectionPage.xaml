@@ -99,7 +99,7 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel />
+                            <UniformGrid Columns="{Binding RowOfItems,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
 
@@ -113,7 +113,7 @@ xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                                 </Grid.RowDefinitions>
 
                                 <Border Grid.Row="0" BorderBrush="LightGray" BorderThickness="0.5"
-                                        Width="284" Height="274"
+                                        Height="274"
                                         CornerRadius="20">
                                     <Grid>
                                         <Grid.RowDefinitions>

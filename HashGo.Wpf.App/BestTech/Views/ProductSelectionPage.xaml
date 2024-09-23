@@ -186,16 +186,16 @@
                                 <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="0.8*" />
-                                    <RowDefinition Height="0.2*"/>
-                                    <RowDefinition  />
+                                    <RowDefinition Height="0.05*"/>
+                                    <!--<RowDefinition  />-->
                                 </Grid.RowDefinitions>
 
                                     <Image Source="{Binding ImageSource,Converter={StaticResource imageValueConverter}}" Grid.Row="0" />
 
-                                    <Border BorderBrush="Gray" BorderThickness="0.5"  Grid.Row="1" Margin="5"
+                                    <Border BorderBrush="Gray" Margin="0 5 0 0" BorderThickness="0.5" VerticalAlignment="Stretch" Grid.Row="1"  
                                             HorizontalAlignment="Stretch"  CornerRadius="15" x:Name="bdrDesc"
                                              >
-                                    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.65*" />
                                             <ColumnDefinition Width="0.35*" />

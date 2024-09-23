@@ -115,9 +115,11 @@ namespace HashGo.Wpf.App.Services
                                 break;
                         }
 
-                        BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
+                        //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                     }
                 }
+                string printerName = !string.IsNullOrEmpty(HashGoAppSettings.PrinterName) ? HashGoAppSettings.PrinterName : "OneNotepad (Desktop)";
+                RawPrinterHelper.SendByteArrayToPrinter(printerName, BytesValue);
             }
             catch(Exception ex)
             {
@@ -189,7 +191,7 @@ namespace HashGo.Wpf.App.Services
             foreach (var tmp in replacements)
             {
                 string pattern = @"\{\{" + Regex.Escape(tmp.Key) + @"\}\}";
-                template = Regex.Replace(template, pattern, tmp.Value);
+                if (tmp.Value != null) template = Regex.Replace(template, pattern, tmp.Value);
             }
 
             //replace Products

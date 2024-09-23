@@ -18,8 +18,8 @@ namespace HashGo.Infrastructure.Models
         string contactNumber;
         public string ContactNumber { get => contactNumber; set { contactNumber = value; OnPropertyChanged(); } }
 
-        int? postalCode;
-        public int? PostalCode
+        string postalCode;
+        public string PostalCode
         {
             get => postalCode; set { postalCode = value; OnPropertyChanged(); }
         }

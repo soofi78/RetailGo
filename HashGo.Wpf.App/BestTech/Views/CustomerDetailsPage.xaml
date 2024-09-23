@@ -160,7 +160,7 @@ KeyDown="TextBox_KeyDown">
 
 
                     <TextBox  Style="{StaticResource RoundedTextBoxWithShadowStyle}"  Margin="10,0,0,0"
-Text="{Binding CustomerDetailsObj.PostalCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+Text="{Binding CustomerDetailsObj.PostalCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MaxLength="6"
                       MinHeight="44" MaxHeight="66" 
                               MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
                               MaxWidth="342"

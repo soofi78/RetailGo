@@ -136,7 +136,7 @@
                 </Border>
 
                 <StackPanel Orientation="Horizontal" Margin="10,5,0,5">
-                    <TextBlock Text="Referral Code: " FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
+                    <TextBlock Text="Referral Code (If Applicable): " FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
                                FontSize="18" FontWeight="SemiBold"/>
                     <TextBlock Text="{Binding ReferralCode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"

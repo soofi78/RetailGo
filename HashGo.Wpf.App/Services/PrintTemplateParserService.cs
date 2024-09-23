@@ -39,6 +39,12 @@ namespace HashGo.Wpf.App.Services
 
                     var lines = template.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.FontSelect.FontC());
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Alignment.Center());
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleWidth2());
+                    BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.CharSize.DoubleHeight3());
+
                     //Step 2: Align the content.
                     //This loop is to aling text, make text bold etc....
                     foreach (var line in lines)
@@ -115,6 +121,7 @@ namespace HashGo.Wpf.App.Services
                                 break;
                         }
 
+                        BytesValue = PrintExtensions.AddBytes(BytesValue, "\n");
                         //BytesValue = PrintExtensions.AddBytes(BytesValue, escPosEpson.Separator());
                     }
                 }

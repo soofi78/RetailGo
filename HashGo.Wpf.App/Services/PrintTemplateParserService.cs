@@ -49,7 +49,7 @@ namespace HashGo.Wpf.App.Services
                     //This loop is to aling text, make text bold etc....
                     foreach (var line in lines)
                     {
-                        switch(line)
+                        switch (line)
                         {
                             case string s when s.StartsWith("@@@"):   //Image
                                 string imageUrl = line.Substring(3); // Remove the @@@ prefix
@@ -101,7 +101,7 @@ namespace HashGo.Wpf.App.Services
                                 break;
 
                             case string s when s.StartsWith(ParseTypes.BARCODE):
-                                BytesValue = PrintExtensions.AddBytes(BytesValue, 
+                                BytesValue = PrintExtensions.AddBytes(BytesValue,
                                                                       PrintHelper.GetESCBarcodeString(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo));
                                 break;
 
@@ -128,7 +128,7 @@ namespace HashGo.Wpf.App.Services
                 string printerName = !string.IsNullOrEmpty(HashGoAppSettings.PrinterName) ? HashGoAppSettings.PrinterName : "OneNotepad (Desktop)";
                 RawPrinterHelper.SendByteArrayToPrinter(printerName, BytesValue);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -136,7 +136,7 @@ namespace HashGo.Wpf.App.Services
             return BytesValue;
         }
 
-         string downloadFile(string imageUrl)
+        string downloadFile(string imageUrl)
         {
             var arr = imageUrl.Split(new char[] { '\\', '/' });
             string fileName = arr[arr.Length - 1];
@@ -153,30 +153,36 @@ namespace HashGo.Wpf.App.Services
             return fileFullName;
         }
 
-        Dictionary<string,string> GetReplacementValues()
+        Dictionary<string, string> GetReplacementValues()
         {
-            return new Dictionary<string, string>
-        {
-            { "salesorder.salesorderNo", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo },
-            { "salesorder.salesorderDate", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soDate.ToString() },
-            { "salesorder.customerName",ApplicationStateContext.CustomerDetailsObj?.Name },
-            { "customer.address1", ApplicationStateContext.CustomerDetailsObj?.AddressLine1 },
-            { "customer.address2", ApplicationStateContext.CustomerDetailsObj?.AddressLine2 },
-            { "customer.mobile", ApplicationStateContext.CustomerDetailsObj?.ContactNumber },
-            //{ "salesOrder.productName", "Product A" },
-            //{ "salesOrder.qty", "10" },
-            //{ "salesOrder.price", "$50.00" },
-            //{ "salesOrder.subTotal", "$500.00" },
-            //{ "salesorder.qty", "10" }, 
-            { "salesorder.salesorderSubTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soSubTotal.ToString()},
-            { "salesorder.tax", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soTax.ToString() },
-            { "salesorder.netTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal.ToString() },
-            { "customer.balanceAmount", ApplicationStateContext.Deposit.ToString() },
-            { "customer.outstandingAmount", (Convert.ToDecimal(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal)   - ApplicationStateContext.Deposit.Value).ToString() }
-        };
+            var replacements =  new Dictionary<string, string>
+            {
+                { "salesorder.salesorderNo", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNo },
+                { "salesorder.salesorderDate", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soDate.ToString() },
+                { "salesorder.customerName",ApplicationStateContext.CustomerDetailsObj?.Name },
+                { "customer.address1", ApplicationStateContext.CustomerDetailsObj?.AddressLine1 },
+                { "customer.address2", ApplicationStateContext.CustomerDetailsObj?.AddressLine2 },
+                { "customer.mobile", ApplicationStateContext.CustomerDetailsObj?.ContactNumber },
+                //{ "salesOrder.productName", "Product A" },
+                //{ "salesOrder.qty", "10" },
+                //{ "salesOrder.price", "$50.00" },
+                //{ "salesOrder.subTotal", "$500.00" },
+                //{ "salesorder.qty", "10" }, 
+                { "salesorder.salesorderSubTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soSubTotal.ToString()},
+                { "salesorder.tax", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soTax.ToString() },
+                { "salesorder.netTotal", ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal.ToString() },
+                { "customer.balanceAmount", ApplicationStateContext.Deposit.ToString() },
+                { "customer.outstandingAmount", (Convert.ToDecimal(ApplicationStateContext.SalesOrderWrapperobj?.salesOrder?.soNetTotal)   - ApplicationStateContext.Deposit.Value).ToString() }
+            };
+
+            if(ApplicationStateContext.CustomerDetailsObj?.AddressLine2 == null)
+            {
+                replacements["customer.address2"] = string.Empty;
+            }
+            return replacements;
         }
 
-        List<Dictionary<string, string>> GetReplacementProductItems() 
+        List<Dictionary<string, string>> GetReplacementProductItems()
         {
             List<Dictionary<string, string>> items = new List<Dictionary<string, string>>();
             foreach (var salesOrder in ApplicationStateContext.SalesOrderRequestObject.salesOrderDetail)
@@ -205,7 +211,7 @@ namespace HashGo.Wpf.App.Services
             string productSectionPattern = @"\{\{#items\}\}(.+?)\{\{\/items\}\}";
             var match = Regex.Match(template, productSectionPattern, RegexOptions.Singleline);
 
-            if(match.Success)
+            if (match.Success)
             {
                 string itemTemplate = match.Groups[1].Value;
                 string itemsResult = string.Empty;

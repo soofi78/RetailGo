@@ -52,6 +52,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);  //,CanMoveToNextScreen
             PreviousScreenCommand = new RelayCommand(OnMoveBackToPreviousScreen);
             OpenKeyboardCommand = new RelayCommand(OnOpenKeyboard);
+
+            StartTabTipMonitor();
         }
 
         void StartTabTipMonitor()

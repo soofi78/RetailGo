@@ -266,7 +266,7 @@ KeyDown="TextBox_KeyDown">
                 </ToggleButton>
 
                 <ToggleButton MaxHeight="50" Grid.Column="1" Margin="10,10,0,0"
-                             >
+                             Command="{Binding OpenKeyboardCommand}">
                     <Image Source="/Resources/Images/Cog.png"  
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Cursor="Hand" />

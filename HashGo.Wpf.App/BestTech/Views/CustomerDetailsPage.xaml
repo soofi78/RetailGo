@@ -266,7 +266,9 @@ KeyDown="TextBox_KeyDown">
                 </ToggleButton>
 
                 <ToggleButton MaxHeight="50" Grid.Column="1" Margin="10,10,0,0"
-                             Command="{Binding OpenKeyboardCommand}">
+                             Command="{Binding OpenKeyboardCommand}"
+                              >
+                    <!--Visibility="{Binding IsKeyboardOpenButtonVisible,Converter={StaticResource booleanToVisibilityConverter}}"-->
                     <Image Source="/Resources/Images/Cog.png"  
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Cursor="Hand" />

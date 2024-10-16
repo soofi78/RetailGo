@@ -252,14 +252,28 @@ KeyDown="TextBox_KeyDown">
                     </i:Interaction.Behaviors>
                 </TextBox>
             </StackPanel>
-            <ToggleButton   Margin="0,10,0,0" MaxHeight="78" MinHeight="50"
-                             MaxWidth="529" 
- IsEnabled="{Binding IsEnabled,Mode=TwoWay}"
-Command="{Binding NextScreenCommand}"
->
-                <Label Content="CONFIRM" Foreground="White" FontSize="18"
-     />
-            </ToggleButton>
+
+            <Grid  HorizontalAlignment="Center" MaxWidth="590">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="529"/>
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton   Margin="0,10,0,0" MaxHeight="78" MinHeight="50"
+                              
+                                 IsEnabled="{Binding IsEnabled,Mode=TwoWay}"
+                                Command="{Binding NextScreenCommand}" >
+                    <Label Content="CONFIRM" Foreground="White" FontSize="18" />
+                </ToggleButton>
+
+                <ToggleButton MaxHeight="50" Grid.Column="1" Margin="10,10,0,0"
+                             >
+                    <Image Source="/Resources/Images/Cog.png"  
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Cursor="Hand" />
+
+                </ToggleButton>
+            </Grid>
+               
 
         </StackPanel>
 

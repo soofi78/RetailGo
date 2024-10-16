@@ -42,6 +42,9 @@ namespace HashGo.Infrastructure.Models
         string addressLine2;
         public string AddressLine2 { get => addressLine2; set { addressLine2 = value; OnPropertyChanged(); } }
 
+        string email;
+        public string Email { get => email; set { email = value; OnPropertyChanged(); } }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)

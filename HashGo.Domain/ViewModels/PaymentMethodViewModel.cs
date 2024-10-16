@@ -230,7 +230,7 @@ namespace HashGo.Domain.ViewModels
             salesOrderRequest.salesOrderDetail = lstSaleOrderDetails;
             salesOrderRequest.salesOrder = new SalesOrder()
             {
-                date = ApplicationStateContext.CustomerDate, //DateTime.SpecifyKind(ApplicationStateContext.CustomerDate, DateTimeKind.Utc),
+                date = ApplicationStateContext.CustomerDate,
                 name = ApplicationStateContext.CustomerDetailsObj?.Name,
                 referralCode = this.ReferralCode,
                 contactNo = ApplicationStateContext.CustomerDetailsObj?.ContactNumber,
@@ -239,6 +239,7 @@ namespace HashGo.Domain.ViewModels
                 unitName = ApplicationStateContext.CustomerDetailsObj?.UnitNo,
                 floorNumber = ApplicationStateContext.CustomerDetailsObj?.FloorNo,
                 locationId = Convert.ToInt32(HashGoAppSettings.LocationId),
+                //email = ApplicationStateContext.CustomerDetailsObj?.Email,
                 tax = ApplicationStateContext.Tax ?? 0,
                 netTotal = ApplicationStateContext.NetAmountToPay
                 //netTotal = total

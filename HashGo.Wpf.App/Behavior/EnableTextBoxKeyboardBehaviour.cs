@@ -13,17 +13,22 @@ namespace HashGo.Wpf.App.Behavior
 {
     public class EnableTextBoxKeyboardBehaviour : Behavior<TextBox>
     {
-        string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
+        private  const string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
 
         protected override void OnAttached()
         {
             base.OnAttached();
 
             this.AssociatedObject.GotFocus += AssociatedObject_GotFocus;
-            this.AssociatedObject.LostFocus += AssociatedObject_LostFocus;
+            //this.AssociatedObject.LostFocus += AssociatedObject_LostFocus;
         }
 
         private void AssociatedObject_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            OpenKeyboard();
+        }
+
+        public static  void OpenKeyboard()
         {
             try
             {
@@ -38,7 +43,7 @@ namespace HashGo.Wpf.App.Behavior
             }
         }
 
-        void startOSKProcess()
+        static void startOSKProcess()
         {
             string onScreenkeyboardPath = System.IO.Path.Combine(programFiles, "TabTip.exe");
 
@@ -52,7 +57,7 @@ namespace HashGo.Wpf.App.Behavior
             base.OnDetaching();
 
             this.AssociatedObject.GotFocus -= AssociatedObject_GotFocus;
-            this.AssociatedObject.LostFocus -= AssociatedObject_LostFocus;
+            //this.AssociatedObject.LostFocus -= AssociatedObject_LostFocus;
         }
 
         private void AssociatedObject_LostFocus(object sender, System.Windows.RoutedEventArgs e)

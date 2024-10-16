@@ -16,6 +16,7 @@
     <baseControls:BasePage.Resources>
         <common:EmailValidationRule x:Key="emailValidationRule" />
         <converters:BooleanToColorConverter x:Key="booleanToColorConverter" />
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
 
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="25"></Setter> 

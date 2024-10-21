@@ -13,6 +13,7 @@ using HashGo.Infrastructure.Events;
 using HashGo.Infrastructure.Models;
 using HashGo.Wpf.App.Behavior;
 using HashGo.Wpf.App.Services;
+using HashGo.Wpf.App.Views.Controls.KeyboardControl;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Windows.Storage;
@@ -51,9 +54,38 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);  //,CanMoveToNextScreen
             PreviousScreenCommand = new RelayCommand(OnMoveBackToPreviousScreen);
-            OpenKeyboardCommand = new RelayCommand(OnOpenKeyboard);
+            OpenKeyboardCommand = new RelayCommand<object>(OnOpenKeyboard);
 
             //StartTabTipMonitor();
+        }
+
+        private void OnOpenKeyboard(object obj)
+        {
+            if (obj is TextBox  textbox)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    VirtualKeyboardControl control = new VirtualKeyboardControl();
+                    control.DataContext = new VirtualKeyboardViewModel(textbox);
+
+                    control.Focusable = false;
+                    control.IsHitTestVisible = true; 
+
+                    control.Closed += (s, e) =>
+                    {
+                        Mouse.OverrideCursor = null; 
+                    };
+
+                    control.Show();
+
+                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        Keyboard.Focus(textbox); 
+                    }), System.Windows.Threading.DispatcherPriority.Background);
+
+
+                });
+            }
         }
 
         void StartTabTipMonitor()
@@ -84,10 +116,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             return tabTipProcesses.Any();
         }
 
-        void OnOpenKeyboard()
-        {
-            EnableTextBoxKeyboardBehaviour.OpenKeyboard();
-        }
+        
 
         void SetIsEnabled()
         {

@@ -1,4 +1,5 @@
-﻿using HashGo.Core.Enum;
+﻿using CommunityToolkit.Mvvm.Input;
+using HashGo.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,98 +35,103 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
                 NotifyPropertyChanged(nameof(Uppercase));
             }
         }
-        public Command AddCharacter { get; }
-        public Command ChangeCasing { get;}
-        public Command RemoveCharacter { get;}
-        public Command ChangeKeyboardType { get; }
-        public Command EnterCharacter { get;}
+        public RelayCommand<string> AddCharacter { get; set; }
+        public RelayCommand ChangeCasing { get; set; }
+        public RelayCommand<string> RemoveCharacter { get; set; }
+        public RelayCommand ChangeKeyboardType { get; set; }
+        public RelayCommand EnterCharacter { get; set; }
 
-        private TextBox TextBox;
-        public VirtualKeyboardViewModel(TextBox tBoxName)
+        private TextBox textBox;
+
+        public TextBox TextBox
         {
-            //_keyboardText = initialValue;
+            get { return textBox; }
+            set { textBox = value; }
+        }
+
+        public VirtualKeyboardViewModel()
+        {
             _keyboardType = KeyboardType.Alphabet;
             _uppercase = false;
-            TextBox = tBoxName;
+            AddCharacter = new RelayCommand<string>(OnAddCharacter);
+            ChangeCasing = new RelayCommand(OnChangeCasing);
+            RemoveCharacter = new RelayCommand<string>(OnRemoveCharacter);
+            EnterCharacter = new RelayCommand(OnEnterCharacter);
+            ChangeKeyboardType = new RelayCommand(OnChangeKeyboardType);
+        }
 
+        private void OnChangeKeyboardType()
+        {
+            if (KeyboardType == KeyboardType.Alphabet) KeyboardType = KeyboardType.Special;
+            else KeyboardType = KeyboardType.Alphabet;
+        }
 
-            AddCharacter = new Command(a =>
+        private void OnEnterCharacter()
+        {
+            if (TextBox is TextBox textBox)
             {
-                if (a is string character)
-                {
-                    if (character.Length == 1)
-                    {
-                        if (Uppercase)
-                            character = character.ToUpper();
+                // Get the current caret position
+                int caretIndex = textBox.CaretIndex;
 
-                        var focusedElement = FocusManager.GetFocusedElement(Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)) as FrameworkElement;
+                // Insert a new line at the caret position
+                textBox.Text = textBox.Text.Insert(caretIndex, Environment.NewLine);
 
-                        if (TextBox is TextBox textBox)
-                        {
-                            // Insert the character into the TextBox at the current caret position
-                            int caretIndex = textBox.CaretIndex;
-                            textBox.Text = textBox.Text.Insert(caretIndex, character);
-                            textBox.CaretIndex = caretIndex + 1;
-                        }
-                    }
-                }
-            });
+                // Move the caret to the new position after the new line
+                textBox.CaretIndex = caretIndex + Environment.NewLine.Length;
+            }
+        }
 
-            ChangeCasing = new Command(a => Uppercase = !Uppercase);
-
-            RemoveCharacter = new Command(a =>
+        private void OnRemoveCharacter(string obj)
+        {
+            if (TextBox is TextBox textBox)
             {
-                // Get the currently focused control
-                var focusedElement = FocusManager.GetFocusedElement(Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)) as FrameworkElement;
-
-                if (TextBox is TextBox textBox)
+                if (!string.IsNullOrEmpty(textBox.Text))
                 {
-                    if (!string.IsNullOrEmpty(textBox.Text))
-                    {
-                        int caretIndex = textBox.CaretIndex;
-                        if (textBox.SelectedText.Length > 0)
-                        {
-                            textBox.Text = textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength);
-                            textBox.CaretIndex = caretIndex - textBox.SelectionLength;
-                        }
-                        else
-                        {
-                            // Remove the character at the caret position (like Backspace)
-                            if (caretIndex > 0)
-                            {
-                                textBox.Text = textBox.Text.Remove(caretIndex - 1, 1);
-                                textBox.CaretIndex = caretIndex - 1;
-                            }
-                        }
-                    }
-                }
-            });
-
-
-            EnterCharacter = new Command(a =>
-            {
-                var focusedElement = Keyboard.FocusedElement as FrameworkElement;
-
-                if (TextBox is TextBox textBox)
-                {
-                    // Get the current caret position
                     int caretIndex = textBox.CaretIndex;
-
-                    // Insert a new line at the caret position
-                    textBox.Text = textBox.Text.Insert(caretIndex, Environment.NewLine);
-
-                    // Move the caret to the new position after the new line
-                    textBox.CaretIndex = caretIndex + Environment.NewLine.Length;
+                    if (textBox.SelectedText.Length > 0)
+                    {
+                        textBox.Text = textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength);
+                        textBox.CaretIndex = caretIndex - textBox.SelectionLength;
+                    }
+                    else
+                    {
+                        // Remove the character at the caret position (like Backspace)
+                        if (caretIndex > 0)
+                        {
+                            textBox.Text = textBox.Text.Remove(caretIndex - 1, 1);
+                            textBox.CaretIndex = caretIndex - 1;
+                        }
+                    }
                 }
-            });
+            }
 
+        }
 
-            ChangeKeyboardType = new Command(a =>
+        private void OnChangeCasing()
+        {
+            Uppercase = !Uppercase;
+        }
+
+        private void OnAddCharacter(string obj)
+        {
+            if (obj is string character)
             {
-                if (KeyboardType == KeyboardType.Alphabet) KeyboardType = KeyboardType.Special;
-                else KeyboardType = KeyboardType.Alphabet;
-            });
+                if (character.Length == 1)
+                {
+                    if (Uppercase)
+                        character = character.ToUpper();
 
+                    var focusedElement = FocusManager.GetFocusedElement(Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive)) as FrameworkElement;
+
+                    if (TextBox is TextBox textBox)
+                    {
+                        // Insert the character into the TextBox at the current caret position
+                        int caretIndex = textBox.CaretIndex;
+                        textBox.Text = textBox.Text.Insert(caretIndex, character);
+                        textBox.CaretIndex = caretIndex + 1;
+                    }
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -54,39 +54,35 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);  //,CanMoveToNextScreen
             PreviousScreenCommand = new RelayCommand(OnMoveBackToPreviousScreen);
-            OpenKeyboardCommand = new RelayCommand<object>(OnOpenKeyboard);
+            OpenKeyboardCommand = new RelayCommand(OnOpenKeyboard);
 
             //StartTabTipMonitor();
         }
 
-        private void OnOpenKeyboard(object obj)
+        private void OnOpenKeyboard()
         {
-            if (obj is TextBox  textbox)
+            if (EnableTextBoxKeyboardBehaviour.KeyboardControl == null)
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    VirtualKeyboardControl control = new VirtualKeyboardControl();
-                    control.DataContext = new VirtualKeyboardViewModel(textbox);
+                    VirtualKeyboardControl control = EnableTextBoxKeyboardBehaviour.KeyboardControl = new VirtualKeyboardControl();
+                    control.DataContext = new VirtualKeyboardViewModel();
 
                     control.Focusable = false;
-                    control.IsHitTestVisible = true; 
+                    control.IsHitTestVisible = true;
 
                     control.Closed += (s, e) =>
                     {
-                        Mouse.OverrideCursor = null; 
+                        Mouse.OverrideCursor = null;
+                        EnableTextBoxKeyboardBehaviour.KeyboardControl = null;
                     };
 
                     control.Show();
 
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        Keyboard.Focus(textbox); 
-                    }), System.Windows.Threading.DispatcherPriority.Background);
-
-
                 });
             }
         }
+
 
         void StartTabTipMonitor()
         {
@@ -116,7 +112,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             return tabTipProcesses.Any();
         }
 
-        
+
 
         void SetIsEnabled()
         {

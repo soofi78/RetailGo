@@ -127,14 +127,10 @@
                     KeyDown="TextBox_KeyDown"
                     Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                     Text="{Binding CustomerDetailsObj.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                            <i:InvokeCommandAction Command="{Binding OpenKeyboardCommand}" CommandParameter="{Binding ElementName=tBoxName}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <!--<i:Interaction.Behaviors>
+
+                    <i:Interaction.Behaviors>
                         <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>-->
+                    </i:Interaction.Behaviors>
                 </TextBox>
             </StackPanel>
 
@@ -291,19 +287,25 @@
                 </StackPanel>
 
                 <!--<StackPanel>
-                    <TextBlock Margin="10 10 0 5"
-             FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-             FontSize="12" Grid.Row="0" Grid.Column="1">
-      <Run>Floor Number</Run>
-      <Run Foreground="Red" Text="*"></Run>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10,10,0,5"
+                        FontFamily="{StaticResource BaijamureeFontMediumStyle}"
+                        FontSize="12">
+                        <Run>Floor Number</Run>
+                        <Run Foreground="Red" Text="*" />
                     </TextBlock>
 
-                    <TextBox   Style="{StaticResource RoundedTextBoxWithShadowStyle}" Margin="10,0,0,0"
-     Text="{Binding CustomerDetailsObj.FloorNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                               MinHeight="44" MaxHeight="62"
-         MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
-         MaxWidth="342"
-     KeyDown="TextBox_KeyDown">
+                    <TextBox
+                        MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
+                        MinHeight="44"
+                        MaxWidth="342"
+                        MaxHeight="62"
+                        Margin="10,0,0,0"
+                        KeyDown="TextBox_KeyDown"
+                        Style="{StaticResource RoundedTextBoxWithShadowStyle}"
+                        Text="{Binding CustomerDetailsObj.FloorNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Behaviors>
                             <behaviours:EnableTextBoxKeyboardBehaviour />
                         </i:Interaction.Behaviors>
@@ -364,6 +366,7 @@
                         Source="/Resources/Images/Cog.png" />
 
                 </ToggleButton>
+
             </Grid>
 
 

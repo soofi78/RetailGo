@@ -9,12 +9,17 @@
     Title="VirtualKeyboardControl"
     Width="800"
     Height="450"
+    VerticalAlignment="Bottom"
+    WindowStartupLocation="Manual"
+    WindowStyle="ToolWindow"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:UppercaseTypographyConverter x:Key="UppercaseConverter" />
         <converters:KeyboardTypeConverter x:Key="KeyboardTypeConverter" />
     </Window.Resources>
+
     <Grid Background="{DynamicResource KeyboardBackgroundAccentBrush}">
         <ContentControl Content="{Binding KeyboardType, Converter={StaticResource KeyboardTypeConverter}}" />
     </Grid>
+
 </Window>

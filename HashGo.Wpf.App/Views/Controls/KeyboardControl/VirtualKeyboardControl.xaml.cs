@@ -22,7 +22,7 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
         public VirtualKeyboardControl()
         {
             InitializeComponent();
-            //DataContext=new VirtualKeyboardViewModel();
+            this.Owner = Application.Current.MainWindow;
         }
     }
 }

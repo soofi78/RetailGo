@@ -19,7 +19,12 @@
     </Window.Resources>
 
     <Grid Background="{DynamicResource KeyboardBackgroundAccentBrush}">
-        <ContentControl Content="{Binding KeyboardType, Converter={StaticResource KeyboardTypeConverter}}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="80*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="1" Content="{Binding KeyboardType, Converter={StaticResource KeyboardTypeConverter}}" />
     </Grid>
 
 </Window>

@@ -23,6 +23,10 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
         {
             InitializeComponent();
             this.Owner = Application.Current.MainWindow;
+            Height = Application.Current.MainWindow.Height / 2;
+            Width = Application.Current.MainWindow.Width;
+            Top = Application.Current.MainWindow.Top + Height;
+            Left = Application.Current.MainWindow.Left;
         }
     }
 }

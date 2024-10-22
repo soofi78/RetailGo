@@ -239,7 +239,7 @@ namespace HashGo.Domain.ViewModels
                 unitName = ApplicationStateContext.CustomerDetailsObj?.UnitNo,
                 floorNumber = ApplicationStateContext.CustomerDetailsObj?.FloorNo,
                 locationId = Convert.ToInt32(HashGoAppSettings.LocationId),
-                //email = ApplicationStateContext.CustomerDetailsObj?.Email,
+                email = ApplicationStateContext.CustomerDetailsObj?.Email,
                 tax = ApplicationStateContext.Tax ?? 0,
                 netTotal = ApplicationStateContext.NetAmountToPay
                 //netTotal = total

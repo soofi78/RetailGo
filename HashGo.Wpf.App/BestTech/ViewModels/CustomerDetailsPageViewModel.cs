@@ -54,49 +54,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);  //,CanMoveToNextScreen
             PreviousScreenCommand = new RelayCommand(OnMoveBackToPreviousScreen);
-            OpenKeyboardCommand = new RelayCommand(OnOpenKeyboard);
-
-            //StartTabTipMonitor();
-        }
-
-        private void OnOpenKeyboard()
-        {
-            if (EnableTextBoxKeyboardBehaviour.KeyboardControl == null)
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    VirtualKeyboardControl control = EnableTextBoxKeyboardBehaviour.KeyboardControl = new VirtualKeyboardControl();
-                    control.DataContext = new VirtualKeyboardViewModel();
-
-                    control.Focusable = false;
-                    control.IsHitTestVisible = true;
-
-                    control.Closed += (s, e) =>
-                    {
-                        Mouse.OverrideCursor = null;
-                        EnableTextBoxKeyboardBehaviour.KeyboardControl = null;
-                    };
-
-                    control.Show();
-
-                });
-            }
-        }
-
-
-        void StartTabTipMonitor()
-        {
-            keyboardMonitorTimer = new DispatcherTimer();
-            keyboardMonitorTimer.Interval = TimeSpan.FromSeconds(1); // Check every 1 second
-            keyboardMonitorTimer.Tick += OnKeyboardMonitorTick;
-            keyboardMonitorTimer.Start();
-        }
-
-        public override void ViewUnloaded()
-        {
-            keyboardMonitorTimer.Stop();
-
-            base.ViewUnloaded();
         }
 
         private void OnKeyboardMonitorTick(object sender, EventArgs e)

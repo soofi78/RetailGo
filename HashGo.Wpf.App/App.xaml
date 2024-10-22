@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Resources/Styles/StoryBoards.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/CommonStyles.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/BaijamureeFont.xaml" />
+                <ResourceDictionary Source="/Resources/Styles/KeyboardStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="Poppins-Regular">pack://application:,,,/Resources/Fonts/#Poppins</FontFamily>

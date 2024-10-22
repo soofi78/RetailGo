@@ -26,6 +26,13 @@
 
     <Color x:Key="SuccessColor">#14AE5C</Color>
     <Color x:Key="CartIconColor">#FDCA4B</Color>
+    
+    <Color x:Key="KeyboardBackgroundColor">#2f2f2f</Color>
+    <Color x:Key="KeyboardBackgroundAccentcolor">#FFA0A0A0</Color>
+   
+    <!--<SolidColorBrush x:Key="KeyboardBackgroundBrush" Color="#2f2f2f"/>
+    <SolidColorBrush x:Key="KeyboardBackgroundAccentBrush" Color="#FFA0A0A0"/>
+    <SolidColorBrush x:Key="KeyboardForegroundBrush" Color="White"/>-->
 
 
 

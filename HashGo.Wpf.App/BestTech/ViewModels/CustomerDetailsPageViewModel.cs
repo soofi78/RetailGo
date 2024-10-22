@@ -13,6 +13,7 @@ using HashGo.Infrastructure.Events;
 using HashGo.Infrastructure.Models;
 using HashGo.Wpf.App.Behavior;
 using HashGo.Wpf.App.Services;
+using HashGo.Wpf.App.Views.Controls.KeyboardControl;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Windows.Storage;
@@ -51,24 +54,6 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             NextScreenCommand = new RelayCommand(OnMoveToNextScreen);  //,CanMoveToNextScreen
             PreviousScreenCommand = new RelayCommand(OnMoveBackToPreviousScreen);
-            OpenKeyboardCommand = new RelayCommand(OnOpenKeyboard);
-
-            //StartTabTipMonitor();
-        }
-
-        void StartTabTipMonitor()
-        {
-            keyboardMonitorTimer = new DispatcherTimer();
-            keyboardMonitorTimer.Interval = TimeSpan.FromSeconds(1); // Check every 1 second
-            keyboardMonitorTimer.Tick += OnKeyboardMonitorTick;
-            keyboardMonitorTimer.Start();
-        }
-
-        public override void ViewUnloaded()
-        {
-            keyboardMonitorTimer.Stop();
-
-            base.ViewUnloaded();
         }
 
         private void OnKeyboardMonitorTick(object sender, EventArgs e)
@@ -84,10 +69,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             return tabTipProcesses.Any();
         }
 
-        void OnOpenKeyboard()
-        {
-            EnableTextBoxKeyboardBehaviour.OpenKeyboard();
-        }
+
 
         void SetIsEnabled()
         {

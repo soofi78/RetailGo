@@ -25,5 +25,7 @@
     <SolidColorBrush x:Key="TapToStartEstimationBackgroundBrush" Color="{DynamicResource TapToStartEstimationBackgroundColor}" />
     <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
     <SolidColorBrush x:Key="CartIconBrush" Color="{DynamicResource CartIconColor}" />
+    <SolidColorBrush x:Key="KeyboardBackgroundBrush" Color="{DynamicResource KeyboardBackgroundColor}" />
+    <SolidColorBrush x:Key="KeyboardBackgroundAccentBrush" Color="{DynamicResource KeyboardBackgroundAccentcolor}" />
 
 </ResourceDictionary>

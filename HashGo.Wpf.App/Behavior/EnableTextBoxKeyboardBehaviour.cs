@@ -1,4 +1,5 @@
-﻿using Microsoft.Xaml.Behaviors;
+﻿using HashGo.Wpf.App.Views.Controls.KeyboardControl;
+using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,7 +15,8 @@ namespace HashGo.Wpf.App.Behavior
 {
     public class EnableTextBoxKeyboardBehaviour : Behavior<TextBox>
     {
-        private  const string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
+        private const string programFiles = @"C:\Program Files\Common Files\Microsoft shared\ink";
+        public static VirtualKeyboardControl KeyboardControl;
 
         protected override void OnAttached()
         {
@@ -25,17 +28,51 @@ namespace HashGo.Wpf.App.Behavior
 
         private void AssociatedObject_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            OpenKeyboard();
+            OpenKeyboard(sender);
         }
 
-        public static  void OpenKeyboard()
+        public static void OpenKeyboard(object sender)
         {
             try
             {
-                var uiHostNoLaunch = new UIHostNoLaunch();
-                var tipInvocation = (ITipInvocation)uiHostNoLaunch;
-                tipInvocation.Toggle(GetDesktopWindow());
-                Marshal.ReleaseComObject(uiHostNoLaunch);
+                //var uiHostNoLaunch = new UIHostNoLaunch();
+                //var tipInvocation = (ITipInvocation)uiHostNoLaunch;
+                //tipInvocation.Toggle(GetDesktopWindow());
+                //Marshal.ReleaseComObject(uiHostNoLaunch);
+
+                if (sender is TextBox textbox)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (KeyboardControl == null)
+                        {
+                            VirtualKeyboardControl control = KeyboardControl = new VirtualKeyboardControl();
+                            control.DataContext = new VirtualKeyboardViewModel();
+
+                            control.Focusable = false;
+                            control.IsHitTestVisible = true;
+
+                            control.Closed += (s, e) =>
+                            {
+                                Mouse.OverrideCursor = null;
+                                KeyboardControl = null;
+                            };
+
+                            control.Show();
+                        }
+
+                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        {
+                            Keyboard.Focus(textbox);
+                        }), System.Windows.Threading.DispatcherPriority.Background);
+
+                        if (KeyboardControl.DataContext is VirtualKeyboardViewModel viewModel)
+                        {
+                            viewModel.TextBox=textbox;
+                        } 
+
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -71,7 +108,7 @@ namespace HashGo.Wpf.App.Behavior
             }
             catch (Exception ex)
             {
-               
+
             }
 
             finally
@@ -122,7 +159,7 @@ namespace HashGo.Wpf.App.Behavior
             //    Process oskProcess = Process.Start(processStartInfo);
             //}
 
-            
+
         }
 
         #region Touch keyboard

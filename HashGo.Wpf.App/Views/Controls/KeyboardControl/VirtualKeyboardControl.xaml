@@ -1,0 +1,30 @@
+﻿<Window
+    x:Class="HashGo.Wpf.App.Views.Controls.KeyboardControl.VirtualKeyboardControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HashGo.Wpf.App.Views.Controls.KeyboardControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="VirtualKeyboardControl"
+    Width="800"
+    Height="450"
+    VerticalAlignment="Bottom"
+    WindowStartupLocation="Manual"
+    WindowStyle="ToolWindow"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <converters:UppercaseTypographyConverter x:Key="UppercaseConverter" />
+        <converters:KeyboardTypeConverter x:Key="KeyboardTypeConverter" />
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource KeyboardBackgroundAccentBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="80*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl Grid.Column="1" Content="{Binding KeyboardType, Converter={StaticResource KeyboardTypeConverter}}" />
+    </Grid>
+
+</Window>

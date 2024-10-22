@@ -100,6 +100,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void OnMoveBackToPreviousScreen()
         {
+            EnableTextBoxKeyboardBehaviour.KeyboardControl.Close();
             navigationService.NavigateToAsync(Pages.DineDateSelect.ToString());
         }
 

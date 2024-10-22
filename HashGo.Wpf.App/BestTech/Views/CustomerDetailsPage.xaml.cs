@@ -38,7 +38,9 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         private void CustomerDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            tBoxName.Focus();
+            if (tBoxName.Text == null || tBoxName.Text == string.Empty)
+                tBoxName.Focus();
+
         }
 
         private static readonly Regex _regex = new Regex("^[896][0-9]*$");
@@ -50,7 +52,7 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 //e.Handled = true;
                 MoveFocusToNextTextBox((UIElement)sender);
@@ -66,8 +68,8 @@ namespace HashGo.Wpf.App.BestTech.Views
             {
                 nextElement.MoveFocus(traversalRequest);
                 nextElement = Keyboard.FocusedElement as UIElement;
-            } 
-            while(nextElement is TextBlock);
+            }
+            while (nextElement is TextBlock);
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

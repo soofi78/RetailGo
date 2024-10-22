@@ -27,5 +27,9 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
             Top = Application.Current.MainWindow.Top + Application.Current.MainWindow.Height - Height;
             Left = Application.Current.MainWindow.Left;
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

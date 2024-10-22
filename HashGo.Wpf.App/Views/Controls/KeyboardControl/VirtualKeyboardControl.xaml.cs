@@ -22,10 +22,9 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
         public VirtualKeyboardControl()
         {
             InitializeComponent();
-            this.Owner = Application.Current.MainWindow;
-            Height = Application.Current.MainWindow.Height / 2;
+            Height = Application.Current.MainWindow.Height / 4;
             Width = Application.Current.MainWindow.Width;
-            Top = Application.Current.MainWindow.Top + Height;
+            Top = Application.Current.MainWindow.Top + Application.Current.MainWindow.Height - Height;
             Left = Application.Current.MainWindow.Left;
         }
     }

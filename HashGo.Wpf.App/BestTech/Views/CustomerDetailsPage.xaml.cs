@@ -32,7 +32,13 @@ namespace HashGo.Wpf.App.BestTech.Views
             InitializeComponent();
 
             this.DataContext = customerDetailsPageViewModel;
+            this.Loaded += CustomerDetailsPage_Loaded;
             //tBoxName.Focus();
+        }
+
+        private void CustomerDetailsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            tBoxName.Focus();
         }
 
         private static readonly Regex _regex = new Regex("^[896][0-9]*$");

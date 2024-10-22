@@ -353,19 +353,7 @@
                         Foreground="White" />
                 </ToggleButton>
 
-                <ToggleButton
-                    Grid.Column="1"
-                    MaxHeight="50"
-                    Margin="10,10,0,0"
-                    Command="{Binding OpenKeyboardCommand}">
-                    <!--  Visibility="{Binding IsKeyboardOpenButtonVisible,Converter={StaticResource booleanToVisibilityConverter}}"  -->
-                    <Image
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Cursor="Hand"
-                        Source="/Resources/Images/Cog.png" />
-
-                </ToggleButton>
+               
 
             </Grid>
 

@@ -37,6 +37,10 @@ namespace HashGo.Wpf.App.Helpers
         [JsonProperty("host_mid")]
         public string HostMid { get; set; }
         [JsonProperty("getQRCode")]
+
+        //public bool IsProduction { get; set; }
+        //[JsonProperty("isProduction")]
+
         public string GetQRCode { get; set; } = "Y";
         [JsonProperty("communication_data")]
         public List<NetsQRCommunicationData> CommunicationData { get; set; }

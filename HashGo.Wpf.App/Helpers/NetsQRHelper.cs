@@ -38,6 +38,7 @@ namespace HashGo.Wpf.App.Helpers
                 {
                     HostTid = hostId,
                     HostMid = hostMId,
+                    //IsProduction = true,
                     Stan = stanId, //Utility.AppendValue(random.Next(0, 999999).ToString(), 6, true),
                     Amount = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),
@@ -89,6 +90,7 @@ namespace HashGo.Wpf.App.Helpers
                 var netsQrObj = new
                 {
                     mti = "0100",
+                    IsProduction = true,
                     process_code = "330000",
                     stan = stanId, //"001002",
                     transaction_time = DateTime.Now.ToString("HHmmss"),
@@ -153,6 +155,7 @@ namespace HashGo.Wpf.App.Helpers
                 {
                     HostMid = hostMId,
                     HostTid = hostId,
+                    //IsProduction = true,
                     TxnIdentifier = txnIdentifier,
                     Amount = ((int)(amount * 100)).ToString().PadLeft(12, '0'),
                     TransactionDate = DateTime.Now.ToString("MMdd"),

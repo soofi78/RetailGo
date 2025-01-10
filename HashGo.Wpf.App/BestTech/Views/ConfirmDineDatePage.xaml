@@ -1,17 +1,19 @@
-﻿<baseControls:BasePage x:Class="HashGo.Wpf.App.BestTech.Views.ConfirmDineDatePage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
-      xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
-      mc:Ignorable="d"  
-      xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
-      d:DesignHeight="550" d:DesignWidth="800"
-      xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
-      Title="ConfirmDineDatePage">
+﻿<baseControls:BasePage
+    x:Class="HashGo.Wpf.App.BestTech.Views.ConfirmDineDatePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
+    xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
+    xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    Title="ConfirmDineDatePage"
+    d:DesignHeight="550"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <baseControls:BasePage.Resources>
         <converters:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:ScreenOrientationVisibility x:Key="screenOrientationVisibility" />
@@ -20,101 +22,147 @@
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.25*"/>
-            <ColumnDefinition Width="580"/>
-            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.25*" />
+            <ColumnDefinition Width="580" />
+            <ColumnDefinition Width="0.25*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <!--<RowDefinition  Height="0.25*"/>-->
-            <!--<RowDefinition Height="0.1*"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!--<RowDefinition  Height="0.25*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.1*"/>-->
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="10,20,0,0" Cursor="Hand"
-              Background="Transparent" >
+        <Grid
+            Grid.Row="0"
+            Margin="10,20,0,0"
+            Background="Transparent"
+            Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                   <i:InvokeCommandAction Command="{Binding PreviousScreenCommand}" />
+                    <i:InvokeCommandAction Command="{Binding PreviousScreenCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <Path Cursor="Hand"  Data="M 10,0 L 0,10 L 10,20 M 0,10 L 20,10" Stroke="Black" StrokeThickness="1" />
+            <Path
+                Cursor="Hand"
+                Data="M 10,0 L 0,10 L 10,20 M 0,10 L 20,10"
+                Stroke="Black"
+                StrokeThickness="1" />
 
         </Grid>
-        <Viewbox Width="573" Height="140" Grid.Row="1" Grid.Column="1">
-            <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
-                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Viewbox
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="573"
+            Height="140">
+            <Image
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}" />
         </Viewbox>
 
 
-        <TextBlock  Grid.Row="2" Grid.Column="1"
-                    HorizontalAlignment="Center" FontFamily="{StaticResource BaijamureeFontRegularStyle}"
-                    Text="Please select a preferred date"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            FontFamily="{StaticResource BaijamureeFontRegularStyle}"
+            Text="Please select a preferred date" />
 
         <Grid Grid.Row="3" Grid.Column="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Calendar CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" 
-                       Margin="0,10,0,10" Width="550"
-                      Visibility="{Binding Converter={StaticResource screenOrientationVisibility},ConverterParameter=LANDSCAPE}"
-                      CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}" 
-                      CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle2}" 
-                      Style="{DynamicResource CalendarStyle1}" x:Name="calender" Loaded="Calendar_Loaded"
-                      SelectedDatesChanged="calender_SelectedDatesChanged" HorizontalContentAlignment="Stretch"
-                     SelectedDate="{Binding SelectedDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                     SelectionMode="SingleDate"
-                     DisplayMode="Month" />
+            <Calendar
+                x:Name="calender"
+                Width="550"
+                Margin="0,10,0,10"
+                HorizontalContentAlignment="Stretch"
+                CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}"
+                CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle2}"
+                CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}"
+                DisplayMode="Month"
+                Loaded="Calendar_Loaded"
+                SelectedDate="{Binding SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedDatesChanged="calender_SelectedDatesChanged"
+                SelectionMode="SingleDate"
+                Style="{DynamicResource CalendarStyle1}"
+                Visibility="{Binding Converter={StaticResource screenOrientationVisibility}, ConverterParameter=LANDSCAPE}" />
 
-            <Viewbox  Visibility="{Binding Converter={StaticResource screenOrientationVisibility},ConverterParameter=PORTRAIT}" Width="550">
-                <Calendar CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" 
-                          Visibility="{Binding Converter={StaticResource screenOrientationVisibility},ConverterParameter=PORTRAIT}"
-            Margin="0,10,0,10"
-          
-           CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}" 
-           CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle2}" 
-           Style="{DynamicResource CalendarStyle1}" x:Name="calender2" Loaded="Calendar_Loaded"
-           SelectedDatesChanged="calender_SelectedDatesChanged" HorizontalContentAlignment="Stretch"
-          SelectedDate="{Binding SelectedDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-          SelectionMode="SingleDate"
-          DisplayMode="Month" />
+            <Viewbox Width="550" Visibility="{Binding Converter={StaticResource screenOrientationVisibility}, ConverterParameter=PORTRAIT}">
+                <Calendar
+                    x:Name="calender2"
+                    Margin="0,10,0,10"
+                    HorizontalContentAlignment="Stretch"
+                    CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}"
+                    CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle2}"
+                    CalendarItemStyle="{DynamicResource CalendarCalendarItemStyle1}"
+                    DisplayMode="Month"
+                    Loaded="Calendar_Loaded"
+                    SelectedDate="{Binding SelectedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedDatesChanged="calender_SelectedDatesChanged"
+                    SelectionMode="SingleDate"
+                    Style="{DynamicResource CalendarStyle1}"
+                    Visibility="{Binding Converter={StaticResource screenOrientationVisibility}, ConverterParameter=PORTRAIT}" />
             </Viewbox>
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0,0,10" HorizontalAlignment="Center"
-                         Visibility="{Binding IsServiceDepartment,Converter={StaticResource booleanToVisibilityConverter}}">
-                <ToggleButton Style="{StaticResource defaultToggleButtonStyle1}" Width="268" Height="73"
-            Foreground="Black" FontFamily="{StaticResource BaijamureeFontRegularStyle}"
-          IsChecked="{Binding IsMorningSelected,Mode=TwoWay}">
+            <StackPanel
+                Grid.Row="1"
+                Margin="10,0,0,10"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Visibility="{Binding IsServiceDepartment, Converter={StaticResource booleanToVisibilityConverter}}">
+                <ToggleButton
+                    Width="268"
+                    Height="73"
+                    FontFamily="{StaticResource BaijamureeFontRegularStyle}"
+                    Foreground="Black"
+                    IsChecked="{Binding IsMorningSelected, Mode=TwoWay}"
+                    Style="{StaticResource defaultToggleButtonStyle1}">
                     <ToggleButton.Content>
                         <Viewbox>
-                            <Label Content="{Binding DeliverySlotName1}"/>
+                            <Label Content="{Binding DeliverySlotName1}" />
                         </Viewbox>
                     </ToggleButton.Content>
                 </ToggleButton>
-                <ToggleButton Style="{StaticResource defaultToggleButtonStyle1}" Width="268" Height="73"
-Grid.Column="1" Foreground="Black" Margin="5,0,0,0"  FontFamily="{StaticResource BaijamureeFontRegularStyle}"
-          IsChecked="{Binding IsEveningSelected,Mode=TwoWay}">
+                <ToggleButton
+                    Grid.Column="1"
+                    Width="268"
+                    Height="73"
+                    Margin="5,0,0,0"
+                    FontFamily="{StaticResource BaijamureeFontRegularStyle}"
+                    Foreground="Black"
+                    IsChecked="{Binding IsEveningSelected, Mode=TwoWay}"
+                    Style="{StaticResource defaultToggleButtonStyle1}">
                     <Viewbox>
-                        <Label Content="{Binding DeliverySlotName2}"/>
+                        <Label Content="{Binding DeliverySlotName2}" />
                     </Viewbox>
                 </ToggleButton>
 
             </StackPanel>
 
-            <ToggleButton Margin="0,10,0,0" Style="{StaticResource defaultToggleButtonStyle4}"
-  Background="#00B5CB" Height="78" 
-  Command="{Binding NextScreenCommand}" Width="529" Grid.Row="2"
-  HorizontalAlignment="Stretch"
-  VerticalAlignment="Stretch" >
-                <Label Content="CONFIRM" Foreground="White" FontSize="18"
-           FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"/>
+            <ToggleButton
+                Grid.Row="2"
+                Width="529"
+                Height="78"
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#00B5CB"
+                Command="{Binding NextScreenCommand}"
+                Style="{StaticResource defaultToggleButtonStyle4}">
+                <Label
+                    Content="CONFIRM"
+                    FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
+                    FontSize="18"
+                    Foreground="White" />
             </ToggleButton>
 
         </Grid>

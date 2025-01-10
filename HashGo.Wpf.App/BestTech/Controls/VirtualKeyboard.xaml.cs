@@ -19,7 +19,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
         {
             InitializeComponent();
             this.sharedDataService = sharedDataService;
-            tBoxInput.Focus();
+            
 
             this.Loaded += (sender, e) =>
             {
@@ -30,7 +30,7 @@ namespace HashGo.Wpf.App.BestTech.Controls
                     tBoxInput.Text = sharedDataService.RefferalCode;
                     tBoxInput.SelectionStart = sharedDataService.RefferalCode.Length;
                 }
-
+                tBoxInput.Focus();
             };
 
             this.MinHeight = SystemParameters.PrimaryScreenHeight/4;

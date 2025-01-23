@@ -69,18 +69,18 @@ namespace HashGo.Wpf.App.Behavior
                         }), System.Windows.Threading.DispatcherPriority.Background);
 
 
-                        if (KeyboardControl.DataContext is VirtualKeyboardViewModel viewModel)
-                        {
-                            viewModel.TextBox = textbox;
-                            viewModel.TextBox.TextChanged += (s, e) =>
-                            {
-                                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                                {
-                                    textbox.Focus();
-                                    Keyboard.Focus(textbox);
-                                }), System.Windows.Threading.DispatcherPriority.Background);
-                            };
-                        }
+                        //if (KeyboardControl.DataContext is VirtualKeyboardViewModel viewModel)
+                        //{
+                        //    viewModel.TextBox = textbox;
+                        //    viewModel.TextBox.TextChanged += (s, e) =>
+                        //    {
+                        //        //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        //        //{
+                        //        //    textbox.Focus();
+                        //        //    Keyboard.Focus(textbox);
+                        //        //}), System.Windows.Threading.DispatcherPriority.Background);
+                        //    };
+                        //}
 
                     });
                 }

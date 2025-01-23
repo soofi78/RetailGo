@@ -52,11 +52,22 @@ namespace HashGo.Wpf.App.BestTech.Views
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && sender is TextBox textBox)
             {
-                //e.Handled = true;
-                MoveFocusToNextTextBox((UIElement)sender);
+                // Get the current caret position
+                int caretIndex = textBox.CaretIndex;
+
+                // Insert a new line at the caret position
+                textBox.Text = textBox.Text.Insert(caretIndex, Environment.NewLine);
+
+                // Move the caret to the new position after the new line
+                textBox.CaretIndex = caretIndex + Environment.NewLine.Length;
+                textBox.Focus();
+                Keyboard.Focus(textBox);
             }
+            //e.Handled = true;
+            //MoveFocusToNextTextBox((UIElement)sender);
+
         }
 
         void MoveFocusToNextTextBox(UIElement currentUIElement)

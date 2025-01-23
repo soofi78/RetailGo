@@ -78,6 +78,8 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
 
                 // Move the caret to the new position after the new line
                 textBox.CaretIndex = caretIndex + Environment.NewLine.Length;
+                textBox.Focus();
+                Keyboard.Focus(textBox);
             }
         }
 
@@ -92,6 +94,8 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
                     {
                         textBox.Text = textBox.Text.Remove(textBox.SelectionStart, textBox.SelectionLength);
                         textBox.CaretIndex = caretIndex - textBox.SelectionLength;
+                        textBox.Focus();
+                        Keyboard.Focus(textBox);
                     }
                     else
                     {
@@ -100,6 +104,8 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
                         {
                             textBox.Text = textBox.Text.Remove(caretIndex - 1, 1);
                             textBox.CaretIndex = caretIndex - 1;
+                            textBox.Focus();
+                            Keyboard.Focus(textBox);
                         }
                     }
                 }
@@ -129,6 +135,8 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
                         int caretIndex = textBox.CaretIndex;
                         textBox.Text = textBox.Text.Insert(caretIndex, character);
                         textBox.CaretIndex = caretIndex + 1;
+                        textBox.Focus();
+                        Keyboard.Focus(textBox);
                     }
                 }
             }

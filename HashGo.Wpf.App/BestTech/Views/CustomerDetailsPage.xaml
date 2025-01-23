@@ -114,7 +114,7 @@
                 <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="12">
+                    FontSize="14">
                     <Run>Name</Run>
                     <Run Foreground="Red" Text="*" />
                 </TextBlock>
@@ -134,11 +134,11 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="12">
+                    FontSize="14">
                     <Run>Address Line 1</Run>
                     <Run Foreground="Red" Text="*" />
                 </TextBlock>
@@ -156,11 +156,11 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="12"
+                    FontSize="14"
                     Text="Address Line 2" />
 
                 <TextBox
@@ -178,11 +178,11 @@
             </StackPanel>
 
             <!--  Email  -->
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="12"
+                    FontSize="14"
                     Text="Email" />
 
                 <TextBox
@@ -206,13 +206,13 @@
                 </TextBox>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
 
                 <StackPanel>
                     <TextBlock
                         Margin="0,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                        FontSize="12">
+                        FontSize="14">
                         <Run>Contact Number</Run>
                         <Run Foreground="Red" Text="*" />
                     </TextBlock>
@@ -238,7 +238,7 @@
                     <TextBlock
                         Margin="10,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                        FontSize="12">
+                        FontSize="14">
                         <Run>Postal Code</Run>
                         <Run Foreground="Red" Text="*" />
                     </TextBlock>
@@ -262,13 +262,13 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="0,5,0,0">
 
                 <StackPanel>
                     <TextBlock
                         Margin="0,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                        FontSize="12">
+                        FontSize="14">
                         <Run>Unit Number</Run>
                         <Run Foreground="Red" Text="*" />
                     </TextBlock>
@@ -314,11 +314,11 @@
 
             </StackPanel>
 
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="12"
+                    FontSize="14"
                     Text="Remarks" />
                 <TextBox
                     MinHeight="102"

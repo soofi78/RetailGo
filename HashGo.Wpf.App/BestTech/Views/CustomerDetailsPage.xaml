@@ -182,8 +182,11 @@
                     <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                    FontSize="14"
-                    Text="Email" />
+                    FontSize="14">
+                        <Run>Email</Run>
+                        <Run Foreground="Red" Text="*" />
+                    </TextBlock>
+
 
                     <TextBox
                     Grid.Row="1"

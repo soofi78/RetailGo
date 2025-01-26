@@ -77,7 +77,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                    !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.ContactNumber) &&
                    sharedDataService.CustomerDetailsObj.PostalCode != null &&
                    !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.UnitNo) &&
-                   !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.AddressLine1);
+                   !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.AddressLine1) &&
+                   !string.IsNullOrEmpty(sharedDataService.CustomerDetailsObj.Email);
         }
 
         void OnClearData(bool isClearData)
@@ -100,7 +101,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         void OnMoveBackToPreviousScreen()
         {
-            EnableTextBoxKeyboardBehaviour.KeyboardControl.Close();
+            if(EnableTextBoxKeyboardBehaviour.KeyboardControl!=null)
+                EnableTextBoxKeyboardBehaviour.KeyboardControl.Close();
             navigationService.NavigateToAsync(Pages.DineDateSelect.ToString());
         }
 

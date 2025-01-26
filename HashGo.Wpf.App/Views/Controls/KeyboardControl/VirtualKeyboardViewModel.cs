@@ -1,10 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HashGo.Core.Enum;
+using HashGo.Wpf.App.Behavior;
+using HashGo.Wpf.App.Common;
+using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -131,12 +135,35 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
 
                     if (TextBox is TextBox textBox)
                     {
-                        // Insert the character into the TextBox at the current caret position
-                        int caretIndex = textBox.CaretIndex;
-                        textBox.Text = textBox.Text.Insert(caretIndex, character);
-                        textBox.CaretIndex = caretIndex + 1;
+                        var behaviors = Interaction.GetBehaviors(textBox);
+                        bool hasIntegerInputBehaviour = behaviors.OfType<IntegerInputBehaviour>().Any();
+                        if (hasIntegerInputBehaviour)
+                        {
+                            if (textBox.MaxLength > textBox.Text.Length)
+                            {
+                                if (textBox.Name.Contains("ContactNumberTextBox"))
+                                {
+                                    string newText = textBox.Text.Insert(textBox.SelectionStart, character);
+
+                                    if (IsTextValid(newText))
+                                    {
+                                        updateText(character);
+                                    }
+
+                                }
+                                else if (IsTextAllowed(character))
+                                {
+                                    updateText(character);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            updateText(character);
+                        }
                         textBox.Focus();
                         Keyboard.Focus(textBox);
+
                     }
                 }
             }
@@ -148,6 +175,27 @@ namespace HashGo.Wpf.App.Views.Controls.KeyboardControl
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9]+"); // Matches text that is not a number
+            return !regex.IsMatch(text);
+        }
+
+        private static readonly Regex _regex = new Regex("^[896][0-9]*$");
+
+        private bool IsTextValid(string text)
+        {
+            var result = _regex.IsMatch(text);
+            return result;
+        }
+
+        private void updateText(string character)
+        {
+            int caretIndex = textBox.CaretIndex;
+            textBox.Text = textBox.Text.Insert(caretIndex, character);
+            textBox.CaretIndex = caretIndex + 1;
+        }
+
     }
 }
 

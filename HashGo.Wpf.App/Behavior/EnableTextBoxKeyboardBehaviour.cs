@@ -47,7 +47,10 @@ namespace HashGo.Wpf.App.Behavior
                         if (KeyboardControl == null)
                         {
                             VirtualKeyboardControl control = KeyboardControl = new VirtualKeyboardControl();
-                            control.DataContext = new VirtualKeyboardViewModel();
+                            control.DataContext = new VirtualKeyboardViewModel
+                            {
+                                TextBox = textbox // Pass the TextBox reference
+                            };
                             Window window=Window.GetWindow(textbox);
                             control.Owner = window;
                             control.Focusable = false;
@@ -61,13 +64,16 @@ namespace HashGo.Wpf.App.Behavior
                             control.Show();
                         }
 
-                        Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                        {
-                            Keyboard.ClearFocus();
-                            Keyboard.Focus(textbox);
-                            textbox.Focus();
-                        }), System.Windows.Threading.DispatcherPriority.Background);
+                        //Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                        //{
+                        //    Keyboard.ClearFocus();
+                        //    Keyboard.Focus(textbox);
+                        //    textbox.Focus();
+                        //}), System.Windows.Threading.DispatcherPriority.Background);
 
+                        if (KeyboardControl.DataContext is VirtualKeyboardViewModel viewModel)
+                            viewModel.TextBox = textbox; 
+                        textbox.Focus();
 
                         //if (KeyboardControl.DataContext is VirtualKeyboardViewModel viewModel)
                         //{

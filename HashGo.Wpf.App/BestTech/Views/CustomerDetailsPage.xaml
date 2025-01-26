@@ -66,59 +66,59 @@
         </Style>
     </baseControls:BasePage.Resources>
 
-    <Grid Background="White">
+        <Grid Background="White">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
-            <ColumnDefinition Width="710" />
-            <ColumnDefinition Width="0.2*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition MinHeight="70" MaxHeight="85" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="710" />
+                <ColumnDefinition Width="0.2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="70" MaxHeight="85" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Grid
+            <Grid
             Grid.Row="0"
             Margin="10,15,0,0"
             Background="Transparent"
             Cursor="Hand">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding PreviousScreenCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <Path
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding PreviousScreenCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Path
                 Cursor="Hand"
                 Data="M 10,0 L 0,10 L 10,20 M 0,10 L 20,10"
                 Stroke="Black"
                 StrokeThickness="1" />
 
-        </Grid>
+            </Grid>
 
-        <Viewbox
+            <Viewbox
             Grid.Row="1"
             Grid.Column="1"
             Width="573"
             Height="116">
-            <Image
+                <Image
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}" />
-        </Viewbox>
+            </Viewbox>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
+            <StackPanel Grid.Row="2" Grid.Column="1">
 
-            <StackPanel>
-                <TextBlock
+                <StackPanel>
+                    <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                     FontSize="14">
                     <Run>Name</Run>
                     <Run Foreground="Red" Text="*" />
-                </TextBlock>
-                <TextBox
+                    </TextBlock>
+                    <TextBox
                     x:Name="tBoxName"
                     Grid.Row="1"
                     MinHeight="44"
@@ -128,21 +128,21 @@
                     Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                     Text="{Binding CustomerDetailsObj.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-                    <i:Interaction.Behaviors>
-                        <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>
-                </TextBox>
-            </StackPanel>
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </StackPanel>
 
-            <StackPanel Margin="0,5,0,0">
-                <TextBlock
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                     FontSize="14">
                     <Run>Address Line 1</Run>
                     <Run Foreground="Red" Text="*" />
-                </TextBlock>
-                <TextBox
+                    </TextBlock>
+                    <TextBox
                     Grid.Row="1"
                     MinHeight="44"
                     MaxWidth="713"
@@ -150,20 +150,20 @@
                     KeyDown="TextBox_KeyDown"
                     Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                     Text="{Binding CustomerDetailsObj.AddressLine1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>
-                </TextBox>
-            </StackPanel>
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </StackPanel>
 
-            <StackPanel Margin="0,5,0,0">
-                <TextBlock
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                     FontSize="14"
                     Text="Address Line 2" />
 
-                <TextBox
+                    <TextBox
                     Grid.Row="1"
                     MinHeight="44"
                     MaxWidth="713"
@@ -171,53 +171,54 @@
                     KeyDown="TextBox_KeyDown"
                     Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                     Text="{Binding CustomerDetailsObj.AddressLine2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Behaviors>
-                        <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>
-                </TextBox>
-            </StackPanel>
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </StackPanel>
 
-            <!--  Email  -->
-            <StackPanel Margin="0,5,0,0">
-                <TextBlock
+                <!--  Email  -->
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                     FontSize="14"
                     Text="Email" />
 
-                <TextBox
+                    <TextBox
                     Grid.Row="1"
                     MinHeight="44"
                     MaxWidth="713"
                     MaxHeight="66"
                     KeyDown="TextBox_KeyDown"
                     Style="{StaticResource RoundedTextBoxWithShadowStyleWithValidationBorder}">
-                    <Binding
+                        <Binding
                         Mode="TwoWay"
                         Path="CustomerDetailsObj.Email"
                         UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <common:EmailValidationRule />
-                        </Binding.ValidationRules>
-                    </Binding>
-                    <i:Interaction.Behaviors>
-                        <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>
-                </TextBox>
-            </StackPanel>
+                            <Binding.ValidationRules>
+                                <common:EmailValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
 
-                <StackPanel>
-                    <TextBlock
+                    <StackPanel>
+                        <TextBlock
                         Margin="0,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                         FontSize="14">
                         <Run>Contact Number</Run>
                         <Run Foreground="Red" Text="*" />
-                    </TextBlock>
+                        </TextBlock>
 
-                    <TextBox
+                        <TextBox
+                        x:Name="ContactNumberTextBox"
                         MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
                         MinHeight="44"
                         MaxWidth="342"
@@ -227,24 +228,24 @@
                         PreviewTextInput="TextBox_PreviewTextInput"
                         Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                         Text="{Binding CustomerDetailsObj.ContactNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Behaviors>
-                            <behaviours:IntegerInputBehaviour />
-                            <behaviours:EnableTextBoxKeyboardBehaviour />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
-                </StackPanel>
+                            <i:Interaction.Behaviors>
+                                <behaviours:IntegerInputBehaviour />
+                                <behaviours:EnableTextBoxKeyboardBehaviour />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </StackPanel>
 
-                <StackPanel>
-                    <TextBlock
+                    <StackPanel>
+                        <TextBlock
                         Margin="10,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                         FontSize="14">
                         <Run>Postal Code</Run>
                         <Run Foreground="Red" Text="*" />
-                    </TextBlock>
+                        </TextBlock>
 
 
-                    <TextBox
+                        <TextBox
                         MinWidth="{Binding ActualWidth, ElementName=tBoxName, Converter={converters:PercentageConverter}, ConverterParameter='.49'}"
                         MinHeight="44"
                         MaxWidth="342"
@@ -254,39 +255,39 @@
                         MaxLength="6"
                         Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                         Text="{Binding CustomerDetailsObj.PostalCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Behaviors>
-                            <behaviours:IntegerInputBehaviour />
-                            <behaviours:EnableTextBoxKeyboardBehaviour />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
+                            <i:Interaction.Behaviors>
+                                <behaviours:IntegerInputBehaviour />
+                                <behaviours:EnableTextBoxKeyboardBehaviour />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
 
-            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="0,5,0,0">
+                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal" Margin="0,5,0,0">
 
-                <StackPanel>
-                    <TextBlock
+                    <StackPanel>
+                        <TextBlock
                         Margin="0,10,0,5"
                         FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                         FontSize="14">
                         <Run>Unit Number</Run>
                         <Run Foreground="Red" Text="*" />
-                    </TextBlock>
+                        </TextBlock>
 
-                    <TextBox
+                        <TextBox
                         Width="703"
                         MinHeight="44"
                         MaxHeight="66"
                         KeyDown="TextBox_KeyDown"
                         Style="{StaticResource RoundedTextBoxWithShadowStyle}"
                         Text="{Binding CustomerDetailsObj.UnitNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <i:Interaction.Behaviors>
-                            <behaviours:EnableTextBoxKeyboardBehaviour />
-                        </i:Interaction.Behaviors>
-                    </TextBox>
-                </StackPanel>
+                            <i:Interaction.Behaviors>
+                                <behaviours:EnableTextBoxKeyboardBehaviour />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </StackPanel>
 
-                <!--<StackPanel>
+                    <!--<StackPanel>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
@@ -312,15 +313,15 @@
                     </TextBox>
                 </StackPanel>-->
 
-            </StackPanel>
+                </StackPanel>
 
-            <StackPanel Margin="0,5,0,0">
-                <TextBlock
+                <StackPanel Margin="0,5,0,0">
+                    <TextBlock
                     Margin="0,10,0,5"
                     FontFamily="{StaticResource BaijamureeFontMediumStyle}"
                     FontSize="14"
                     Text="Remarks" />
-                <TextBox
+                    <TextBox
                     MinHeight="102"
                     MaxWidth="713"
                     MaxHeight="140"
@@ -330,46 +331,46 @@
                     Style="{StaticResource RoundedTextBoxWithShadowStyleWithCursorTop}"
                     Text="{Binding CustomerDetailsObj.Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     TextWrapping="Wrap">
-                    <i:Interaction.Behaviors>
-                        <behaviours:EnableTextBoxKeyboardBehaviour />
-                    </i:Interaction.Behaviors>
-                </TextBox>
-            </StackPanel>
+                        <i:Interaction.Behaviors>
+                            <behaviours:EnableTextBoxKeyboardBehaviour />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </StackPanel>
 
-            <Grid MaxWidth="590" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="529" />
-                    <ColumnDefinition Width="60" />
-                </Grid.ColumnDefinitions>
-                <ToggleButton
+                <Grid MaxWidth="590" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="529" />
+                        <ColumnDefinition Width="60" />
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton
                     MinHeight="50"
                     MaxHeight="78"
                     Margin="0,10,0,0"
                     Command="{Binding NextScreenCommand}"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}">
-                    <Label
+                        <Label
                         Content="CONFIRM"
                         FontSize="18"
                         Foreground="White" />
-                </ToggleButton>
+                    </ToggleButton>
 
 
 
-            </Grid>
+                </Grid>
 
 
-        </StackPanel>
-        <!--<Grid x:Name="KeyboardControl" Visibility="Collapsed">
+            </StackPanel>
+            <!--<Grid x:Name="KeyboardControl" Visibility="Collapsed">
         -->
-        <!--<Control:KeyboardControl>-->
-        <!--
+            <!--<Control:KeyboardControl>-->
+            <!--
             <keyboardcontrol:VirtualKeyboardControl/>
         -->
-        <!--</Control:KeyboardControl>-->
-        <!--
+            <!--</Control:KeyboardControl>-->
+            <!--
 
         </Grid>-->
-    </Grid>
+        </Grid>
 
 
 </baseControls:BasePage>

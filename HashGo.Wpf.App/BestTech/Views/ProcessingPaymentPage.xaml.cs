@@ -70,6 +70,12 @@ namespace HashGo.Wpf.App.BestTech.Views
                             string gatewayToken = HashGoAppSettings.NETSQRGATEWAYTOKEN; //"gXKYoXJisXLE6krTTNebWqzWMnZ4UF9lgLGWMuvl";    
                             NetsQRHelper netsQR = new NetsQRHelper(_logger);
 
+                            if (ApplicationStateContext.Deposit == 0)
+                            {
+                                System.Windows.MessageBox.Show("Deposit amount should be greater than 0.");
+                                return;
+                            }
+
                             // if host id, host mid and gateway token is empty then dont proceed this payment 
                             if(string.IsNullOrEmpty(hostId) && string.IsNullOrEmpty(hostMId) && string.IsNullOrEmpty(gatewayToken))
                             {

@@ -120,7 +120,14 @@ namespace HashGo.Domain.ViewModels
                 {
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
-
+                else if (paymentMethod.Name.ToUpper() == "PAY AT COUNTER")
+                {
+                    ApplicationStateContext.Deposit = 0;
+                    ApplicationStateContext.PaymentMethodObject.PaymentMode = "CASH";
+                    paymentMethod.Name = "CASH";
+                    paymentType = "CASH";
+                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                }
                 #endregion
 
                 //ApplicationStateContext.ClearData();
@@ -267,6 +274,9 @@ namespace HashGo.Domain.ViewModels
                 case "CREDITCARD":
                     sPaymentType = "CREDITCARD";
                     //picNets.Image = Image.FromFile(Application.StartupPath + @"\images\Nets\CreditCard.gif");
+                    break;
+                default:
+                    sPaymentType = sNetsPaymode;
                     break;
             }
             //lblPayBy.Text = sPaymentType;

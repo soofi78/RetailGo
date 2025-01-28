@@ -158,22 +158,22 @@ namespace HashGo.Domain.Services
 
             return new List<PaymentMethod>()
             {
-                new PaymentMethod()
-                {
-                    Id = 1,
-                    Name = "NETS", 
-                     Icon = "\\Resources\\Images\\Nets.png",
-                     Description = "NETS",
-                     PaymentMode = "NETS"
-                },
-                new PaymentMethod()
-                {
-                    Id = 2,
-                    Name = "VISA", 
-                    Icon = "\\Resources\\Images\\Visa.png",
-                    Description="Credit Card/Debit Card",
-                    PaymentMode = "CREDITCARD"
-                },
+                //new PaymentMethod()
+                //{
+                //    Id = 1,
+                //    Name = "NETS", 
+                //     Icon = "\\Resources\\Images\\Nets.png",
+                //     Description = "NETS",
+                //     PaymentMode = "NETS"
+                //},
+                //new PaymentMethod()
+                //{
+                //    Id = 2,
+                //    Name = "VISA", 
+                //    Icon = "\\Resources\\Images\\Visa.png",
+                //    Description="Credit Card/Debit Card",
+                //    PaymentMode = "CREDITCARD"
+                //},
                 new PaymentMethod()
                 {
                     Id = 3,
@@ -186,11 +186,11 @@ namespace HashGo.Domain.Services
                 new PaymentMethod()
                 {
                     Id = 4,
-                    Name = "CASH",
+                    Name = "PAY AT COUNTER",
                     //Icon = LoadImageToBase64String("\\Resources\\Images\\RightArrow.png"),
                     Icon = "\\Resources\\Images\\RightArrow.png",
-                    Description="CASH",
-                    PaymentMode = "CASH"
+                    Description="PAY AT COUNTER",
+                    PaymentMode = "PAYATCOUNTER"
                 }
 
             };

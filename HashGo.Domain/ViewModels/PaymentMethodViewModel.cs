@@ -25,7 +25,7 @@ namespace HashGo.Domain.ViewModels
         [ObservableProperty]
         Cart cart;
 
-        
+
         private INetworkService _NetworkService;
         IRetailConnectService retailConnectService;
         IEventAggregator eventAggregator;
@@ -39,7 +39,7 @@ namespace HashGo.Domain.ViewModels
                                       IOrderService orderService, INetworkService networkService,
                                       IRetailConnectService retailConnectService,
                                       IEventAggregator eventAggregator,
-                                      IPopupService popupService, SharedDataService sharedDataService) 
+                                      IPopupService popupService, SharedDataService sharedDataService)
             : base(loggingService, brandService, navigationService, orderService)
         {
             this.popupService = popupService;
@@ -78,8 +78,8 @@ namespace HashGo.Domain.ViewModels
             //        { "IsServiceDepartment", sharedDataService.DepartmentName.ToUpper() == "SERVICING" },
             //    };
             //this.NavigationService.NavigateToAsync(Pages.DineDateSelect.ToString(), parameters);
-            
-            
+
+
             this.NavigationService.NavigateToAsync(Pages.CustomerDetails.ToString());
         }
 
@@ -101,7 +101,7 @@ namespace HashGo.Domain.ViewModels
                 ApplicationStateContext.SalesOrderRequestObject = salesOrderRequest;
                 ApplicationStateContext.PaymentMethodObject = paymentMethod;
 
-              
+
                 if (paymentMethod.Name.ToUpper() == "NETS")
                 {
                     //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
@@ -168,7 +168,7 @@ namespace HashGo.Domain.ViewModels
 
             catch (Exception e)
             {
-                IsBusy= false;
+                IsBusy = false;
             }
         }
 
@@ -194,7 +194,7 @@ namespace HashGo.Domain.ViewModels
             foreach (var selectedUnit in SelectedUnits)
             {
                 SalesOrderDetail detail = new SalesOrderDetail();
-                detail.unitId =  selectedUnit.UnitId; 
+                detail.unitId = selectedUnit.UnitId;
                 detail.productId = selectedUnit.Id;
                 detail.price = Convert.ToDecimal(selectedUnit.UnitPrice);
                 detail.qty = selectedUnit.UnitCount;
@@ -210,9 +210,9 @@ namespace HashGo.Domain.ViewModels
 
                 #region AddOns
 
-                if(selectedUnit.LstSelectedUnitInstallationTypes?.Count>0)
+                if (selectedUnit.LstSelectedUnitInstallationTypes?.Count > 0)
                 {
-                    foreach(var addon in  selectedUnit.LstSelectedUnitInstallationTypes) 
+                    foreach (var addon in selectedUnit.LstSelectedUnitInstallationTypes)
                     {
                         SalesOrderDetail addOnDetail = new SalesOrderDetail();
                         addOnDetail.unitId = addon.UnitId;
@@ -284,10 +284,10 @@ namespace HashGo.Domain.ViewModels
             return sPaymentType;
         }
 
-        
+
 
         bool isBusy;
-        public bool IsBusy 
+        public bool IsBusy
         {
             get => isBusy;
             set
@@ -301,7 +301,7 @@ namespace HashGo.Domain.ViewModels
         void NavigateToStartScreen()
         {
             eventAggregator.GetEvent<ClearAllSelectedDataEvent>().Publish(true);
-            this.NavigateToPage(Pages.RestaurantStartup,null) ;
+            this.NavigateToPage(Pages.RestaurantStartup, null);
         }
 
         [RelayCommand]
@@ -323,6 +323,6 @@ namespace HashGo.Domain.ViewModels
         }
 
         public string ReferralCode { get; private set; }
-        
+
     }
 }

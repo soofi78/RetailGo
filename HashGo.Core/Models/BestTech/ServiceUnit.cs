@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace HashGo.Core.Models.BestTech
@@ -21,5 +22,8 @@ namespace HashGo.Core.Models.BestTech
         public string tax { get; set; }
         public string taxPercentage { get; set; }
         public int taxId { get; set; }
+        public string subCategoryName { get; set; }
+        public int? subCategoryId { get; set; }
+        
     }
 }

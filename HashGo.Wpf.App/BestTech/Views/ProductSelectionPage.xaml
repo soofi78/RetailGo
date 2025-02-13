@@ -1,22 +1,24 @@
-﻿<baseControls:BasePage x:Class="HashGo.Wpf.App.BestTech.Views.ProductSelectionPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
-      mc:Ignorable="d" x:Name="productSelectionPage"
-      xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
-      xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
-      d:DesignHeight="450" d:DesignWidth="800"
-     
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
-      Title="ProductSelectionPage">
+﻿<baseControls:BasePage
+    x:Class="HashGo.Wpf.App.BestTech.Views.ProductSelectionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
+    xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:imagePath="clr-namespace:HashGo.Infrastructure.DataContext;assembly=HashGo.Infrastructure"
+    xmlns:local="clr-namespace:HashGo.Wpf.App.BestTech.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="productSelectionPage"
+    Title="ProductSelectionPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <baseControls:BasePage.Resources>
         <converters:HashTechImageConverter x:Key="imageValueConverter" />
-        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         <converters:ScreenOrientationVisibility x:Key="screenOrientationVisibility" />
-       
+
     </baseControls:BasePage.Resources>
 
     <Grid Background="{Binding BackgroundColor}">
@@ -24,44 +26,71 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="140" />
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Viewbox Width="573" Height="140" Grid.Row="1" >
-            <Image Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}"
-                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Viewbox
+            Grid.Row="1"
+            Width="573"
+            Height="140">
+            <Image
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Source="{Binding Source={x:Static imagePath:ApplicationStateContext.ServerImagePath}}" />
         </Viewbox>
-        
-        <Border Height="1" Grid.Row="2"
-                Background="#00B5CB"/>
+
+        <Border
+            Grid.Row="2"
+            Height="1"
+            Background="#00B5CB" />
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="218" x:Name="col"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition x:Name="col" Width="218" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" BorderThickness="1" BorderBrush="#91E4F7"
-                     ItemsSource="{Binding Categories}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     SelectedItem="{Binding SelectedCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <ListBox
+                Grid.Column="0"
+                BorderBrush="#91E4F7"
+                BorderThickness="1"
+                ItemsSource="{Binding Categories}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="#00B5CB" BorderThickness="0.8" Margin="0,0,0,-3" Height="100" Cursor="Hand"
-                                 Width="{Binding ActualWidth, ElementName=col, Converter={converters:PercentageConverter}, ConverterParameter='.95'}">
-                            <Grid VerticalAlignment="Center" MinHeight="42" 
-      Cursor="Hand">
+                        <Border
+                            Width="{Binding ActualWidth, ElementName=col, Converter={converters:PercentageConverter}, ConverterParameter='.95'}"
+                            Height="100"
+                            Margin="0,0,0,-3"
+                            BorderBrush="#00B5CB"
+                            BorderThickness="0.8"
+                            Cursor="Hand">
+                            <Grid
+                                MinHeight="42"
+                                VerticalAlignment="Center"
+                                Cursor="Hand">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.7*"/>
-                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.7*" />
+                                    <ColumnDefinition Width="0.3*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding CategoryImage,Converter={StaticResource imageValueConverter}}" 
-                Height="90" Grid.Column="0" Cursor="Hand" HorizontalAlignment="Right"
-                                       Width="{Binding ActualWidth, ElementName=col, Converter={converters:PercentageConverter}, ConverterParameter='.65'}"/>
-                                <TextBlock  Text="{Binding Name}" Margin="10,0,0,0"
-                    TextWrapping="Wrap" Visibility="{Binding CanShowText,Converter={StaticResource booleanToVisibilityConverter}}"
-                    Grid.Column="1" VerticalAlignment="Center" Cursor="Hand"/>
+                                <Image
+                                    Grid.Column="0"
+                                    Width="{Binding ActualWidth, ElementName=col, Converter={converters:PercentageConverter}, ConverterParameter='.65'}"
+                                    Height="90"
+                                    HorizontalAlignment="Right"
+                                    Cursor="Hand"
+                                    Source="{Binding CategoryImage, Converter={StaticResource imageValueConverter}}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Cursor="Hand"
+                                    Text="{Binding Name}"
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding CanShowText, Converter={StaticResource booleanToVisibilityConverter}}" />
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -69,13 +98,17 @@
 
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Cursor" Value="Hand" />
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
 
-            <Border Grid.Column="1" Width="1" BorderBrush="#91E4F7"
-                            BorderThickness="0.5" Grid.RowSpan="5"/>
+            <Border
+                Grid.RowSpan="5"
+                Grid.Column="1"
+                Width="1"
+                BorderBrush="#91E4F7"
+                BorderThickness="0.5" />
 
             <Grid Grid.Column="2" Margin="6,10,0,10">
                 <Grid.RowDefinitions>
@@ -84,15 +117,21 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"  Grid.Row="0" Margin="0,0,0,3" >
-                    <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             ItemsSource="{Binding SelectedCategory.LstUISubCategories,UpdateSourceTrigger=PropertyChanged}"
-                             SelectedItem="{Binding SelectedSubCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                              PreviewTouchDown="LstBoxSubCategoreis_PreviewTouchDown"
-                            PreviewTouchMove="LstBoxSubCategoreis_PreviewTouchMove"
-                            PreviewTouchUp="LstBoxSubCategoreis_PreviewTouchUp"
-                            PreviewMouseLeftButtonDown="LstBoxSubCategoreis_PreviewMouseLeftButtonDown">
+                <ScrollViewer
+                    Grid.Row="0"
+                    Margin="0,0,0,3"
+                    HorizontalScrollBarVisibility="Auto">
+                    <ListBox
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        BorderThickness="0"
+                        ItemsSource="{Binding SelectedCategory.LstUISubCategories, UpdateSourceTrigger=PropertyChanged}"
+                        PreviewMouseLeftButtonDown="LstBoxSubCategoreis_PreviewMouseLeftButtonDown"
+                        PreviewTouchDown="LstBoxSubCategoreis_PreviewTouchDown"
+                        PreviewTouchMove="LstBoxSubCategoreis_PreviewTouchMove"
+                        PreviewTouchUp="LstBoxSubCategoreis_PreviewTouchUp"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Horizontal" />
@@ -100,17 +139,22 @@
                         </ListBox.ItemsPanel>
 
                         <ListBox.ItemTemplate>
-                            <DataTemplate >
-                                <Border 
-                                        BorderBrush="#00B5CB"
-                                        BorderThickness="1.5"
-                                         Cursor="Hand"
-                                         HorizontalAlignment="Center" 
-                                         Width="211" Height="52"
-                                         CornerRadius="20">
-                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" FontSize="24"
-                                               FontFamily="{StaticResource BaijamureeFontMediumStyle}"
-                                               VerticalAlignment="Center" Foreground="Black" />
+                            <DataTemplate>
+                                <Border
+                                    Width="211"
+                                    Height="52"
+                                    HorizontalAlignment="Center"
+                                    BorderBrush="#00B5CB"
+                                    BorderThickness="1.5"
+                                    CornerRadius="20"
+                                    Cursor="Hand">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource BaijamureeFontMediumStyle}"
+                                        FontSize="24"
+                                        Foreground="Black"
+                                        Text="{Binding Name}" />
 
 
                                 </Border>
@@ -119,7 +163,7 @@
 
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
-                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <Setter Property="Margin" Value="5,0,0,0" />
                                 <Setter Property="Background" Value="White" />
                                 <Setter Property="Template">
                                     <Setter.Value>
@@ -133,7 +177,7 @@
                                                     <Setter TargetName="ItemBorder" Property="Background" Value="#00B5CB" />
                                                 </Trigger>
                                                 <Trigger Property="IsSelected" Value="False">
-                                                    <Setter TargetName="ItemBorder"  Property="Background" Value="White" />
+                                                    <Setter TargetName="ItemBorder" Property="Background" Value="White" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -145,8 +189,11 @@
                     </ListBox>
                 </ScrollViewer>
 
-                <TextBlock Text="Select a Unit" FontWeight="Medium"
-                           FontSize="14" Grid.Row="1" >
+                <TextBlock
+                    Grid.Row="1"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    Text="Select a Unit">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Visibility" Value="Visible" />
@@ -162,57 +209,85 @@
                     </TextBlock.Style>
                 </TextBlock>
 
-                <ListBox ItemsSource="{Binding SelectedSubCategory.LstUnits}" x:Name="lstBox" 
-                         SelectionMode="Single"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                         
-                         SelectedItem="{Binding SelectedUnit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                         PreviewTouchDown="ListBox_PreviewTouchDown"
-                 PreviewTouchMove="ListBox_PreviewTouchMove"
-                 PreviewTouchUp="ListBox_PreviewTouchUp"
-                 PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
-                         BorderThickness="0" Grid.Row="2" >
+                <ListBox
+                    x:Name="lstBox"
+                    Grid.Row="2"
+                    BorderThickness="0"
+                    ItemsSource="{Binding SelectedSubCategory.LstUnits}"
+                    PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
+                    PreviewTouchDown="ListBox_PreviewTouchDown"
+                    PreviewTouchMove="ListBox_PreviewTouchMove"
+                    PreviewTouchUp="ListBox_PreviewTouchUp"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
-                            <i:InvokeCommandAction Command="{Binding UnitsSelectionChangedCommand}"/>
+                            <i:InvokeCommandAction Command="{Binding UnitsSelectionChangedCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="5" BorderBrush="LightGray" BorderThickness="0.8"
-                                    CornerRadius="3"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  x:Name="grdPanel">
+                            <Border
+                                x:Name="grdPanel"
+                                Margin="5"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderBrush="LightGray"
+                                BorderThickness="0.8"
+                                CornerRadius="3">
                                 <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.8*" />
-                                    <RowDefinition Height="0.05*"/>
-                                    <!--<RowDefinition  />-->
-                                </Grid.RowDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.8*" />
+                                        <RowDefinition Height="0.05*" />
+                                        <!--<RowDefinition  />-->
+                                    </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding ImageSource,Converter={StaticResource imageValueConverter}}" Grid.Row="0" />
+                                    <Image Grid.Row="0" Source="{Binding ImageSource, Converter={StaticResource imageValueConverter}}" />
 
-                                    <Border BorderBrush="Gray" Margin="0 5 0 0" BorderThickness="0.5" VerticalAlignment="Stretch" Grid.Row="1"  
-                                            HorizontalAlignment="Stretch"  CornerRadius="15" x:Name="bdrDesc"
-                                             >
-                                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.65*" />
-                                            <ColumnDefinition Width="0.35*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock FontWeight="Regular"  MinWidth="70" FontSize="15"
-                                                   FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
-                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                   TextWrapping="Wrap" Margin="2,0,1,0"
-                                                   Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                        <Border Grid.Column="1"  Background="#00B5CB"  MinHeight="42" MinWidth="40"
-                                                CornerRadius="15" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,8,0" 
-                                                       Foreground="White" FontSize="12" FontFamily="{StaticResource BaijamureeFontRegularStyle}"
-                                                       Text="{Binding UnitPrice,StringFormat=C,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        </Border>
-                                    </Grid>
-                                </Border>
+                                    <Border
+                                        x:Name="bdrDesc"
+                                        Grid.Row="1"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        BorderBrush="Gray"
+                                        BorderThickness="0.5"
+                                        CornerRadius="15">
+                                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.65*" />
+                                                <ColumnDefinition Width="0.35*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                MinWidth="70"
+                                                Margin="2,0,1,0"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource BaijamureeFontSemiBoldStyle}"
+                                                FontSize="15"
+                                                FontWeight="Regular"
+                                                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap" />
+                                            <Border
+                                                Grid.Column="1"
+                                                MinWidth="40"
+                                                MinHeight="42"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                Background="#00B5CB"
+                                                CornerRadius="15">
+                                                <TextBlock
+                                                    Margin="0,0,8,0"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontFamily="{StaticResource BaijamureeFontRegularStyle}"
+                                                    FontSize="12"
+                                                    Foreground="White"
+                                                    Text="{Binding UnitPrice, StringFormat=C, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -220,7 +295,7 @@
 
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="{Binding RowOfItems,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <UniformGrid Columns="{Binding RowOfItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
 
@@ -240,7 +315,7 @@
                                                 <Setter TargetName="ItemBorder" Property="Background" Value="#CBE8F6" />
                                             </Trigger>
                                             <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="ItemBorder"  Property="Background" Value="White" />
+                                                <Setter TargetName="ItemBorder" Property="Background" Value="White" />
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -250,7 +325,7 @@
 
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsScrolling, ElementName=productSelectionPage}" Value="True">
-                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                    <Setter Property="IsHitTestVisible" Value="False" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -260,54 +335,98 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="4" Grid.ColumnSpan="3"
-              Margin="10,0,0,15" >
+        <Grid
+            Grid.Row="4"
+            Grid.ColumnSpan="3"
+            Margin="10,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="0.6*" />
                 <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
-            <Border Background="white" Grid.Column="0"
-         Cursor="Hand" BorderBrush="Black" BorderThickness="1"
-         Margin="0,20,5,0" HorizontalAlignment="Left"
-         Width="208" Height="73"
-         CornerRadius="5">
+            <Border
+                Grid.Column="0"
+                Width="208"
+                Height="73"
+                Margin="0,20,5,0"
+                HorizontalAlignment="Left"
+                Background="white"
+                BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="5"
+                Cursor="Hand">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                         <i:InvokeCommandAction Command="{Binding StartOverScreenCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <TextBlock Text="Start Over" HorizontalAlignment="Center" FontWeight="SemiBold"
-                           VerticalAlignment="Center" Foreground="Black" FontSize="24"
-                           FontFamily="{StaticResource BaijamureeFontBoldStyle}"/>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource BaijamureeFontBoldStyle}"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Foreground="Black"
+                    Text="Start Over" />
             </Border>
-            <TextBlock Grid.Column="1"  TextWrapping="Wrap" VerticalAlignment="Center"   FontSize="25"
-            HorizontalAlignment="Center" Margin="0" Foreground="red"
-            Text="For other unlisted models or combinations, please contact our sales hotline at : 68172311." FontFamily="{StaticResource BaijamureeFontBoldStyle}"/>
+            <TextBlock
+                Grid.Column="1"
+                Margin="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="{StaticResource BaijamureeFontBoldStyle}"
+                FontSize="25"
+                Foreground="red"
+                Text="For other unlisted models or combinations, please contact our sales hotline at : 68172311."
+                TextWrapping="Wrap" />
 
-            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                        IsEnabled="{Binding CanMoveTopaymentsScreen}">
-                <Image Cursor="Hand" Width="70" Height="70" Source="/Resources/Images/ShoppingCart.png" Margin="0,0,0,0" HorizontalAlignment="Right" baseControls:MouseClickBehaviour.Command="{Binding ViewCartCommand}" />
-                <StackPanel  VerticalAlignment="Top" Margin="-22,0,50,0" Panel.ZIndex="1000" Orientation="Horizontal">
-                    <!-- Red Circle -->
-                    <Ellipse  Width="28" Height="28" Fill="#FF5050"/>
-                    <TextBlock Text="{Binding SelectedProductsCount}" Foreground="White" FontWeight="SemiBold" FontSize="16"
-                               Margin="-30,0,0,4"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="2000"/>
+            <StackPanel
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                IsEnabled="{Binding CanMoveTopaymentsScreen}"
+                Orientation="Horizontal">
+                <Image
+                    Width="70"
+                    Height="70"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    baseControls:MouseClickBehaviour.Command="{Binding ViewCartCommand}"
+                    Cursor="Hand"
+                    Source="/Resources/Images/ShoppingCart.png" />
+                <StackPanel
+                    Margin="-22,0,50,0"
+                    VerticalAlignment="Top"
+                    Panel.ZIndex="1000"
+                    Orientation="Horizontal">
+                    <!--  Red Circle  -->
+                    <Ellipse
+                        Width="28"
+                        Height="28"
+                        Fill="#FF5050" />
+                    <TextBlock
+                        Margin="-30,0,0,4"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Panel.ZIndex="2000"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Text="{Binding SelectedProductsCount}" />
 
                     <StackPanel.Style>
                         <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Visibility" Value="Visible" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding SelectedProductsCount}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Setter Property="Visibility" Value="Collapsed" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
                 </StackPanel>
             </StackPanel>
-           
+
 
         </Grid>
     </Grid>

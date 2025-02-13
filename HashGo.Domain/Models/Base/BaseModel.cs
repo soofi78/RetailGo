@@ -33,7 +33,7 @@ namespace HashGo.Domain.Models.Base
         {
             get
             {
-                if(this.LstUnitInstallationTypes != null && this.LstUnitInstallationTypes.Count > 0)
+                if (this.LstUnitInstallationTypes != null && this.LstUnitInstallationTypes.Count > 0)
                 {
                     return LstUnitInstallationTypes.Where(ee => ee.InstallationTypeCount > 0).Sum(xx => xx.AddOnPrice * xx.InstallationTypeCount);
                 }
@@ -73,7 +73,7 @@ namespace HashGo.Domain.Models.Base
             {
                 var selectedAddons = this.LstSelectedUnitInstallationTypes?.Where(ee => ee.InstallationTypeCount > 0);
                 string addOnText = string.Empty;
-                foreach(var addOn in selectedAddons)
+                foreach (var addOn in selectedAddons)
                 {
                     if (addOn.InstallationType == "No Add-Ons")
                     {
@@ -81,12 +81,12 @@ namespace HashGo.Domain.Models.Base
                     }
                     else
                     {
-                        addOnText += ".   " + addOn.InstallationType + "\t" + 
-                                              addOn.InstallationTypeCount + 
-                                              "X" + "\t" +"+  " + " $" +
+                        addOnText += ".   " + addOn.InstallationType + "\t" +
+                                              addOn.InstallationTypeCount +
+                                              "X" + "\t" + "+  " + " $" +
                                               string.Format("{0:N}", addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
                     }
-                    
+
                 }
                 return addOnText;
             }
@@ -106,7 +106,7 @@ namespace HashGo.Domain.Models.Base
                     }
                     else
                     {
-                        addOnText += ".   " + addOn.InstallationTypeCount + 
+                        addOnText += ".   " + addOn.InstallationTypeCount +
                                               "X" + "\t" + addOn.InstallationType + "\t" +
                                               "+$" + (addOn.InstallationTypeCount * addOn.AddOnPrice) + "\n";
                     }
@@ -117,7 +117,7 @@ namespace HashGo.Domain.Models.Base
 
         double unitPrice;
 
-        public double TotalPrice 
+        public double TotalPrice
         {
             get => totalPrice;
             set
@@ -128,9 +128,9 @@ namespace HashGo.Domain.Models.Base
         }
 
         decimal taxPercantage = 0.0M;
-        public decimal TaxPercantage 
+        public decimal TaxPercantage
         {
-            get => taxPercantage; 
+            get => taxPercantage;
             set => taxPercantage = value;
         }
 
@@ -144,7 +144,7 @@ namespace HashGo.Domain.Models.Base
             {
                 //taxAmount = value;
 
-                if(value != default(decimal))
+                if (value != default(decimal))
                 {
                     taxAmount = Math.Round(value, 2);
                 }
@@ -173,7 +173,7 @@ namespace HashGo.Domain.Models.Base
             //                       };
         }
 
-        public Unit(int unitId, int id, string unitName, string name, string imageSource, double unitPrice, string remarks, string taxPerc,int taxId)
+        public Unit(int unitId, int id, string unitName, string name, string imageSource, double unitPrice, string remarks, string taxPerc, int taxId)
         {
             Name = name;
             UnitId = unitId;
@@ -192,11 +192,11 @@ namespace HashGo.Domain.Models.Base
             //    ApplicationStateContext.Tax = TaxPercantage;
             //}
 
-            if(TaxPercantage > 0)
+            if (TaxPercantage > 0)
             {
                 if (ApplicationStateContext.IsSalesTaxInclusive)
                 {
-                    TaxAmount = (Convert.ToDecimal(UnitPrice) * TaxPercantage) / (100 + TaxPercantage); 
+                    TaxAmount = (Convert.ToDecimal(UnitPrice) * TaxPercantage) / (100 + TaxPercantage);
                 }
                 else
                 {
@@ -220,42 +220,47 @@ namespace HashGo.Domain.Models.Base
         public void AddAddOns(IReadOnlyCollection<ServiceUnit> result)
         {
             List<SelectedUnitInstallationType> tmpPlst = new List<SelectedUnitInstallationType>();
-            tmpPlst.Add(new SelectedUnitInstallationType(-1, "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId,0,0.0M, 0,0));
+            tmpPlst.Add(new SelectedUnitInstallationType(-1, "No Add-Ons", CommonConstants.NOADDONIAMGE, UnitId, 0, 0.0M, 0, 0, "Others",0));
 
             if (result != null && result.Count > 0)
             {
                 foreach (var addOn in result)
                 {
                     int installationTypeCount = 0;
-                    if(this.LstSelectedUnitInstallationTypes != null && this.LstSelectedUnitInstallationTypes.Count > 0)
+                    if (this.LstSelectedUnitInstallationTypes != null && this.LstSelectedUnitInstallationTypes.Count > 0)
                     {
                         var slctdInstallationType = this.LstSelectedUnitInstallationTypes.FirstOrDefault(ee => ee.UnitId == addOn.unitId &&
                                                                                 ee.InstallationTypeId == addOn.id);
 
-                        if(slctdInstallationType != null)
+                        if (slctdInstallationType != null)
                         {
                             installationTypeCount = slctdInstallationType.InstallationTypeCount;
                         }
 
-                       
+
                     }
 
-                    tmpPlst.Add(new SelectedUnitInstallationType(addOn.id, 
+                    tmpPlst.Add(new SelectedUnitInstallationType(addOn.id,
                                                                  addOn.name,
-                                                                 string.IsNullOrEmpty(addOn.imagePath)?CommonConstants.DEFAULTIMAGE: addOn.imagePath,
-                                                                 addOn.unitId, addOn.price, Convert.ToDecimal(addOn.taxPercentage), addOn.taxId, installationTypeCount));
+                                                                 string.IsNullOrEmpty(addOn.imagePath) ? CommonConstants.DEFAULTIMAGE : addOn.imagePath,
+                                                                 addOn.unitId, addOn.price,
+                                                                 Convert.ToDecimal(addOn.taxPercentage),
+                                                                 addOn.taxId,
+                                                                 addOn.subCategoryId ?? 0,
+                                                                 addOn.subCategoryName ?? "Others",
+                                                                 installationTypeCount));
                 }
             }
 
             LstUnitInstallationTypes = new List<SelectedUnitInstallationType>(tmpPlst);
 
             if (LstSelectedUnitInstallationTypes.Count == 1 &&
-                           LstSelectedUnitInstallationTypes.Any(ee => ee.InstallationType == "No Add-Ons" ))
+                           LstSelectedUnitInstallationTypes.Any(ee => ee.InstallationType == "No Add-Ons"))
             {
                 this.SelectedUnitInstallationTypeObj = LstUnitInstallationTypes.FirstOrDefault(ee => ee.InstallationType == "No Add-Ons");
             }
 
-            
+
         }
 
         List<SelectedUnitInstallationType> lstUnitInstallationTypes = new List<SelectedUnitInstallationType>();
@@ -292,7 +297,7 @@ namespace HashGo.Domain.Models.Base
             }
         }
 
-        public double AddOnPrice 
+        public double AddOnPrice
         {
             get => addOnPrice;
             set
@@ -302,7 +307,7 @@ namespace HashGo.Domain.Models.Base
             }
         }
 
-        double addOnPrice=1500.00;
+        double addOnPrice = 1500.00;
 
         decimal taxPercantage = 0.0M;
         public decimal TaxPercantage
@@ -311,7 +316,7 @@ namespace HashGo.Domain.Models.Base
             set => taxPercantage = value;
         }
 
-        decimal taxAmount=0.0M;
+        decimal taxAmount = 0.0M;
         public decimal TaxAmount
         {
             get { return taxAmount; }
@@ -326,6 +331,9 @@ namespace HashGo.Domain.Models.Base
             }
         }
 
+        public int? SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -335,13 +343,16 @@ namespace HashGo.Domain.Models.Base
         int installationTypeCount;
         public int TaxId { get; }
 
-        public SelectedUnitInstallationType(int installationTypeId, 
-                                            string installationType, 
-                                            string imageSource, int unitId, 
+        public SelectedUnitInstallationType(int installationTypeId,
+                                            string installationType,
+                                            string imageSource, int unitId,
                                             double addOnPrice,
                                             decimal taxPercentage,
                                             int taxId,
-                                            int installationTypeCount = 0 )
+                                            int subcategoryId,
+                                            string subcategoryName,
+                                            int installationTypeCount = 0)
+                                            
         {
             InstallationTypeId = installationTypeId;
             InstallationType = installationType;
@@ -351,6 +362,8 @@ namespace HashGo.Domain.Models.Base
             InstallationTypeCount = installationTypeCount;
             TaxPercantage = taxPercentage;
             TaxId = taxId;
+            SubCategoryId = subcategoryId;
+            SubCategoryName = subcategoryName;
 
             if (TaxPercantage > 0)
             {

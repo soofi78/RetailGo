@@ -11,6 +11,7 @@ using HashGo.Wpf.App.BestTech.Views;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -46,6 +47,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             SelectedAddonCommand = new RelayCommand<SelectedUnitInstallationType>(OnSelectedAddon);
             RemoveAddOnCommand = new RelayCommand<SelectedUnitInstallationType>(OnRemoveAddOn);
             AddProductCommand = new RelayCommand<object>(OnAddProductClicked);
+            SelectGroupCommand = new RelayCommand<string>(OnSelectGroupCommand);
+        }
+
+        private void OnSelectGroupCommand(string subCategoryName)
+        {
+            SelectedGroupItems = LstUnitInstallationTypes.Where(x => x.SubCategoryName == subCategoryName).ToList();
         }
 
         void OnAddProductClicked(object obj)
@@ -59,7 +66,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             }
             else
             {
-                if(this.IsNavigateToPaymentsPage)
+                if (this.IsNavigateToPaymentsPage)
                 {
                     navigationService.NavigateToAsync(Pages.Payment.ToString());
                 }
@@ -87,7 +94,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             if (selectedUnitInstallationType == null)
                 return;
 
-            var existingItem = this.SelectedUnit.LstSelectedUnitInstallationTypes.FirstOrDefault(ee=> ee.UnitId == selectedUnitInstallationType.UnitId &&
+            var existingItem = this.SelectedUnit.LstSelectedUnitInstallationTypes.FirstOrDefault(ee => ee.UnitId == selectedUnitInstallationType.UnitId &&
                                                                                      ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId);
 
             if (existingItem != null)
@@ -102,19 +109,19 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         }
 
         void OnAddOnsSelectionChanged(object obj)
-         {
+        {
             //TODO
-            if (obj is SelectedUnitInstallationType selectedUnitInstallationType )
+            if (obj is SelectedUnitInstallationType selectedUnitInstallationType)
             {
                 selectedUnitInstallationType.InstallationTypeCount++;
 
-                if (selectedUnitInstallationType.InstallationType ==  "No Add-Ons" &&
+                if (selectedUnitInstallationType.InstallationType == "No Add-Ons" &&
                    sharedDataService.SelectedUnit != null)
                 {
                     var otherSelectedInstallationTypes = sharedDataService.SelectedUnit
-                                                                           .LstUnitInstallationTypes.Where(ee =>ee.InstallationType != selectedUnitInstallationType.InstallationType &&
+                                                                           .LstUnitInstallationTypes.Where(ee => ee.InstallationType != selectedUnitInstallationType.InstallationType &&
                                                                                                             ee.InstallationTypeCount > 0);
-                    if(otherSelectedInstallationTypes.Count() > 0)
+                    if (otherSelectedInstallationTypes.Count() > 0)
                     {
                         foreach (var item in otherSelectedInstallationTypes)
                         {
@@ -124,7 +131,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                                                                 .FirstOrDefault(ee => ee.UnitId == item.UnitId &&
                                                                 ee.InstallationTypeId == item.InstallationTypeId);
 
-                            if(itemToRemove != null)
+                            if (itemToRemove != null)
                             {
                                 this.SelectedUnit.LstSelectedUnitInstallationTypes.Remove(itemToRemove);
                             }
@@ -134,7 +141,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 }
 
                 var existingItem = this.SelectedUnit.LstSelectedUnitInstallationTypes.FirstOrDefault(ee => (ee.UnitId == selectedUnitInstallationType.UnitId &&
-                                                                                     ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId)  ||
+                                                                                     ee.InstallationTypeId == selectedUnitInstallationType.InstallationTypeId) ||
                                                                                      ee.InstallationType == "No Add-Ons");
 
                 if (existingItem != null)
@@ -147,7 +154,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 OnPropertyChanged(nameof(SelectedAddOns));
                 OnPropertyChanged(nameof(CanEnableAddToCart));
             }
-         }
+        }
 
         public bool CanEnableAddToCart { get { return this.SelectedUnit.LstSelectedUnitInstallationTypes?.Count > 0; } }
 
@@ -162,7 +169,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         private void OnMoveToNextScreen()
         {
-            ItemsAddedPopup itemsAddedPopup = new ItemsAddedPopup() { UnitsCount  = sharedDataService.SelectedUnits.Sum(ee => ee.UnitCount) };
+            ItemsAddedPopup itemsAddedPopup = new ItemsAddedPopup() { UnitsCount = sharedDataService.SelectedUnits.Sum(ee => ee.UnitCount) };
             itemsAddedPopup.Show();
 
             var timer = new System.Windows.Threading.DispatcherTimer();
@@ -172,7 +179,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                 timer.Stop();
 
                 //Open payments screen
-                if(CanAddItem)
+                if (CanAddItem)
                 {
                     var parameters = new Dictionary<string, object>
                     {
@@ -185,15 +192,20 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
                     navigationService.NavigateToAsync(Pages.Payment.ToString());
                 }
             };
-            timer.Interval = TimeSpan.FromSeconds(1); 
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Start();
         }
 
         public override void ViewLoaded()
         {
-            
-            if(sharedDataService.SelectedUnit?.LstUnitInstallationTypes != null)
+
+            if (sharedDataService.SelectedUnit?.LstUnitInstallationTypes != null)
+            {
                 LstUnitInstallationTypes = new List<SelectedUnitInstallationType>(sharedDataService.SelectedUnit?.LstUnitInstallationTypes);
+                GroupedItems = LstUnitInstallationTypes.GroupBy(x => x.SubCategoryId).OrderBy(x => x.Key == 0 ? int.MaxValue : x.Key).ToList();
+                SelectedGroupedItems = GroupedItems.FirstOrDefault();
+                OnSelectGroupCommand(SelectedGroupedItems.First().SubCategoryName);
+            }
             if (sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj != null)
                 SelectedUnitInstallationTypeObj = sharedDataService.SelectedUnit?.SelectedUnitInstallationTypeObj;
             RowOfItems = ApplicationStateContext.NoOfUnitItems;
@@ -204,6 +216,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             OnPropertyChanged(nameof(LstUnitInstallationTypes));
             OnPropertyChanged(nameof(CanEnableAddToCart));
         }
+
 
         private void OnClearData(bool obj)
         {
@@ -227,6 +240,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         public RelayCommand<object> AddProductCommand { get; private set; }
 
+        public RelayCommand<string> SelectGroupCommand { get; private set; }
         #endregion
 
         #region Properties
@@ -252,7 +266,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         Unit selectedUnit;
 
-        public Unit SelectedUnit 
+        public Unit SelectedUnit
         {
             get => sharedDataService.SelectedUnit;
             set
@@ -281,12 +295,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
         SelectedUnitInstallationType selectedUnitInstallationTypeObj;
 
-        public SelectedUnitInstallationType SelectedUnitInstallationTypeObj 
+        public SelectedUnitInstallationType SelectedUnitInstallationTypeObj
         {
             get => sharedDataService?.SelectedUnit?.SelectedUnitInstallationTypeObj;
             set
             {
-                if (sharedDataService.SelectedUnit != null )
+                if (sharedDataService.SelectedUnit != null)
                 {
                     sharedDataService.SelectedUnit.SelectedUnitInstallationTypeObj = value;
                     OnPropertyChanged();
@@ -305,8 +319,43 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             }
         }
 
-        List<SelectedUnitInstallationType> selectedUnitInstallationTypes  = new List<SelectedUnitInstallationType>();
+        List<SelectedUnitInstallationType> selectedUnitInstallationTypes = new List<SelectedUnitInstallationType>();
         List<SelectedUnitInstallationType> selectedUnitUpgradeTypes = new List<SelectedUnitInstallationType>();
+
+        private List<IGrouping<int?, SelectedUnitInstallationType>> _groupedItems;
+        public List<IGrouping<int?, SelectedUnitInstallationType>> GroupedItems
+        {
+            get => _groupedItems;
+            set
+            {
+                _groupedItems = value;
+                OnPropertyChanged(nameof(GroupedItems));
+            }
+        }
+
+        private IGrouping<int?, SelectedUnitInstallationType> selectedGroupedItems;
+        public IGrouping<int?, SelectedUnitInstallationType> SelectedGroupedItems
+        {
+            get { return selectedGroupedItems; }
+            set
+            {
+                selectedGroupedItems = value;
+                OnSelectGroupCommand(selectedGroupedItems.First().SubCategoryName);
+                OnPropertyChanged(nameof(SelectedGroupedItems));
+            }
+        }
+
+        private IEnumerable<SelectedUnitInstallationType> _selectedGroupItems;
+        public IEnumerable<SelectedUnitInstallationType> SelectedGroupItems
+        {
+            get => _selectedGroupItems;
+            set
+            {
+                _selectedGroupItems = value;
+                OnPropertyChanged(nameof(SelectedGroupItems));
+            }
+        }
+
 
         #endregion
     }

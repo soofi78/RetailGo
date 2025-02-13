@@ -7,6 +7,7 @@ using HashGo.Domain.Helper;
 using HashGo.Domain.Services;
 using HashGo.Infrastructure;
 using HashGo.Infrastructure.DataContext;
+using HashGo.Wpf.App.BestTech.Controls;
 using HashGo.Wpf.App.Helpers;
 using HashGo.Wpf.App.Models.BestTech;
 using PrinterUtility;
@@ -38,7 +39,7 @@ namespace HashGo.Wpf.App.BestTech.Views
     /// <summary>
     /// Interaction logic for ProcessingPaymentPage.xaml
     /// </summary>
-    public partial class ProcessingPaymentPage : Page
+    public partial class ProcessingPaymentPage : BasePage
     {
         DispatcherTimer timer;
         INavigationService navigationService;
@@ -55,7 +56,7 @@ namespace HashGo.Wpf.App.BestTech.Views
             this.retailConnectService = retailConnectService;
             this.paymentService = paymentService;
             _logger = logger;
-            this.Loaded += (sender, e) =>
+            this.Loaded += async (sender, e) =>
             {
                 try
                 {
@@ -112,6 +113,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                         }
                         else if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "CASH")
                         {
+                            await Task.Delay(200);
                             PaymentHelper.mbTransactionSuccess = true;
                             paymentService.PerformPayment();
                             navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());

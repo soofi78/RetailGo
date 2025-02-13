@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:baseControls="clr-namespace:HashGo.Wpf.App.BestTech.Controls"
+    xmlns:controls="clr-namespace:HashGo.Wpf.App.Views.Controls"
     xmlns:converters="clr-namespace:HashGo.Wpf.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -135,8 +136,10 @@
                         Foreground="White"
                         Text="ADD-ONS" />
                 </Border>
+
                 <ListBox
                     Grid.Row="1"
+                    controls:KineticBehaviour.HandleKineticScrolling="True"
                     ItemsSource="{Binding GroupedItems}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -148,11 +151,15 @@
                                 x:Name="BorderElement"
                                 Width="209"
                                 Height="108"
-                                Background="Transparent">
+                                Margin="1.5,1.5,1.5,1.5"
+                                Background="Transparent"
+                                BorderBrush="#00B5CB"
+                                BorderThickness="1.5">
                                 <TextBlock
                                     x:Name="ContentElement"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
+                                    FontSize="15"
                                     Foreground="Black"
                                     Text="{Binding SubCategoryName}" />
                             </Border>
@@ -183,7 +190,6 @@
 
                 </ListBox>
 
-
             </Grid>
 
             <Grid Grid.Column="1">
@@ -200,6 +206,7 @@
                 <ListBox
                     x:Name="lstBoxAddOns"
                     Grid.Row="1"
+                    controls:KineticBehaviour.HandleKineticScrolling="True"
                     BorderThickness="0"
                     ItemsSource="{Binding SelectedGroupItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"

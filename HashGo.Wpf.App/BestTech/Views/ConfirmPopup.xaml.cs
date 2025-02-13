@@ -23,7 +23,7 @@ namespace HashGo.Wpf.App.BestTech.Views
         public ConfirmPopup(string message = "")
         {
             InitializeComponent();
-
+            
             if(!string.IsNullOrEmpty(message))
             {
                 tBlockMessage.Text = message;

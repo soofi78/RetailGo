@@ -236,9 +236,12 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
         void OnMoveToStartScreen()
         {
             //Confirm first
-            ConfirmPopup confirmPopup = new ConfirmPopup();
+            ConfirmPopup confirmPopup = new ConfirmPopup
+            {
+                Owner = Application.Current.MainWindow,
+            };
             var diaglogResult = confirmPopup.ShowDialog();
-
+            
             if (diaglogResult.Value)
             {
                 this.OnClearData(true);

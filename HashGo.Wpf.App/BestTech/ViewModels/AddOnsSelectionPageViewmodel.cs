@@ -340,7 +340,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             set
             {
                 selectedGroupedItems = value;
-                OnSelectGroupCommand(selectedGroupedItems.First().SubCategoryName);
+                if (selectedGroupedItems != null)
+                    OnSelectGroupCommand(selectedGroupedItems.First().SubCategoryName);
                 OnPropertyChanged(nameof(SelectedGroupedItems));
             }
         }

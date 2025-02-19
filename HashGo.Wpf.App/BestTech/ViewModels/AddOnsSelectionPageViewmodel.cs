@@ -156,7 +156,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             }
         }
 
-        public bool CanEnableAddToCart { get { return this.SelectedUnit.LstSelectedUnitInstallationTypes?.Count > 0; } }
+        public bool CanEnableAddToCart { get { return this.SelectedUnit?.LstSelectedUnitInstallationTypes?.Count > 0; } }
 
         private void OnMoveToPreviousScreen()
         {
@@ -215,6 +215,8 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
 
             OnPropertyChanged(nameof(LstUnitInstallationTypes));
             OnPropertyChanged(nameof(CanEnableAddToCart));
+            OnPropertyChanged(nameof(SelectedUnitName));
+            OnPropertyChanged(nameof(SelectedUnitImage));
         }
 
 

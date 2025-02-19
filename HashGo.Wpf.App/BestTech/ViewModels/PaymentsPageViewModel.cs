@@ -66,6 +66,7 @@ namespace HashGo.Wpf.App.BestTech.ViewModels
             if(isValid)
             {
                 this.ReferralCode = sharedDataService.RefferalCode;
+                ApplicationStateContext.ReferralCode = this.ReferralCode;
             }
         }
 

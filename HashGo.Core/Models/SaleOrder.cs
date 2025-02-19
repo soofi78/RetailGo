@@ -48,11 +48,13 @@ namespace HashGo.Core.Models
         public int locationId { get; set; }
         public string name { get; set; }
         public object referralCode { get; set; }
+        public string Remarks { get; set; }
         public string contactNo { get; set; }
-        public string address { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string unitName { get; set; }
         public string postalCode { get; set; }
         public string email { get; set; }
-        public string unitName { get; set; }
         public string floorNumber { get; set; }
         public int? DeliveryTimingId { get; set; }
 

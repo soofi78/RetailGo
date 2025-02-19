@@ -23,33 +23,28 @@ namespace HashGo.Wpf.App.Services
         }
         public async Task<bool> PerformPayment()
         {
-            DoTransaction();
+             DoTransaction();
 
-            if (!string.IsNullOrEmpty(ApplicationStateContext.TransactionNo))
-            {
-                GetLocationDetails();
-                GetSalesOrder();
-                GetPrintTemplateReceipt();
+            if (string.IsNullOrEmpty(ApplicationStateContext.TransactionNo))
+                return false;
 
-                if (!string.IsNullOrEmpty(ApplicationStateContext.Template))
-                {
-                    await printTemplateParserService.GetReceipt(ApplicationStateContext.Template);
-                }
-                else return false;
+             GetLocationDetails();
+             GetSalesOrder();
+             GetPrintTemplateReceipt();
 
-                //PrintHelper.Print();
+            if (string.IsNullOrEmpty(ApplicationStateContext.Template))
+                return false;
 
-                return true;
-            }
+            await printTemplateParserService.GetReceipt(ApplicationStateContext.Template);
 
-            return false;
+            return true;
         }
 
         async void GetPrintTemplateReceipt()
         {
             var templateReceipt = await retailConnectService.GetTemplateReceiptResponse();
 
-            if(templateReceipt != null) 
+            if (templateReceipt != null)
             {
                 ApplicationStateContext.Template = templateReceipt.result.First().template;
             }
@@ -57,7 +52,7 @@ namespace HashGo.Wpf.App.Services
 
         async void DoTransaction()
         {
-            CreateTransaction(ApplicationStateContext.SalesOrderRequestObject);
+            await CreateTransaction(ApplicationStateContext.SalesOrderRequestObject);
         }
 
         private async Task CreateTransaction(SalesOrderRequest salesOrderRequest)
@@ -72,7 +67,7 @@ namespace HashGo.Wpf.App.Services
                 item.netTotal = item.subTotal;
                 //item.subTotal = item.netTotal - item.tax;
             }
-            
+
             TransactionDetails transactionDetails = await retailConnectService.CreateSalesOrderWithPayment(salesOrderRequest);
 
             if (transactionDetails != null)

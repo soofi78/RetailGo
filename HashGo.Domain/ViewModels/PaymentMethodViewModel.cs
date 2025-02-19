@@ -101,22 +101,8 @@ namespace HashGo.Domain.ViewModels
                 ApplicationStateContext.SalesOrderRequestObject = salesOrderRequest;
                 ApplicationStateContext.PaymentMethodObject = paymentMethod;
 
-
-                if (paymentMethod.Name.ToUpper() == "NETS")
-                {
-                    //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
-                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
-                }
-                if (paymentMethod.Name.ToUpper() == "NETS QR")
-                {
-                    //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
-                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
-                }
-                else if (paymentMethod.Name.ToUpper() == "VISA")
-                {
-                    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
-                }
-                else if (paymentMethod.Name.ToUpper() == "CASH")
+                if (paymentMethod.Name.ToUpper() == "NETS" || paymentMethod.Name.ToUpper() == "NETS QR" ||
+                    paymentMethod.Name.ToUpper() == "VISA" || paymentMethod.Name.ToUpper() == "CASH")
                 {
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
@@ -128,6 +114,37 @@ namespace HashGo.Domain.ViewModels
                     paymentType = "CASH";
                     this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
                 }
+
+             
+                //#region 8252  Performance issue PAY AT COUNTER
+               
+                //if (paymentMethod.Name.ToUpper() == "NETS")
+                //{
+                //    //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
+                //    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                //}
+                //if (paymentMethod.Name.ToUpper() == "NETS QR")
+                //{
+                //    //this.NavigationService.NavigateToAsync(Pages.QRPayment.ToString());
+                //    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                //}
+                //else if (paymentMethod.Name.ToUpper() == "VISA")
+                //{
+                //    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                //}
+                //else if (paymentMethod.Name.ToUpper() == "CASH")
+                //{
+                //    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                //}
+                //else if (paymentMethod.Name.ToUpper() == "PAY AT COUNTER")
+                //{
+                //    ApplicationStateContext.Deposit = 0;
+                //    ApplicationStateContext.PaymentMethodObject.PaymentMode = "CASH";
+                //    paymentMethod.Name = "CASH";
+                //    paymentType = "CASH";
+                //    this.NavigationService.NavigateToAsync(Pages.ProcessingPayment.ToString());
+                //}
+                //#endregion
                 #endregion
 
                 //ApplicationStateContext.ClearData();

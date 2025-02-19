@@ -113,7 +113,7 @@ namespace HashGo.Wpf.App.BestTech.Views
                         }
                         else if (ApplicationStateContext.PaymentMethodObject.PaymentMode == "CASH")
                         {
-                            await Task.Delay(200);
+                            await Task.Delay(50);
                             PaymentHelper.mbTransactionSuccess = true;
                             paymentService.PerformPayment();
                             navigationService.NavigateToAsync(Pages.PurchaseSucceded.ToString());
